@@ -58,7 +58,7 @@ try {
 
 一旦实现了非空的`finalize`方法,就会导致相应对象回收呈现数量级上的变慢,有人专门做过benchmark,大概是40~50倍的下降.
 
-`finalize`被设计为在对象呗垃圾收集前调用,这就意味着实现了`finalize`方法的对象,JVM要对他额外处理,本质上对快速回收进行了阻碍,可能导致
+`finalize`被设计为在对象被垃圾收集前调用,finalize()方法是GC(garbage collector) 运行机制的一部分,finalize()方法的作用是什么呢？finalize()方法是在GC清理它所从属的对象时被调用的，如果执行它的过程中抛出了无法捕获的异常（uncaughtexception，GC将终止对改对象的清理，并且该异常会被忽略；直到下一次GC开始清理这个对象时，它的finalize()会被再次调用。这就意味着实现了`finalize`方法的对象,JVM要对他额外处理,本质上对快速回收进行了阻碍,可能导致
 你的对象经过多个垃圾收集周期才能被回收.
 
 Java平台目前逐步使用`java.lang.ref.Cleaner`来替换掉原有的`finalize`实现.Cleaner利用了幻象引用,这是一种常见的post-mortem(验尸) 清理机制,个Cleaner 的操作都是独立的，有自己的运行线程，避免意外死锁的问题。

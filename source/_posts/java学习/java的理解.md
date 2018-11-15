@@ -10,6 +10,7 @@ categories: 总结
 ### Write once， run anywhere
 
 “Write once， run anywhere” 说的是Java语言跨平台的特性，Java的跨平台特性与Java虚拟机的存在密不可分，可在不同的环境中运行。比如说Windows平台和Linux平台都有相应的JDK，安装好JDK后也就有了Java语言的运行环境。其实Java语言本身与其他的编程语言没有特别大的差异，并不是说Java语言可以跨平台，而是在不同的平台都有可以让Java语言运行的环境而已，所以才有了Java一次编译，到处运行这样的效果。有了编译器就屏蔽了不同机器语言的区别，有了系统API就屏蔽了不同硬件的区别，有了JVM就屏蔽了不同操作系统的区别，有了TCP/IP就屏蔽了不同系统之间通讯的差异。
+
 <!-- more -->
 
 ### java语言特性
