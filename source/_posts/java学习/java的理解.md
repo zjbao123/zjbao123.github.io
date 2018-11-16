@@ -1,5 +1,5 @@
 ---
-title: java基础(一)对java的理解
+title: 对java的理解
 date: 2018-11-08 17:35:00
 tags: 
 - java
