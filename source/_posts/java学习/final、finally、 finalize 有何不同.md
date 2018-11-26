@@ -1,5 +1,5 @@
 ---
-title: java基础(二)final、finally、 finalize 有何不同
+title: final、finally、 finalize 有何不同
 date: 2018-11-12 17:35:00
 tags: 
 - java

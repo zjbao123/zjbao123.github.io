@@ -1,5 +1,5 @@
 ---
-title: String、StringBuffer、StringBuilder的区别
+title: String、StringBuffer、StringBuilder, StringJoiner 的区别
 date: 2018-11-16 23:03:00
 tags: 
 - java
@@ -42,6 +42,43 @@ StringBuilder 和 StringBuffer 底层都是利用可修改的（char,JDK 9 以�
 ```
 
 先编译再反编译,在JDK 8中，字符串拼接操作会自动被javac转换为StringBuilder操作，而在JDK 9 里面,为了更加统一字符串操作优化，提供了`StringConcatFactory`，作为一个统一的入口。
+
+
+### StringJoiner
+
+Java 8在java.util软件包下发布了StringJoiner类。我认为相对于我们使用StringBuffer / StringBuilder的旧式做法来连接字符串，这并非是一个迥然不同的实现。我们一起来看一看StringJoiner的用法和它的内部实现。
+
+StringJoiner有如下两个构造函数。
+
+```
+StringJoiner(CharSequence delimiter)
+```
+
+```
+StringJoiner(CharSequence delimiter, CharSequence prefix, CharSequence suffix)
+```
+
+
+例如，我有两个字符串为“Smart”和“Techie”，我想连接这些字符串为[Smart,Techie]。在这种情况下，我的前缀为“[”，后缀为“]”，以及分隔符为“,”。 
+
+```
+
+StringJoiner sjr = new StringJoiner(",", "[", "]");
+sjr.add("Smart").add("Techie");
+System.out.println("The final Joined string is " + sjr);
+```
+例如，我有两个字符串为“Smart”和“Techie”，我想连接这些字符串为Smart,Techie。隔符为“,”。 
+
+```
+
+StringJoiner sjr = new StringJoiner(",");
+sjr.add("Smart").add("Techie");
+System.out.println("The final Joined string is " + sjr);
+```
+
+
+其实，在查看StringJoiner方法的时候,内部使用的还是StringBuilder,可谓是“旧瓶装新酒”了。
+
 
 ### 字符串缓存
 
