@@ -72,8 +72,6 @@ post_asset_folder:true
 npm install hexo-asset-image --save
 ```
 
-3.完成安装后用hexo新建文章的时候会发现_posts目录下面会多出一个和文章名字一样的文件夹。图片就可以放在文件夹下面。 
-```
-![logo](MacGesture2-Publish/logo.jpg)
-```
+3.完成安装后用hexo新建文章的时候会发现_posts目录下面会多出一个和文章名字一样的文件夹。图片就可以放在文件夹下面。
+
 通过上述例子进行访问。
