@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,python教程,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="IO在计算机中指Input/Output，也就是输入和输出。由于程序和运行时数据是在内存中驻留，由CPU这个超快的计算核心来执行，涉及到数据交换的地方，通常是磁盘、网络等，就需要IO接口。">
+<meta name="keywords" content="python,python教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初探python(9)IO编程">
+<meta property="og:url" content="http://zjbao123.github.io/2016/10/13/python/初探python(9)IO编程/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="IO在计算机中指Input/Output，也就是输入和输出。由于程序和运行时数据是在内存中驻留，由CPU这个超快的计算核心来执行，涉及到数据交换的地方，通常是磁盘、网络等，就需要IO接口。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.732Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初探python(9)IO编程">
+<meta name="twitter:description" content="IO在计算机中指Input/Output，也就是输入和输出。由于程序和运行时数据是在内存中驻留，由CPU这个超快的计算核心来执行，涉及到数据交换的地方，通常是磁盘、网络等，就需要IO接口。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2016/10/13/python/初探python(9)IO编程/">
+
+
+
+
+
+  <title>初探python(9)IO编程 | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2016/10/13/python/初探python(9)IO编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初探python(9)IO编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-13T16:55:30+08:00">
+                2016-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/10/13/python/初探python(9)IO编程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2016/10/13/python/初探python(9)IO编程/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>IO在计算机中指Input/Output，也就是输入和输出。由于程序和运行时数据是在内存中驻留，由CPU这个超快的计算核心来执行，涉及到数据交换的地方，通常是磁盘、网络等，就需要IO接口。<br><a id="more"></a><br>IO编程中，Stream（流）是一个很重要的概念，可以把流想象成一个水管，数据就是水管里的水，但是只能单向流动。Input Stream就是数据从外面（磁盘、网络）流进内存，Output Stream就是数据从内存流到外面去。对于浏览网页来说，浏览器和新浪服务器之间至少需要建立两根水管，才可以既能发数据，又能收数据。</p>
+<p>由于CPU和内存的速度远远高于外设的速度，所以，在IO编程中，就存在速度严重不匹配的问题。也就是说，输出快，输入慢。有两种解决办法：</p>
+<p>1.第一种是CPU等着，也就是程序暂停执行后续代码，等100M的数据在10秒后写入磁盘，再接着往下执行，这种模式称为同步IO；</p>
+<p>2.是CPU不等待，只是告诉磁盘，“您老慢慢写，不着急，我接着干别的事去了”，于是，后续代码可以立刻接着执行，这种模式称为异步IO。</p>
+<p>很明显，同步IO性能远远低于异步IO，但异步IO的缺点就是编程模型复杂。想想看，你得知道什么时候通知你“汉堡做好了”，而通知你的方法也各不相同。如果是服务员跑过来找到你，这是回调模式，如果服务员发短信通知你，你就得不停地检查手机，这是轮询模式。总之，异步IO的复杂度远远高于同步IO。</p>
+<p>本章内容都是同步IO模式。</p>
+<h2 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h2><p>现代操作系统不允许普通的程序直接操作磁盘，所以，读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符），然后，通过操作系统提供的接口从这个文件对象中读取数据（读文件），或者把数据写入这个文件对象（写文件）。</p>
+<h3 id="读文件"><a href="#读文件" class="headerlink" title="读文件"></a>读文件</h3><p>要以读文件的模式打开一个文件对象，使用Python内置的<code>open()</code>函数，传入文件名和标示符，标示符’r’表示读，这样，我们就成功地打开了一个文件。<br>读取二进制文件，比如图片，视频等，用’rb’模式打开即可。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">f</span> = <span class="keyword">open</span>(<span class="string">'/path/to/file'</span>, <span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="keyword">f</span>.<span class="keyword">read</span>()</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">f</span>:</span><br><span class="line">        <span class="keyword">f</span>.<span class="keyword">close</span>()</span><br></pre></td></tr></table></figure></p>
+<p>一旦文件读写失败会报一个<code>IOerror</code>，一旦出错，后面的f.close()就不会调用。所以我们要将其用<code>try ... finally</code>包括起来。</p>
+<p>但为了方便，Python引入了<code>with</code>语句来自动帮我们调用<code>close()</code>方法:<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">'/path/to/file'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    print f.<span class="built_in">read</span>()</span><br></pre></td></tr></table></figure></p>
+<p><code>read()</code>可以一次性读取到文件的全部内容。如果文件有10G，内存就爆了，所以，要保险起见，可以反复调用<code>read(size)</code>方法，每次最多读取size个字节的内容。另外，调用<code>readline()</code>可以每次读取一行内容，调用<code>readlines()</code>一次读取所有内容并按行返回list。因此，要根据需要决定怎么调用。</p>
+<p>如果文件很小，read()一次性读取最方便；如果不能确定文件大小，反复调用read(size)比较保险；如果是配置文件，调用readlines()最方便：<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">for</span> <span class="built_in">line</span> in f.readlines():</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">line</span>.strip()) # 把末尾的<span class="string">'\n'</span>删掉</span><br></pre></td></tr></table></figure></p>
+<p>###　file-like Object<br>像open()函数返回的这种有个read()方法的对象，在Python中统称为file-like Object。</p>
+<p><code>StringIO</code>就是在内存中创建的file-like Object，常用作临时缓冲。</p>
+<p>读取二进制文件，比如图片，视频等，用’rb’模式打开即可。</p>
+<h3 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h3><p>要读取非ASCII编码的文本文件，就必须以二进制模式打开，再解码。比如GBK编码的文件：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">open</span>(<span class="string">'/Users/michael/gbk.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line">u = f.<span class="built_in">read</span>().decode(<span class="string">'gbk'</span>)</span><br><span class="line">u</span><br><span class="line"><span class="comment">#u'\u6d4b\u8bd5'</span></span><br><span class="line">print u</span><br><span class="line"><span class="comment">#测试</span></span><br></pre></td></tr></table></figure></p>
+<p>也可以直接导入<code>codecs</code>模块，帮我们自动转化编码。<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"><span class="keyword">with</span> codecs.open(<span class="string">'/Users/michael/gbk.txt'</span>, <span class="string">'r'</span>, <span class="string">'gbk'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.read() # u<span class="string">'\u6d4b\u8bd5'</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h3><p>写文件和读文件是一样的，唯一区别是调用open()函数时，传入标识符’w’或者’wb’表示写文本文件或写二进制文件。<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import codecs</span><br><span class="line"><span class="keyword">with</span> codecs.<span class="built_in">open</span>(<span class="string">'/Users/michael/gbk.txt'</span>, <span class="string">'r'</span>, <span class="string">'gbk'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.<span class="built_in">write</span>(<span class="string">'nihao'</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="操作文件和目录"><a href="#操作文件和目录" class="headerlink" title="操作文件和目录"></a>操作文件和目录</h2><p>如果我们在python下要操作文件、目录，可以使用<code>os</code>模块。<br>我们可以使用’os.name’来显示系统名字，如果是<code>posix</code>，说明系统是Linux、Unix或Mac OS X，如果是<code>nt</code>，就是Windows系统。</p>
+<p>如果要获取详细信息，可以调用<code>uname()</code>函数。但在Windows下不支持。</p>
+<p>###　环境变量<br>环境变量全部保存在<code>os.eniron</code>中。<br>要获取某个环境变量的值，可以调用<code>os.getenv()</code>函数。例如：<code>os.getenv(&#39;PATH&#39;)</code></p>
+<p>###　操作文件和目录</p>
+<p>操作文件和目录的函数一部分放在os模块中，一部分放在os.path模块中，这一点要注意一下。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前目录的绝对路径:</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; os.path.abspath(<span class="string">'.'</span>)</span><br><span class="line"><span class="string">'/Users/michael'</span></span><br><span class="line"><span class="comment"># 在某个目录下创建一个新目录，</span></span><br><span class="line"><span class="comment"># 首先把新目录的完整路径表示出来:</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; os.path.join(<span class="string">'/Users/michael'</span>, <span class="string">'testdir'</span>)</span><br><span class="line"><span class="string">'/Users/michael/testdir'</span></span><br><span class="line"><span class="comment"># 然后创建一个目录:</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; os.mkdir(<span class="string">'/Users/michael/testdir'</span>)</span><br><span class="line"><span class="comment"># 删掉一个目录:</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; os.rmdir(<span class="string">'/Users/michael/testdir'</span>)</span><br><span class="line"><span class="comment"># 对文件重命名:</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; os.rename(<span class="string">'test.txt'</span>, <span class="string">'test.py'</span>)</span><br><span class="line"><span class="comment"># 删掉文件:</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; os.remove(<span class="string">'test.py'</span>)</span><br></pre></td></tr></table></figure>
+<p>把两个路径合为一个，用os.path.join()会自动将两个路径相连，并符合系统要求。无需自己手写字符串相连。</p>
+<p>同样的道理，要拆分路径时，也不要直接去拆字符串，而要通过<code>os.path.split()</code>函数，这样可以把一个路径拆分为两部分，后一部分总是最后级别的目录或文件名。</p>
+<p><code>os.path.splitext()</code>可以直接让你得到文件扩展名，很多时候非常方便。</p>
+<p>这些合并和拆分不要求真实存在，只对字符串进行操作。</p>
+<p>但复制操作并不在<code>os</code>模块中。原因是复制文件并非由操作系统提供的系统调用。</p>
+<p>幸运的是<code>shutil</code>模块提供了<code>copyfile()</code>的函数，你还可以在<code>shutil</code>模块中找到很多实用函数，它们可以看做是os模块的补充。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import shutil</span><br><span class="line">s = os<span class="selector-class">.path</span><span class="selector-class">.abspath</span>(<span class="string">'.'</span>)</span><br><span class="line">t = os<span class="selector-class">.path</span><span class="selector-class">.join</span>(s, <span class="string">'wode.txt'</span>)</span><br><span class="line">print t</span><br><span class="line">s = os<span class="selector-class">.path</span><span class="selector-class">.join</span>(s,<span class="string">"woqu.txt"</span>)</span><br><span class="line">shutil.copyfile(t,s)</span><br></pre></td></tr></table></figure></p>
+<p>最后，还可以通过python的特性来过滤文件。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 列出所有该目录下的文件夹（即目录）</span><br><span class="line">[x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">os</span>.listdir(<span class="string">'.'</span>) <span class="keyword">if</span> <span class="built_in">os</span>.<span class="built_in">path</span>.isdir(x)]</span><br><span class="line"># 列出所有该目录下的.py文件</span><br><span class="line">[x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">os</span>.listdir(<span class="string">'.'</span>) <span class="keyword">if</span> <span class="built_in">os</span>.<span class="built_in">path</span>.isfile(x) <span class="keyword">and</span> <span class="built_in">os</span>.<span class="built_in">path</span>.splitext(x)[<span class="number">1</span>]==<span class="string">'.py'</span>]</span><br></pre></td></tr></table></figure></p>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p>题目：编写一个search(s)的函数，能在当前目录以及当前目录的所有子目录下查找文件名包含指定字符串的文件，并打印出完整路径。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">__author__ = <span class="string">'zjbao123'</span></span><br><span class="line"><span class="string">'''编写一个search(s)的函数，</span></span><br><span class="line"><span class="string">能在当前目录以及当前目录的所有子目录下查找文件名包含指定字符串的文件，</span></span><br><span class="line"><span class="string">并打印出完整路径</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Usage:</span></span><br><span class="line"><span class="string">    &gt; search.py str</span></span><br><span class="line"><span class="string">    str: the str what you want to search in filename in your dir</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> root,dirs,files <span class="keyword">in</span> os.walk(<span class="string">'.'</span>):</span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span>(f.find(s) != <span class="number">-1</span>):</span><br><span class="line">                <span class="keyword">print</span> os.path.join(root,f)[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    search(sys.argv[<span class="number">1</span>])</span><br></pre></td></tr></table></figure></p>
+<p>##　序列化<br>在程序运行的过程中，所有的变量都是在内存中，一旦程序结束，变量所占用的内存就被操作系统全部回收。即便你有所改动，没有被存储到磁盘里的，下次运行又回到了初始值。</p>
+<p>我们把变量从内存中变成可存储或传输的过程称之为序列化，在Python中叫<code>pickling</code>，在其他语言中也被称之为<code>serialization</code>，<code>marshalling</code>，<code>flattening</code>等等，都是一个意思。</p>
+<p>序列化之后，就可以把序列化后的内容写入磁盘，或者通过网络传输到别的机器上。</p>
+<p>反过来，把变量内容从序列化的对象重新读到内存里称之为反序列化，即<code>unpickling</code>。</p>
+<p>Python提供两个模块来实现序列化：<code>cPickle</code>和<code>pickle</code>。这两个模块功能是一样的，区别在于<code>cPickle</code>是C语言写的，速度快，pickle是纯Python写的，速度慢，跟<code>cStringIO</code>和<code>StringIO</code>一个道理。用的时候，先尝试导入<code>cPickle</code>，如果失败，再导入<code>pickle</code>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">import</span> cPickle <span class="keyword">as</span> pickle</span><br><span class="line"><span class="keyword">except</span> ImportError:</span><br><span class="line">    <span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment">#序列化</span></span><br><span class="line">d = dict(name=<span class="string">'bob'</span>, sex=<span class="string">'m'</span>, age=<span class="string">'19'</span>)</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'wode.txt'</span>,<span class="string">'w'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    pickle.dump(d, f)</span><br><span class="line"></span><br><span class="line"><span class="comment">#反序列化</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'wode.txt'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    w = pickle.load(f)</span><br><span class="line">    <span class="keyword">print</span> w</span><br></pre></td></tr></table></figure></p>
+<p>Pickle的问题和所有其他编程语言特有的序列化问题一样，就是它只能用于Python，并且可能不同版本的Python彼此都不兼容，因此，只能用Pickle保存那些不重要的数据，不能成功地反序列化也没关系。</p>
+<p>###　JSON</p>
+<p>如果我们要在不同的编程语言之间传递对象，就必须把对象序列化为标准格式，比如XML，但更好的方法是序列化为JSON，因为JSON表示出来就是一个字符串，可以被所有语言读取，也可以方便地存储到磁盘或者通过网络传输。JSON不仅是标准格式，并且比XML更快，而且可以直接在Web页面中读取，非常方便。</p>
+<p>JSON表示的对象就是标准的JavaScript语言的对象，JSON和Python内置的数据类型对应如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">JSON类型</th>
+<th style="text-align:left">Python类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">{}</td>
+<td style="text-align:left">dict</td>
+</tr>
+<tr>
+<td style="text-align:left">[]</td>
+<td style="text-align:left">list</td>
+</tr>
+<tr>
+<td style="text-align:left">“string”</td>
+<td style="text-align:left">‘str’或u’unicode’</td>
+</tr>
+<tr>
+<td style="text-align:left">1234.56</td>
+<td style="text-align:left">int或float</td>
+</tr>
+<tr>
+<td style="text-align:left">true/false</td>
+<td style="text-align:left">True/False</td>
+</tr>
+<tr>
+<td style="text-align:left">null</td>
+<td style="text-align:left">None</td>
+</tr>
+</tbody>
+</table>
+<p>Python内置的<code>json</code>模块提供了非常完善的Python对象到JSON格式的转换。<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d = dict(<span class="attribute">name</span>=<span class="string">'bob'</span>, <span class="attribute">sex</span>=<span class="string">'m'</span>, <span class="attribute">age</span>=<span class="string">'19'</span>)</span><br><span class="line"><span class="attribute">s</span>=json.dumps(d)</span><br><span class="line">w = json.loads(s)</span><br><span class="line"><span class="builtin-name">print</span> w</span><br></pre></td></tr></table></figure></p>
+<p>有一点需要注意，就是反序列化得到的所有字符串对象默认都是unicode而不是str。由于JSON标准规定JSON编码是UTF-8，所以我们总是能正确地在Python的str或unicode与JSON的字符串之间转换。</p>
+<p>python 3 很好的解决了这个问题。</p>
+<h3 id="JSON进阶"><a href="#JSON进阶" class="headerlink" title="JSON进阶"></a>JSON进阶</h3><p>我们大多数时候喜欢用class表示对象，那来讲一讲如何序列化类：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import json</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>, name, age, score)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.name = name</span><br><span class="line">        <span class="keyword">self</span>.age = age</span><br><span class="line">        <span class="keyword">self</span>.score = score</span><br><span class="line"></span><br><span class="line">s = Student(<span class="string">'Bob'</span>, <span class="number">20</span>, <span class="number">88</span>)</span><br><span class="line">print(json.dumps(s))</span><br></pre></td></tr></table></figure></p>
+<p>但是直接调用上述代码会发现，报错了。原因是说Student对象不是一个可序列化为JSON的对象。dumps()方法不知道如何将Student实例变为一个JSON的{}对象。</p>
+<p>可选参数default就是把任意一个对象变成一个可序列为JSON的对象，因此我们需要另外写一个函数将函数值传入。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">student2dict</span><span class="params">(std)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="string">'name'</span>: std.name,</span><br><span class="line">        <span class="string">'age'</span>: std.age,</span><br><span class="line">        <span class="string">'score'</span>: std.score</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">print(json.dumps(s, default=student2dict))</span><br></pre></td></tr></table></figure></p>
+<p>但还有一个偷懒的写法：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="name">json</span>.dumps(<span class="name">s</span>, default=lambda obj: obj.__dict__))</span><br></pre></td></tr></table></figure>
+<p>因为通常class的实例都有一个<code>__dict__</code>属性，它就是一个dict，用来存储实例变量。也有少数例外，比如定义了<code>__slots__</code>的class。</p>
+<p>因此，Python语言特定的序列化模块是pickle，但如果要把序列化搞得更通用、更符合Web标准，就可以使用json模块。</p>
+<blockquote>
+<p>此python学习路径来源于<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000" target="_blank" rel="noopener">廖雪峰的Python教程</a>的一个学习内容的总结。以便于自己后的学习和整理。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/python教程/" rel="tag"># python教程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/12/python/初探python(8)错误、调试与测试/" rel="next" title="初探python(8)错误、调试与测试">
+                <i class="fa fa-chevron-left"></i> 初探python(8)错误、调试与测试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/14/每日计划/一年书单/" rel="prev" title="一年书单(未完)">
+                一年书单(未完) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件读写"><span class="nav-number">1.</span> <span class="nav-text">文件读写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读文件"><span class="nav-number">1.1.</span> <span class="nav-text">读文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符编码"><span class="nav-number">1.2.</span> <span class="nav-text">字符编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写文件"><span class="nav-number">1.3.</span> <span class="nav-text">写文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作文件和目录"><span class="nav-number">2.</span> <span class="nav-text">操作文件和目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#练习"><span class="nav-number">2.1.</span> <span class="nav-text">练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON进阶"><span class="nav-number">2.2.</span> <span class="nav-text">JSON进阶</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

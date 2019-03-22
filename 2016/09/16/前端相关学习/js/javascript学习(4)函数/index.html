@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述函数就是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值。 函数的声明JavaScript有三种方法，可以声明一个函数。 如果同一个函数被多次声明，后面的声明就会覆盖前面的声明。">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript学习(4)函数">
+<meta property="og:url" content="http://zjbao123.github.io/2016/09/16/前端相关学习/js/javascript学习(4)函数/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="概述函数就是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值。 函数的声明JavaScript有三种方法，可以声明一个函数。 如果同一个函数被多次声明，后面的声明就会覆盖前面的声明。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.737Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript学习(4)函数">
+<meta name="twitter:description" content="概述函数就是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值。 函数的声明JavaScript有三种方法，可以声明一个函数。 如果同一个函数被多次声明，后面的声明就会覆盖前面的声明。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2016/09/16/前端相关学习/js/javascript学习(4)函数/">
+
+
+
+
+
+  <title>JavaScript学习(4)函数 | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2016/09/16/前端相关学习/js/javascript学习(4)函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript学习(4)函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-16T11:51:23+08:00">
+                2016-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/09/16/前端相关学习/js/javascript学习(4)函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2016/09/16/前端相关学习/js/javascript学习(4)函数/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>函数就是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值。</p>
+<h3 id="函数的声明"><a href="#函数的声明" class="headerlink" title="函数的声明"></a>函数的声明</h3><p>JavaScript有三种方法，可以声明一个函数。</p>
+<p>如果同一个函数被多次声明，后面的声明就会覆盖前面的声明。</p>
+<a id="more"></a>
+<h4 id="（1）function命令"><a href="#（1）function命令" class="headerlink" title="（1）function命令"></a>（1）function命令</h4><p>function命令声明的代码区块，就是一个函数。function命令后面是函数名，函数名后面是一对圆括号，里面是传入函数的参数。函数体放在大括号里面。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span></span> <span class="built_in">print</span>(s) &#123;</span><br><span class="line">  console.<span class="built_in">log</span>(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="（2）函数表达式"><a href="#（2）函数表达式" class="headerlink" title="（2）函数表达式"></a>（2）函数表达式</h4><p>除了用function命令声明函数，还可以采用变量赋值的写法。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var <span class="built_in">print</span> = <span class="function"><span class="keyword">function</span><span class="params">(s)</span></span> &#123;</span><br><span class="line">  console.<span class="built_in">log</span>(s);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这种写法将一个匿名函数赋值给变量。这时，这个匿名函数又称函数表达式（Function Expression），因为赋值语句的等号右侧只能放表达式。</p>
+<p>采用函数表达式声明函数时，function命令后面不带有函数名。如果加上函数名，该函数名只在函数体内部有效，在函数体外部无效。</p>
+<p>当然，这种写法也有两个好处。<br>1.可以在函数体内部调用自身<br>2.方便除错（除错工具显示函数调用栈时，将显示函数名，而不再显示这里是一个匿名函数）。</p>
+<h4 id="（3）Function构造函数"><a href="#（3）Function构造函数" class="headerlink" title="（3）Function构造函数"></a>（3）Function构造函数</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="keyword">new</span> <span class="function"><span class="keyword">Function</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="string">'x'</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="string">'y'</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="string">'return (x + y)'</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(x, y)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (x + y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以传递任意数量的参数给Function构造函数，只有最后一个参数会被当做函数体，如果只有一个参数，该参数就是函数体。</p>
+<h3 id="第一等公民"><a href="#第一等公民" class="headerlink" title="第一等公民"></a>第一等公民</h3><p>JavaScript语言将函数看作一种值，与其它值（数值、字符串、布尔值等等）地位相同。凡是可以使用值的地方，就能使用函数。</p>
+<p>由于函数与其他数据类型地位平等，所以在JavaScript语言中又称函数为第一等公民。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(x, y)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将函数赋值给一个变量</span></span><br><span class="line"><span class="keyword">var</span> operator = add;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将函数作为参数和返回值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span><span class="params">(op)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> op;</span><br><span class="line">&#125;</span><br><span class="line">a(add)(<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="函数名的提升"><a href="#函数名的提升" class="headerlink" title="函数名的提升"></a>函数名的提升</h3><p>JavaScript引擎将函数名视同变量名，所以采用function命令声明函数时，整个函数会像变量声明一样，被提升到代码头部。所以，下面的代码不会报错。</p>
+<p>如果同时采用function命令和赋值语句声明同一个函数，最后总是采用赋值语句的定义。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'1'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'2'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f() <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>###　不能在条件语句中声明函数</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f() <span class="comment">// 不报错</span></span><br></pre></td></tr></table></figure>
+<p>上面代码的原始意图是不声明函数f，但是由于f的提升，导致if语句无效，所以上面的代码不会报错。要达到在条件语句中定义函数的目的，只有使用函数表达式。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f() <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="函数的属性和方法"><a href="#函数的属性和方法" class="headerlink" title="函数的属性和方法"></a>函数的属性和方法</h2><h3 id="name属性"><a href="#name属性" class="headerlink" title="name属性"></a>name属性</h3><p>name属性返回紧跟在function关键字之后的那个函数名。<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f2 = <span class="function"><span class="keyword">function</span> <span class="params">()</span> <span class="comment">&#123;&#125;</span>;</span></span><br><span class="line">f2.<span class="keyword">name</span> <span class="comment">// ''</span></span><br><span class="line"><span class="keyword">var</span> f3 = <span class="function"><span class="keyword">function</span> <span class="title">myName</span><span class="params">()</span> <span class="comment">&#123;&#125;</span>;</span></span><br><span class="line">f3.<span class="keyword">name</span> <span class="comment">// 'myName'</span></span><br></pre></td></tr></table></figure></p>
+<p>对于f2来说，返回空字符串，匿名函数的name属性总是为空字符串；对于f3来说，返回函数表达式的名字（真正的函数名还是f3，myName这个名字只在函数体内部可用）。</p>
+<h3 id="length属性"><a href="#length属性" class="headerlink" title="length属性"></a>length属性</h3><p>length属性返回函数预期传入的参数个数，即函数定义之中的参数个数。<br><figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">(a, b)</span> &#123;&#125;</span></span><br><span class="line">f.<span class="built_in">length</span> <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码定义了空函数f，它的length属性就是定义时的参数个数。不管调用时输入了多少个参数，length属性始终等于2。</p>
+<p>length属性提供了一种机制，判断定义时和调用时参数的差异，以便实现面向对象编程的”方法重载“（overload）。</p>
+<h3 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString()"></a>toString()</h3><p>函数的toString方法返回函数的源码。函数内部的注释也可以返回。</p>
+<p>利用这一点，可以变相实现多行字符串。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> multiline = <span class="function"><span class="keyword">function</span> <span class="params">(fn)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> arr = fn.toString().split(<span class="string">'\n'</span>);</span><br><span class="line">  <span class="keyword">return</span> arr.slice(<span class="number">1</span>, arr.length - <span class="number">1</span>).join(<span class="string">'\n'</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span> </span>&#123;<span class="comment">/*</span></span><br><span class="line"><span class="comment">  这是一个</span></span><br><span class="line"><span class="comment">  多行注释</span></span><br><span class="line"><span class="comment">*/</span>&#125;</span><br><span class="line"></span><br><span class="line">multiline(f);</span><br><span class="line"><span class="comment">// " 这是一个</span></span><br><span class="line"><span class="comment">//   多行注释"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>作用域（scope）指的是变量存在的范围。Javascript只有两种作用域：一种是全局作用域，变量在整个程序中一直存在，所有地方都可以读取；另一种是函数作用域，变量只在函数内部存在。</p>
+<p>在函数外部声明的变量就是全局变量（global variable），它可以在函数内部读取。</p>
+<p>函数内部定义的变量，会在该作用域内覆盖同名全局变量。</p>
+<p>注意，对于var命令来说，局部变量只能在函数内部声明，在其他区块中声明，一律都是全局变量。</p>
+<h3 id="函数内部的变量提升"><a href="#函数内部的变量提升" class="headerlink" title="函数内部的变量提升"></a>函数内部的变量提升</h3><p>与全局作用域一样，函数作用域内部也会产生“变量提升”现象。var命令声明的变量，不管在什么位置，变量声明都会被提升到函数体的头部。</p>
+<h3 id="函数本身的作用域"><a href="#函数本身的作用域" class="headerlink" title="函数本身的作用域"></a>函数本身的作用域</h3><p>函数本身也是一个值，也有自己的作用域。它的作用域与变量一样，就是其声明时所在的作用域，与其运行时所在的作用域无关。</p>
+<p>总之，函数执行时所在的作用域，是定义时的作用域，而不是调用时所在的作用域。</p>
+<p>同样的，函数体内部声明的函数，作用域绑定函数体内部。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(x);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> bar;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> f = foo();</span><br><span class="line">f() <span class="comment">// 1</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，函数foo内部声明了一个函数bar，bar的作用域绑定foo。当我们在foo外部取出bar执行时，变量x指向的是foo内部的x，而不是foo外部的x。正是这种机制，构成了下文要讲解的“闭包”现象。</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>函数运行的时候，有时需要提供外部数据，不同的外部数据会得到不同的结果，这种外部数据就叫参数。</p>
+<h3 id="参数的省略"><a href="#参数的省略" class="headerlink" title="参数的省略"></a>参数的省略</h3><p>尽管例如函数f定义了两个参数，但是运行时无论提供多少个参数（或者不提供参数），JavaScript都不会报错。</p>
+<p>但是，没有办法只省略靠前的参数，而保留靠后的参数。如果一定要省略靠前的参数，只有显式传入undefined。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">(a, b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f( , <span class="number">1</span>) <span class="comment">// SyntaxError: Unexpected token ,(…)</span></span><br><span class="line">f(<span class="literal">undefined</span>, <span class="number">1</span>) <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h3><p>||表示“或运算”，即如果a有值，则返回a，否则返回事先设定的默认值。</p>
+<p>这种写法会对a进行一次布尔运算，只有为true时，才会返回a。可是，除了undefined以外，0、空字符、null等的布尔值也是false。也就是说，在上面的函数中，不能让a等于0或空字符串，否则在明明有参数的情况下，也会返回默认值。</p>
+<p>更精准的写法：<br><figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(a <span class="comment">!== undefined &amp;&amp; a !== null) ? a = a : a = 1;</span></span><br></pre></td></tr></table></figure></p>
+<p>函数f的参数是空字符或0，都不会触发参数的默认值。</p>
+<h3 id="传递方式"><a href="#传递方式" class="headerlink" title="传递方式"></a>传递方式</h3><p>函数参数如果是原始类型的值（数值、字符串、布尔值），传递方式是传值传递（passes by value）。这意味着，在函数体内修改参数值，不会影响到函数外部。</p>
+<p>但是，如果函数参数是复合类型的值（数组、对象、其他函数），传递方式是传址传递（pass by reference）。也就是说，传入函数的原始值的地址，因此在函数内部修改参数，将会影响到原始值。<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="comment">&#123;p: 1&#125;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">(o)</span> <span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">  o.p = 2;</span></span></span><br><span class="line"><span class="function"><span class="comment">&#125;</span></span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(obj)</span>;</span></span><br><span class="line"></span><br><span class="line">obj.p <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<p>某些情况下，如果需要对某个原始类型的变量，获取传址传递的效果，可以将它写成全局对象的属性。<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">(p)</span> <span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">  window[p] = 2;</span></span></span><br><span class="line"><span class="function"><span class="comment">&#125;</span></span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(<span class="string">'a'</span>)</span>;</span></span><br><span class="line"></span><br><span class="line">a <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，变量a本来是传值传递，但是写成window对象的属性，就达到了传址传递的效果。</p>
+<h3 id="同名参数"><a href="#同名参数" class="headerlink" title="同名参数"></a>同名参数</h3><p>如果有同名的参数，则取最后出现的那个值。</p>
+<p>调用函数f(1)的时候，没有提供第二个参数，a的取值就变成了undefined。这时，如果要获得第一个a的值，可以使用arguments对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">a, a</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>[<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f(<span class="number">1</span>) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="arguments对象"><a href="#arguments对象" class="headerlink" title="arguments对象"></a>arguments对象</h3><h4 id="1-定义"><a href="#1-定义" class="headerlink" title="(1)定义"></a>(1)定义</h4><p>由于JavaScript允许函数有不定数目的参数，所以我们需要一种机制，可以在函数体内部读取所有参数。这就是arguments对象的由来。</p>
+<p>arguments对象包含了函数运行时的所有参数，arguments[0]就是第一个参数，arguments[1]就是第二个参数，以此类推。这个对象只有在函数体内部，才可以使用。</p>
+<p>arguments对象除了可以读取参数，还可以为参数赋值（严格模式不允许这种用法）。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">0</span>] = <span class="number">3</span>;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f(<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="comment">// 5</span></span><br></pre></td></tr></table></figure></p>
+<p>可以通过arguments对象的length属性，判断函数调用时到底带几个参数。</p>
+<h4 id="2-与数组的关系"><a href="#2-与数组的关系" class="headerlink" title="(2)与数组的关系"></a>(2)与数组的关系</h4><p>需要注意的是，虽然arguments很像数组，但它是一个对象。数组专有的方法（比如slice和forEach），不能在arguments对象上直接使用。</p>
+<p>要让arguments对象使用数组方法，真正的解决方法是将arguments转为真正的数组。下面是两种常用的转换方法：slice方法和逐一填入新数组。</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">var</span> <span class="built_in">args</span> = Array.prototype.slice.call(arguments);</span><br><span class="line"></span><br><span class="line">// <span class="keyword">or</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">var</span> <span class="built_in">args</span> = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">var</span> i = <span class="number">0</span>; i &lt; arguments.<span class="built_in">length</span>; i++) &#123;</span><br><span class="line">  <span class="built_in">args</span>.<span class="built_in">push</span>(arguments[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-callee属性"><a href="#3-callee属性" class="headerlink" title="(3)callee属性"></a>(3)callee属性</h4><p>arguments对象带有一个callee属性，返回它所对应的原函数。</p>
+<p>可以通过arguments.callee，达到调用函数自身的目的。这个属性在严格模式里面是禁用的，因此不建议使用。</p>
+<h2 id="函数的其他知识点"><a href="#函数的其他知识点" class="headerlink" title="函数的其他知识点"></a>函数的其他知识点</h2><h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>闭包（closure）是Javascript语言的一个难点，也是它的特色，很多高级应用都要依靠闭包实现。</p>
+<p>要理解闭包，首先必须理解变量作用域。前面提到，JavaScript有两种作用域：全局作用域和函数作用域。函数内部可以直接读取全局变量。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> n = <span class="number">999</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">　　<span class="built_in">console</span>.log(n); <span class="comment">// 999</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>函数f1内部声明的变量n，函数外是无法读取的。</p>
+<p>如果出于种种原因，需要得到函数内的局部变量。正常情况下，这是办不到的，只有通过变通方法才能实现。那就是在函数的内部，再定义一个函数。</p>
+<p>上面代码中，函数f2就在函数f1内部，这时f1内部的所有局部变量，对f2都是可见的。但是反过来就不行，f2内部的局部变量，对f1就是不可见的。这就是JavaScript语言特有的”链式作用域”结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。</p>
+<p>既然f2可以读取f1的局部变量，那么只要把f2作为返回值，我们不就可以在f1外部读取它的内部变量了吗！<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> n = <span class="number">999</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(n);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> f2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = f1();</span><br><span class="line">result(); <span class="comment">// 999</span></span><br></pre></td></tr></table></figure></p>
+<p>闭包就是函数f2，即能够读取其他函数内部变量的函数。由于在JavaScript语言中，只有函数内部的子函数才能读取内部变量，因此可以把闭包简单理解成“定义在一个函数内部的函数”。闭包最大的特点，就是它可以“记住”诞生的环境，比如f2记住了它诞生的环境f1，所以从f2可以得到f1的内部变量。在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
+<p>闭包的最大用处有两个，一个是可以读取函数内部的变量，另一个就是让这些变量始终保持在内存中，即闭包可以使得它诞生环境一直存在。请看下面的例子，闭包使得内部变量记住上一次调用时的运算结果。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createIncrementor</span><span class="params">(start)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> start++;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> inc = createIncrementor(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">inc() <span class="comment">// 5</span></span><br><span class="line">inc() <span class="comment">// 6</span></span><br><span class="line">inc() <span class="comment">// 7</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，start是函数createIncrementor的内部变量。通过闭包，start的状态被保留了，每一次调用都是在上一次调用的基础上进行计算。从中可以看到，闭包inc使得函数createIncrementor的内部环境，一直存在。所以，闭包可以看作是函数内部作用域的一个接口。</p>
+<p>为什么会这样呢？原因就在于inc始终在内存中，而inc的存在依赖于createIncrementor，因此也始终在内存中，不会在调用结束后，被垃圾回收机制回收。</p>
+<p>闭包的另一个用处，是封装对象的私有属性和私有方法。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span><span class="params">(name)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _age;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">setAge</span><span class="params">(n)</span> </span>&#123;</span><br><span class="line">    _age = n;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> _age;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    name: name,</span><br><span class="line">    getAge: getAge,</span><br><span class="line">    setAge: setAge</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p1 = Person(<span class="string">'张三'</span>);</span><br><span class="line">p1.setAge(<span class="number">25</span>);</span><br><span class="line">p1.getAge() <span class="comment">// 25</span></span><br></pre></td></tr></table></figure>
+<p>注意，外层函数每次运行，都会生成一个新的闭包，而这个闭包又会保留外层函数的内部变量，所以内存消耗很大。因此不能滥用闭包，否则会造成网页的性能问题。</p>
+<h3 id="立即调用的函数表达式（IIFE）"><a href="#立即调用的函数表达式（IIFE）" class="headerlink" title="立即调用的函数表达式（IIFE）"></a>立即调用的函数表达式（IIFE）</h3><p>在Javascript中，一对圆括号()是一种运算符，跟在函数名之后，表示调用该函数。比如，print()就表示调用print函数。</p>
+<p>有时，我们需要在定义函数之后，立即调用该函数。这时，你不能在函数的定义之后加上圆括号，这会产生语法错误。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; <span class="comment">/* code */</span> &#125;();</span><br><span class="line"><span class="comment">// SyntaxError: Unexpected token (</span></span><br></pre></td></tr></table></figure></p>
+<p>产生这个错误的原因是，function这个关键字即可以当作语句，也可以当作表达式。</p>
+<p>为了避免解析上的歧义，JavaScript引擎规定，如果function关键字出现在行首，一律解释成语句。因此，JavaScript引擎看到行首是function关键字之后，认为这一段都是函数的定义，不应该以圆括号结尾，所以就报错了。</p>
+<p>解决方法就是不要让function出现在行首，让引擎将其理解成一个表达式。最简单的处理，就是将其放在一个圆括号里面。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; <span class="comment">/* code */</span> &#125;());</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; <span class="comment">/* code */</span> &#125;)();</span><br></pre></td></tr></table></figure></p>
+<p>上面两种写法都是以圆括号开头，引擎就会认为后面跟的是一个表示式，而不是函数定义语句，所以就避免了错误。这就叫做“立即调用的函数表达式”（Immediately-Invoked Function Expression），简称IIFE。</p>
+<p>注意，上面两种写法最后的分号都是必须的。如果省略分号，遇到连着两个IIFE，可能就会报错。</p>
+<p>当然，还有一些别的写法。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> <span class="number">10</span>; &#125;();</span><br><span class="line"><span class="literal">true</span> &amp;&amp; <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; <span class="comment">/* code */</span> &#125;();</span><br><span class="line"><span class="number">0</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; <span class="comment">/* code */</span> &#125;();</span><br><span class="line"></span><br><span class="line">!<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; <span class="comment">/* code */</span> &#125;();</span><br><span class="line">~<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; <span class="comment">/* code */</span> &#125;();</span><br><span class="line">-<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; <span class="comment">/* code */</span> &#125;();</span><br><span class="line">+<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; <span class="comment">/* code */</span> &#125;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; <span class="comment">/* code */</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; <span class="comment">/* code */</span> &#125;()</span><br><span class="line"><span class="comment">// 只有传递参数时，才需要最后那个圆括号</span></span><br></pre></td></tr></table></figure></p>
+<p>通常情况下，只对匿名函数使用这种“立即执行的函数表达式”。它的目的有两个：一是不必为函数命名，避免了污染全局变量；二是IIFE内部形成了一个单独的作用域，可以封装一些外部无法读取的私有变量。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 写法一</span></span><br><span class="line"><span class="keyword">var</span> tmp = <span class="keyword">new</span><span class="type">Data</span>;</span><br><span class="line">processData(tmp);</span><br><span class="line">storeData(tmp);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 写法二</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> </span>()&#123;</span><br><span class="line">  <span class="keyword">var</span> tmp = <span class="keyword">new</span><span class="type">Data</span>;</span><br><span class="line">  processData(tmp);</span><br><span class="line">  storeData(tmp);</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>上面代码中，写法二比写法一更好，因为完全避免了污染全局变量。</p>
+<h2 id="eval命令"><a href="#eval命令" class="headerlink" title="eval命令"></a>eval命令</h2><p>eval命令的作用是，将字符串当作语句执行。<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">eval<span class="comment">('var a = 1;')</span>;</span><br><span class="line">a <span class="comment">// 1</span></span><br></pre></td></tr></table></figure></p>
+<p>eval没有自己的作用域，都在当前作用域内执行，因此可能会修改当前作用域的变量的值，造成安全问题。</p>
+<p>此外，eval的命令字符串不会得到JavaScript引擎的优化，运行速度较慢。这也是一个不应该使用它的理由。</p>
+<p>通常情况下，eval最常见的场合是解析JSON数据字符串，不过正确的做法应该是使用浏览器提供的JSON.parse方法。</p>
+<p>avaScript引擎内部，eval实际上是一个引用，默认调用一个内部方法。这使得eval的使用分成两种情况，一种是像上面这样的调用eval(expression)，这叫做“直接使用”，这种情况下eval的作用域就是当前作用域。除此之外的调用方法，都叫“间接调用”，此时eval的作用域总是全局作用域。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">var</span> e = <span class="built_in">eval</span>;</span><br><span class="line">  e(<span class="string">'console.log(a)'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f() <span class="comment">// 1</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，eval是间接调用，所以即使它是在函数中，它的作用域还是全局作用域，因此输出的a为全局变量。</p>
+<p>eval的间接调用的形式五花八门，只要不是直接调用，都属于间接调用。</p>
+<p>与eval作用类似的还有Function构造函数。利用它生成一个函数，然后调用该函数，也能将字符串当作命令执行。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jsonp = <span class="string">'foo(&#123;"id": 42&#125;)'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> <span class="function"><span class="keyword">Function</span><span class="params">( <span class="string">"foo"</span>, jsonp )</span></span>;</span><br><span class="line"><span class="comment">// 相当于定义了如下函数</span></span><br><span class="line"><span class="comment">// function f(foo) &#123;</span></span><br><span class="line"><span class="comment">//   foo(&#123;"id":42&#125;);</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">f(<span class="function"><span class="keyword">function</span><span class="params">(json)</span></span>&#123;</span><br><span class="line">  console.log( json.id ); <span class="comment">// 42</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，jsonp是一个字符串，Function构造函数将这个字符串，变成了函数体。调用该函数的时候，jsonp就会执行。这种写法的实质是将代码放到函数作用域执行，避免对全局作用域造成影响。</p>
+<p>不过，new Function()的写法也可以读写全局作用域，所以也是应该避免使用它。</p>
+<hr>
+<p>学习参考：<br><a href="http://javascript.ruanyifeng.com/" target="_blank" rel="noopener">JavaScript 标准参考教程 阮一峰</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/13/python/初探python(12)web开发/" rel="next" title="初探python(12)web开发">
+                <i class="fa fa-chevron-left"></i> 初探python(12)web开发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/17/摘录/TED-雪莉·桑德伯格哈佛14毕业典礼演讲/" rel="prev" title="TED-雪莉·桑德伯格哈佛14毕业典礼演讲">
+                TED-雪莉·桑德伯格哈佛14毕业典礼演讲 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数的声明"><span class="nav-number">1.1.</span> <span class="nav-text">函数的声明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）function命令"><span class="nav-number">1.1.1.</span> <span class="nav-text">（1）function命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）函数表达式"><span class="nav-number">1.1.2.</span> <span class="nav-text">（2）函数表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）Function构造函数"><span class="nav-number">1.1.3.</span> <span class="nav-text">（3）Function构造函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一等公民"><span class="nav-number">1.2.</span> <span class="nav-text">第一等公民</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数名的提升"><span class="nav-number">1.3.</span> <span class="nav-text">函数名的提升</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的属性和方法"><span class="nav-number">2.</span> <span class="nav-text">函数的属性和方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#name属性"><span class="nav-number">2.1.</span> <span class="nav-text">name属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#length属性"><span class="nav-number">2.2.</span> <span class="nav-text">length属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toString-NaN"><span class="nav-number">2.3.</span> <span class="nav-text">toString()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数作用域"><span class="nav-number">3.</span> <span class="nav-text">函数作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数内部的变量提升"><span class="nav-number">3.2.</span> <span class="nav-text">函数内部的变量提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数本身的作用域"><span class="nav-number">3.3.</span> <span class="nav-text">函数本身的作用域</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数"><span class="nav-number">4.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-1"><span class="nav-number">4.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数的省略"><span class="nav-number">4.2.</span> <span class="nav-text">参数的省略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认值"><span class="nav-number">4.3.</span> <span class="nav-text">默认值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递方式"><span class="nav-number">4.4.</span> <span class="nav-text">传递方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同名参数"><span class="nav-number">4.5.</span> <span class="nav-text">同名参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arguments对象"><span class="nav-number">4.6.</span> <span class="nav-text">arguments对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-定义"><span class="nav-number">4.6.1.</span> <span class="nav-text">(1)定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-与数组的关系"><span class="nav-number">4.6.2.</span> <span class="nav-text">(2)与数组的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-callee属性"><span class="nav-number">4.6.3.</span> <span class="nav-text">(3)callee属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的其他知识点"><span class="nav-number">5.</span> <span class="nav-text">函数的其他知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">5.1.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#立即调用的函数表达式（IIFE）"><span class="nav-number">5.2.</span> <span class="nav-text">立即调用的函数表达式（IIFE）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#eval命令"><span class="nav-number">6.</span> <span class="nav-text">eval命令</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

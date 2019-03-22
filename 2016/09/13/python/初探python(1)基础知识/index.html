@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,python教程,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="人生苦短，我用Python Python是一种怎么样的语言？Python诞生Python是著名的“龟叔”Guido van Rossum在1989年圣诞节期间，为了打发无聊的圣诞节而编写的一个编程语言。 龟叔给Python的定位是“优雅”、“明确”、“简单”，所以Python程序看上去总是简单易懂，初学者学Python，不但入门容易，而且将来深入下去，可以编写那些非常非常复杂的程序。">
+<meta name="keywords" content="python,python教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初探python(1)基础知识">
+<meta property="og:url" content="http://zjbao123.github.io/2016/09/13/python/初探python(1)基础知识/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="人生苦短，我用Python Python是一种怎么样的语言？Python诞生Python是著名的“龟叔”Guido van Rossum在1989年圣诞节期间，为了打发无聊的圣诞节而编写的一个编程语言。 龟叔给Python的定位是“优雅”、“明确”、“简单”，所以Python程序看上去总是简单易懂，初学者学Python，不但入门容易，而且将来深入下去，可以编写那些非常非常复杂的程序。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i2.buimg.com/567571/b65ae576e4e3215e.jpg">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.730Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初探python(1)基础知识">
+<meta name="twitter:description" content="人生苦短，我用Python Python是一种怎么样的语言？Python诞生Python是著名的“龟叔”Guido van Rossum在1989年圣诞节期间，为了打发无聊的圣诞节而编写的一个编程语言。 龟叔给Python的定位是“优雅”、“明确”、“简单”，所以Python程序看上去总是简单易懂，初学者学Python，不但入门容易，而且将来深入下去，可以编写那些非常非常复杂的程序。">
+<meta name="twitter:image" content="http://i2.buimg.com/567571/b65ae576e4e3215e.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2016/09/13/python/初探python(1)基础知识/">
+
+
+
+
+
+  <title>初探python(1)基础知识 | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2016/09/13/python/初探python(1)基础知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初探python(1)基础知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-13T22:14:50+08:00">
+                2016-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/09/13/python/初探python(1)基础知识/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2016/09/13/python/初探python(1)基础知识/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>人生苦短，我用Python</strong></p>
+<h2 id="Python是一种怎么样的语言？"><a href="#Python是一种怎么样的语言？" class="headerlink" title="Python是一种怎么样的语言？"></a>Python是一种怎么样的语言？</h2><h3 id="Python诞生"><a href="#Python诞生" class="headerlink" title="Python诞生"></a>Python诞生</h3><p>Python是著名的“龟叔”Guido van Rossum在1989年圣诞节期间，为了打发无聊的圣诞节而编写的一个编程语言。</p>
+<p>龟叔给Python的定位是<strong>“优雅”、“明确”、“简单”</strong>，所以Python程序看上去总是简单易懂，初学者学Python，不但入门容易，而且将来深入下去，可以编写那些非常非常复杂的程序。</p>
+<p><img src="http://i2.buimg.com/567571/b65ae576e4e3215e.jpg" alt="龟叔"><br><a id="more"></a><br>它常被成为<code>胶水语言</code>。能够把用其他语言制作的各种模块（尤其是C/C++）很轻松地联结在一起。常见的一种应用情形是，使用Python快速生成程序的原型（有时甚至是程序的最终界面），然后对其中有特别要求的部分，用更合适的语言改写。</p>
+<p>Python具有丰富和强大的库。提供了非常完善的基础代码库，覆盖了网络、文件、GUI、数据库、文本等大量内容，被形象地称作<code>内置电池（batteries included）</code>。除了内置的库外，Python还有大量的第三方库，也就是别人开发的，供你直接使用的东西。当然，如果你开发的代码通过很好的封装，也可以作为第三方库给别人使用。</p>
+<h3 id="Python适合开发的应用"><a href="#Python适合开发的应用" class="headerlink" title="Python适合开发的应用"></a>Python适合开发的应用</h3><ul>
+<li><p>网络应用，包括网站、后台服务等等；</p>
+</li>
+<li><p>许多日常需要的小工具，包括系统管理员需要的脚本任务等等；</p>
+</li>
+<li><p>把其他语言开发的程序再包装起来，方便使用。</p>
+</li>
+</ul>
+<p>###　Python的缺点</p>
+<p>其一，<strong>便是运行速度慢</strong>。因为Python是解释型语言，你的代码在执行时会一行一行地翻译成CPU能理解的机器码，这个翻译过程非常耗时，所以很慢。而C程序是运行前直接编译成CPU能执行的机器码，所以非常快。</p>
+<p>其二，<strong>代码不能加密</strong>。凡是编译型的语言，发布的是编译后的机器码如<code>.exe</code>，而解释型的语言，则必须把源码发布出去。</p>
+<h2 id="侧重点杂记"><a href="#侧重点杂记" class="headerlink" title="侧重点杂记"></a>侧重点杂记</h2><p>请务必注意，Python程序是<em>大小写</em>敏感的并且对于<em>缩进</em>要求严格，如果写错了大小写，程序会报错。如果直接复制粘贴，会导致缩进存在问题。</p>
+<p><code># -*- coding=utf-8 -*-</code>　用以开头声明编码方式，输出中文</p>
+<p><code>#</code>用来注释,其他每一行都是一个语句，当语句以冒号“:”结尾时，缩进的语句视为代码块。</p>
+<p>在讲Python之前，先讲一下一些Sublime的用法。</p>
+<h3 id="Sublime基础用法"><a href="#Sublime基础用法" class="headerlink" title="Sublime基础用法"></a>Sublime基础用法</h3><p>Sublime作为我最常用的编辑器，不得不提一下其对于Python编程的一些快捷键。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ctrl+<span class="selector-tag">b</span>　<span class="comment">//运行python程序</span></span><br><span class="line"></span><br><span class="line">ctrl+c　<span class="comment">//停止运行</span></span><br><span class="line"></span><br><span class="line">ctrl+/　<span class="comment">//全体注释/取消注释</span></span><br><span class="line"></span><br><span class="line">ctrl+[　<span class="comment">//全体不缩进</span></span><br><span class="line"></span><br><span class="line">alt+num　<span class="comment">//切换标签页</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="输入与输出"><a href="#输入与输出" class="headerlink" title="输入与输出"></a>输入与输出</h3><p>输入是Input，输出是Output，因此，我们把输入输出统称为Input/Output，或者简写为IO。</p>
+<p><code>raw_input()</code>和<code>print</code>是在命令行下面最基本的输入和输出。</p>
+<p><code>raw_input()</code>调用时可填入空内显示一个字符串，用来做提示信息。</p>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>Python支持多种数据类型，在计算机内部，可以把任何数据都看成一个“对象”。</p>
+<p>如果字符串内部既包含’又包含”怎么办？可以用转义字符<code>\</code>来标识`。</p>
+<p>转义字符<code>\</code>可以转义很多字符，比如<code>\n</code>表示换行，<code>\t</code>表示制表符，字符<code>\</code>本身也要转义，所以<code>\\</code>表示的字符就是\。Python还允许用<code>r&#39;&#39;</code>表示’’内部的字符串默认不转义</p>
+<p>Python允许用<code>&#39;&#39;&#39;</code>的格式表示多行内容</p>
+<p>空值是Python里一个特殊的值，用<code>None</code>表示。与0不同。</p>
+<p>Python支持多种数据类型，在计算机内部，可以把任何数据都看成一个“对象”，而变量就是在程序中用来指向这些数据对象的，对变量赋值就是把数据和变量给关联起来。</p>
+<p>整数：一般意义上的数，包含十进制(无前缀),八进制(0开头)，十六进制(0x开头),二进制(0b开头)</p>
+<p>长整数：无限大小的数,表示范围和内存有关</p>
+<p>浮点数：小数或用e/E(10的幂)表示的幂,默认，浮点数学缺乏精确性,可以使用decimal</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量就是在程序中用来指向这些数据对象的，对变量赋值就是把数据和变量给关联起来。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">a</span> = <span class="string">'ABC'</span></span><br></pre></td></tr></table></figure>
+<p>以上，Python解释器干了两件事情：</p>
+<p>1.在内存中创建了一个’ABC’的字符串；</p>
+<p>2.在内存中创建了一个名为a的变量，并把它指向’ABC’。</p>
+<p>也可以把一个变量a赋值给另一个变量b，这个操作实际上是把变量b指向变量a所指向的数据。而之后执行<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">a</span>=<span class="string">'XYZ'</span></span><br></pre></td></tr></table></figure></p>
+<p>b的值不会受到影响。</p>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>在Python中，通常用全部大写的变量名表示常量。一般不改变其值，不过硬要改变也可，只不过违背了命名规则。</p>
+<h3 id="题外话：字符编码"><a href="#题外话：字符编码" class="headerlink" title="题外话：字符编码"></a>题外话：字符编码</h3><p>在讲字符串之前，先提一下字符串编码的问题。</p>
+<p>因为计算机只能处理数字，如果要处理文本，就必须先把文本转换为数字才能处理。一个字节能表示的最大的整数就是255（二进制11111111=十进制255），如果要表示更大的整数，就必须用更多的字节。比如两个字节可以表示的最大整数是65535，4个字节可以表示的最大整数是4294967295。</p>
+<p>由于计算机是美国人发明的，因此，最早只有127个字母被编码到计算机里，也就是大小写英文字母、数字和一些符号，这个编码表被称为<code>ASCII</code>编码，比如大写字母A的编码是65，小写字母z的编码是122。</p>
+<p>但是要处理中文显然一个字节是不够的，至少需要两个字节，而且还不能和<code>ASCII</code>编码冲突，所以，中国制定了<code>GB2312</code>编码，用来把中文编进去。</p>
+<p>当然世界上还有其他国家，这么多语言，各国有各国的标准，如果一个文本里出现多种语言的话，就会乱码。</p>
+<p><code>Unicode</code>应运而生。<code>Unicode</code>把所有语言都统一到一套编码里，这样就不会再有乱码问题了。最常用的是用两个字节表示一个字符（如果要用到非常偏僻的字符，就需要4个字节）。现代操作系统和大多数编程语言都直接支持<code>Unicode</code>。</p>
+<p>新的问题又出现了：如果统一成<code>Unicode</code>编码，乱码问题从此消失了。但是，如果你写的文本基本上全部是英文的话，用<code>Unicode</code>编码比ASCII编码需要多一倍的存储空间，在存储和传输上就十分不划算。</p>
+<p>所以，本着节约的精神，又出现了把<code>Unicode</code>编码转化为“可变长编码”的<code>UTF-8</code>编码。<code>UTF-8</code>编码把一个<code>Unicode</code>字符根据不同的数字大小编码成1-6个字节，常用的英文字母被编码成1个字节，汉字通常是3个字节，只有很生僻的字符才会被编码成4-6个字节。如果你要传输的文本包含大量英文字符，用<code>UTF-8</code>编码就能节省空间.</p>
+<p>另外，UTF-8编码有一个额外的好处，就是ASCII编码实际上可以被看成是UTF-8编码的一部分，所以，大量只支持ASCII编码的历史遗留软件可以在UTF-8编码下继续工作。</p>
+<p>搞清楚了ASCII、Unicode和UTF-8的关系，我们就可以总结一下现在计算机系统通用的字符编码工作方式：</p>
+<p>在计算机内存中，统一使用Unicode编码，当需要保存到硬盘或者需要传输的时候，就转换为UTF-8编码。</p>
+<p>用记事本编辑的时候，从文件读取的UTF-8字符被转换为Unicode字符到内存里，编辑完成后，保存的时候再把Unicode转换为UTF-8保存到文件。</p>
+<p>浏览网页的时候，服务器会把动态生成的Unicode内容转换为UTF-8再传输到浏览器。</p>
+<p>当看到<code>&lt;meta charset=&quot;UTF-8&quot; /&gt;</code>的信息时，也就意味着该网页正是用的UTF-8编码。</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>因为Python的诞生比Unicode标准发布的时间还要早，所以最早的Python只支持ASCII编码。Python提供了ord()和chr()函数，可以把字母和对应的数字相互转换。</p>
+<p>Python在后来添加了对Unicode的支持，以Unicode表示的字符串用u’…’表示。</p>
+<p>在Python 3.x版本中，把’xxx’和u’xxx’统一成Unicode编码，即写不写前缀u都是一样的，而以字节形式表示的字符串则必须加上b前缀：b’xxx’。</p>
+<p>在字符串前加r，例r’xxx’，表示不转义字符串。</p>
+<p>把u’xxx’转换为UTF-8编码的’xxx’用<code>encode(&#39;utf-8&#39;)</code>方法。反之则用<code>decode(&#39;utf-8&#39;)</code>。</p>
+<p>由于Python源代码也是一个文本文件，所以，当你的源代码中包含中文的时候，在保存源代码时，就需要务必指定保存为UTF-8编码。当Python解释器读取源代码时，为了让它按UTF-8编码读取，我们通常在文件开头写上这两行：<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env python</span></span><br><span class="line"><span class="meta"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">' a test module '</span></span><br><span class="line">__author__ = <span class="string">'zjbao123'</span></span><br></pre></td></tr></table></figure></p>
+<p>第一行注释是为了告诉Linux/OS X系统，这是一个Python可执行程序，Windows系统会忽略这个注释；</p>
+<p>第二行注释是为了告诉Python解释器，按照UTF-8编码读取源代码，否则，你在源代码中写的中文输出可能会有乱码。</p>
+<p>此外，任何模块代码的第一个字符串都被视为模块的文档注释。</p>
+<p>使用<strong>author</strong>变量把作者写进去，这样当你公开源代码后别人就可以瞻仰你的大名。</p>
+<h4 id="字符串处理"><a href="#字符串处理" class="headerlink" title="字符串处理"></a>字符串处理</h4><p>在<code>PEP8</code>即Python编码样式指南中，要求每行不能超过80个字符，但在长字符串中如何做到呢？</p>
+<p>可以通过反斜杠、带逗号“,”的圆括号“()”、或者额外的加号“+”来完成换行。但对于多行字符串，这些解决方案都不够优雅。Python有个多行字符串记号，即三个引号，但这样无法换行后保持缩进。</p>
+<p>还有一个方法，那就是不带逗号的圆括号。我不知道为什么这种方式能工作，但能用就行。<br><figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">my_long_text = (<span class="comment">"We are no longer the knights who say Ni! "</span>        </span><br><span class="line"><span class="comment">"We are now the knights who say ekki-ekki-"</span>        </span><br><span class="line"><span class="comment">"ekki-p'tang-zoom-boing-z'nourrwringmm!"</span>)</span><br><span class="line">print(my_long_text)</span><br></pre></td></tr></table></figure></p>
+<p>另外，python还提供了很多的字符串处理方式：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">全部大写：<span class="built_in">str</span>.upper()</span><br><span class="line">全部小写：<span class="built_in">str</span>.lower()</span><br><span class="line">大小写互换：<span class="built_in">str</span>.swapcase()</span><br><span class="line">首字母大写，其余小写：<span class="built_in">str</span>.capitalize()</span><br><span class="line">首字母大写：<span class="built_in">str</span>.title()</span><br><span class="line">获取固定长度，右对齐，左边不够用空格补齐：<span class="built_in">str</span>.ljust(<span class="built_in">width</span>)</span><br><span class="line">获取固定长度，左对齐，右边不够用空格补齐：<span class="built_in">str</span>.rjust(<span class="built_in">width</span>)</span><br><span class="line">获取固定长度，中间对齐，两边不够用空格补齐：<span class="built_in">str</span>.center(<span class="built_in">width</span>)</span><br><span class="line">获取固定长度，右对齐，左边不足用<span class="number">0</span>补齐:<span class="built_in">str</span>.zfill(<span class="built_in">width</span>)</span><br><span class="line"></span><br><span class="line">搜索指定字符串，没有返回<span class="number">-1</span>：<span class="built_in">str</span>.find(<span class="string">'t'</span>)</span><br><span class="line">指定起始位置搜索：<span class="built_in">str</span>.find(<span class="string">'t'</span>,start)</span><br><span class="line">指定起始及结束位置搜索：<span class="built_in">str</span>.find(<span class="string">'t'</span>,start,end)</span><br><span class="line">从右边开始查找：<span class="built_in">str</span>.rfind(<span class="string">'t'</span>)</span><br><span class="line">搜索到多少个指定字符串：<span class="built_in">str</span>.count(<span class="string">'t'</span>)</span><br><span class="line">上面所有方法都可用index代替，不同的是使用index查找不到会抛异常，而find返回<span class="number">-1</span></span><br><span class="line"></span><br><span class="line">替换old为<span class="keyword">new</span>：<span class="built_in">str</span>.replace(<span class="string">'old'</span>,<span class="string">'new'</span>)</span><br><span class="line">替换指定次数的old为<span class="keyword">new</span>：<span class="built_in">str</span>.replace(<span class="string">'old'</span>,<span class="string">'new'</span>,maxReplaceTimes)</span><br><span class="line"></span><br><span class="line">去两边空格：<span class="built_in">str</span>.strip()</span><br><span class="line">去左空格：<span class="built_in">str</span>.lstrip()</span><br><span class="line">去右空格：<span class="built_in">str</span>.rstrip()</span><br><span class="line">去两边字符串：<span class="built_in">str</span>.strip(<span class="string">'d'</span>)，相应的也有lstrip，rstrip</span><br><span class="line"></span><br><span class="line">分隔:<span class="built_in">split</span>()</span><br><span class="line"></span><br><span class="line">是否以start开头：<span class="built_in">str</span>.startswith(<span class="string">'start'</span>)</span><br><span class="line">是否以end结尾：<span class="built_in">str</span>.endswith(<span class="string">'end'</span>)</span><br><span class="line">是否全为字母或数字：<span class="built_in">str</span>.isalnum()</span><br><span class="line">是否全字母：<span class="built_in">str</span>.isalpha()</span><br><span class="line">是否全数字：<span class="built_in">str</span>.isdigit()</span><br><span class="line">是否全小写：<span class="built_in">str</span>.islower()</span><br><span class="line">是否全大写：<span class="built_in">str</span>.isupper()</span><br></pre></td></tr></table></figure></p>
+<h3 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h3><p>%运算符就是用来格式化字符串的。在字符串内部，%s表示用字符串替换，%d表示用整数替换，有几个%?占位符，后面就跟几个变量或者值，顺序要对应好。如果只有一个%?，括号可以省略。</p>
+<p>如果你不太确定应该用什么，%s永远起作用，它会把任何数据类型转换为字符串。</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%%</td>
+<td style="text-align:left">百分号标记 #就是输出一个%</td>
+</tr>
+<tr>
+<td>%c</td>
+<td style="text-align:left">字符及其ASCII码</td>
+</tr>
+<tr>
+<td>%s</td>
+<td style="text-align:left">字符串</td>
+</tr>
+<tr>
+<td>%d</td>
+<td style="text-align:left">有符号整数(十进制)</td>
+</tr>
+<tr>
+<td>%u</td>
+<td style="text-align:left">无符号整数(十进制)</td>
+</tr>
+<tr>
+<td>%o</td>
+<td style="text-align:left">无符号整数(八进制)</td>
+</tr>
+<tr>
+<td>%x</td>
+<td style="text-align:left">无符号整数(十六进制)</td>
+</tr>
+<tr>
+<td>%X</td>
+<td style="text-align:left">无符号整数(十六进制大写字符)</td>
+</tr>
+<tr>
+<td>%e</td>
+<td style="text-align:left">浮点数字(科学计数法)</td>
+</tr>
+<tr>
+<td>%E</td>
+<td style="text-align:left">浮点数字(科学计数法，用E代替e)</td>
+</tr>
+<tr>
+<td>%f</td>
+<td style="text-align:left">浮点数字(用小数点符号)</td>
+</tr>
+<tr>
+<td>%g</td>
+<td style="text-align:left">浮点数字(根据值的大小采用%e或%f)</td>
+</tr>
+<tr>
+<td>%G</td>
+<td style="text-align:left">浮点数字(类似于%g)</td>
+</tr>
+<tr>
+<td>%p</td>
+<td style="text-align:left">指针(用十六进制打印值的内存地址)</td>
+</tr>
+<tr>
+<td>%n</td>
+<td style="text-align:left">存储输出字符的数量放进参数列表的下一个变量中</td>
+</tr>
+<tr>
+<td>%r</td>
+<td style="text-align:left">自加引号的字符串，再现他所代表的任意对象</td>
+</tr>
+</tbody>
+</table>
+<p>当<code>%</code>为普通字符需要用<code>%%</code>转义。<br>举个例子：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">'%<span class="number">2</span>d-%<span class="number">02</span>d<span class="string">"%(3.14,6)</span></span><br><span class="line"><span class="string">' 3-06'</span></span><br><span class="line"><span class="string">"</span>%<span class="number">9.2</span>f<span class="string">"%12.345</span></span><br><span class="line"><span class="string">    12.35</span></span><br><span class="line"><span class="string">"</span>%<span class="number">09.2</span>f<span class="string">"%12.345</span></span><br><span class="line"><span class="string">000012.35</span></span><br></pre></td></tr></table></figure></p>
+<p>可以在”%”和字母之间插进数字表示最大场宽。<br>例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,<br>小数点占一位, 不够9位右对齐。<br><code>%09.2f</code>其中小数位为2, 整数位为6,小数点占一位, 不够9位零补齐。</p>
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><p>循环for语言有所不同，其他略有改动，条件不用加括号，并且每条判断要加<code>：</code>，之后的语句需要有缩进。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>　<span class="keyword">else</span>　elif </span><br><span class="line"><span class="keyword">for</span>.<span class="selector-class">.in</span>　依次把列表内每个元素列出来</span><br><span class="line"><span class="function"><span class="title">range</span><span class="params">(i)</span></span>　<span class="number">0</span> 到 i-<span class="number">1</span> 的整数</span><br><span class="line">while </span><br><span class="line">ctrl+c 可退出循环</span><br></pre></td></tr></table></figure></p>
+<h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><p>Python内置的一种数据类型是列表：list，这是一种有序的集合，可以随时添加和删除其中的元素。用<code>[ ]</code>表示。</p>
+<p>list是一种有序的集合，可以随时添加（insert（i，“hello”））和删除（pop（i））其中的元素。</p>
+<p>如果要取最后一个元素，除了计算索引位置外，还可以用-1做索引，直接获取最后一个元素。以此类推，可以有-2，-3<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> index, <span class="built_in">item</span> <span class="keyword">in</span> enumerate(mylist):</span><br><span class="line">  print(index, <span class="built_in">item</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="列表推导"><a href="#列表推导" class="headerlink" title="列表推导"></a>列表推导</h4><p>[表达式 for 变量 in 列表]    或者  [表达式 for 变量 in 列表 if 条件]</p>
+<h3 id="tuple"><a href="#tuple" class="headerlink" title="tuple"></a>tuple</h3><p>另一种有序列表叫元组: tuple,用<code>（）</code>表示。一旦初始化后不可修改，安全性好。</p>
+<p>另外，有两个特例需注意。空的元组定义为（），单个元素的元组（i，）（与（i）数学意义相区别）</p>
+<p>嵌套list可变为可变的元组。那要创建一个内容也不变的tuple怎么做？那就必须保证tuple的每一个元素本身也不能变。</p>
+<p>list和tuple是Python内置的有序集合，一个可变，一个不可变。根据需要来选择使用它们。</p>
+<h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><p>Python内置了字典：dict的支持，dict全称dictionary，用<code>{}</code>表示。在其他语言中也称为map，使用键-值（key-value）存储，具有极快的查找速度，但占用内存多。</p>
+<p>一对一存储，后来的值会冲掉之前的值。</p>
+<p>如果字典里没有这个值，则会报错。那么事先可通过 in 来查找 或 get（”hello”,-1）不存在返回-1。</p>
+<p>pop(key)　删除，对应value也会删除</p>
+<p>dict可以用在需要高速查找的很多地方，在Python代码中几乎无处不在，正确使用dict非常重要，需要牢记的第一条就是dict的key必须是不可变对象。</p>
+<p>dict是用空间来换取时间的一种方法。</p>
+<p>用键访问值的一种写法：<br><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'0'</span>: <span class="number">0</span>, <span class="string">'1'</span>: <span class="number">1</span>, <span class="string">'2'</span>: <span class="number">2</span>, <span class="string">'3'</span>: <span class="number">3</span>, <span class="string">'4'</span>: <span class="number">4</span>, <span class="string">'5'</span>: <span class="number">5</span>, <span class="string">'6'</span>: <span class="number">6</span>, <span class="string">'7'</span>: <span class="number">7</span>, <span class="string">'8'</span>: <span class="number">8</span>, <span class="string">'9'</span>: <span class="number">9</span>&#125;[<span class="string">"0"</span>]</span><br></pre></td></tr></table></figure></p>
+<h4 id="字典推导"><a href="#字典推导" class="headerlink" title="字典推导"></a>字典推导</h4><p>字典推导尤其是在交换键和值十分管用。<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my_phrase = [<span class="string">"No"</span>, <span class="string">"one"</span>, <span class="string">"expects"</span>, <span class="string">"the"</span>, <span class="string">"Spanish"</span>, <span class="string">"Inquisition"</span>]</span><br><span class="line">my_dict = <span class="built_in">&#123;key</span>: <span class="keyword">value</span> <span class="keyword">for</span> <span class="keyword">value</span>,<span class="built_in"> key</span> <span class="keyword">in</span> enumerate(my_phrase)&#125;</span><br><span class="line">print(my_dict)</span><br><span class="line">reversed_dict = &#123;value:<span class="built_in"> key</span> <span class="keyword">for</span><span class="built_in"> key</span>, <span class="keyword">value</span> <span class="keyword">in</span> my_dict.items()&#125;</span><br><span class="line">print(reversed_dict)</span><br></pre></td></tr></table></figure></p>
+<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>set是无序和无重复的交集，用<code>([ ])</code>表示。set和dict类似，也是一组key的集合，但不存储value。由于key不能重复，所以，在set中，没有重复的key。</p>
+<p>通过add(key),remove(key)方法可以增删key。</p>
+<p>set可以看成数学意义上的无序和无重复元素的集合，因此，两个set可以做数学意义上的交集、并集等操作。</p>
+<p>set和dict的唯一区别仅在于没有存储对应的value。</p>
+<h3 id="再议不可变对象"><a href="#再议不可变对象" class="headerlink" title="再议不可变对象"></a>再议不可变对象</h3><p>str是不变对象，而list是可变对象。<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">a</span>=<span class="string">'ABC'</span></span><br><span class="line"><span class="keyword">a</span>.<span class="built_in">replace</span>(<span class="string">'a'</span>, <span class="string">'A'</span>)</span><br><span class="line">//<span class="string">'Abc'</span></span><br><span class="line"><span class="keyword">a</span></span><br><span class="line">//<span class="string">'abc'</span></span><br></pre></td></tr></table></figure></p>
+<p>a是变量，而’abc’才是字符串对象！有些时候，我们经常说，对象a的内容是’abc’，但其实是指，a本身是一个变量，它指向的对象的内容才是’abc’。</p>
+<blockquote>
+<p>此python学习路径来源于<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000" target="_blank" rel="noopener">廖雪峰的Python教程</a>的一个学习内容的总结。以便于自己后的学习和整理。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/python教程/" rel="tag"># python教程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/12/WEB交互/网络是如何连接的(1)/" rel="next" title="网络是如何连接的(1)">
+                <i class="fa fa-chevron-left"></i> 网络是如何连接的(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/13/python/初探python(12)web开发/" rel="prev" title="初探python(12)web开发">
+                初探python(12)web开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python是一种怎么样的语言？"><span class="nav-number">1.</span> <span class="nav-text">Python是一种怎么样的语言？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python诞生"><span class="nav-number">1.1.</span> <span class="nav-text">Python诞生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python适合开发的应用"><span class="nav-number">1.2.</span> <span class="nav-text">Python适合开发的应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#侧重点杂记"><span class="nav-number">2.</span> <span class="nav-text">侧重点杂记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sublime基础用法"><span class="nav-number">2.1.</span> <span class="nav-text">Sublime基础用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入与输出"><span class="nav-number">2.2.</span> <span class="nav-text">输入与输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">2.3.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">2.4.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常量"><span class="nav-number">2.5.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题外话：字符编码"><span class="nav-number">2.6.</span> <span class="nav-text">题外话：字符编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">2.7.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串处理"><span class="nav-number">2.7.1.</span> <span class="nav-text">字符串处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化"><span class="nav-number">2.8.</span> <span class="nav-text">格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环"><span class="nav-number">2.9.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list"><span class="nav-number">2.10.</span> <span class="nav-text">list</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#列表推导"><span class="nav-number">2.10.1.</span> <span class="nav-text">列表推导</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tuple"><span class="nav-number">2.11.</span> <span class="nav-text">tuple</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字典"><span class="nav-number">2.12.</span> <span class="nav-text">字典</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字典推导"><span class="nav-number">2.12.1.</span> <span class="nav-text">字典推导</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set"><span class="nav-number">2.13.</span> <span class="nav-text">set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再议不可变对象"><span class="nav-number">2.14.</span> <span class="nav-text">再议不可变对象</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

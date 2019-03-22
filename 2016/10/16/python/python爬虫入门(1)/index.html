@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,爬虫,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言之前只是在学习Python的基本语法，并没有实战。时间所迫，就业所需，兴趣所驱，一边学习一边总结吧。又是一条漫长的打怪(bug)升级之路。">
+<meta name="keywords" content="python,爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python爬虫入门（1）">
+<meta property="og:url" content="http://zjbao123.github.io/2016/10/16/python/python爬虫入门(1)/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="前言之前只是在学习Python的基本语法，并没有实战。时间所迫，就业所需，兴趣所驱，一边学习一边总结吧。又是一条漫长的打怪(bug)升级之路。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.729Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python爬虫入门（1）">
+<meta name="twitter:description" content="前言之前只是在学习Python的基本语法，并没有实战。时间所迫，就业所需，兴趣所驱，一边学习一边总结吧。又是一条漫长的打怪(bug)升级之路。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2016/10/16/python/python爬虫入门(1)/">
+
+
+
+
+
+  <title>python爬虫入门（1） | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2016/10/16/python/python爬虫入门(1)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python爬虫入门（1）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-16T15:51:02+08:00">
+                2016-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/10/16/python/python爬虫入门(1)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2016/10/16/python/python爬虫入门(1)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前只是在学习Python的基本语法，并没有实战。时间所迫，就业所需，兴趣所驱，一边学习一边总结吧。又是一条漫长的打怪(bug)升级之路。<br><a id="more"></a></p>
+<h2 id="什么是爬虫"><a href="#什么是爬虫" class="headerlink" title="什么是爬虫"></a>什么是爬虫</h2><h3 id="爬虫的定义"><a href="#爬虫的定义" class="headerlink" title="爬虫的定义"></a>爬虫的定义</h3><p>把互联网比喻成一个蜘蛛网，那么Spider就是在网上爬来爬去的蜘蛛。<br>网络蜘蛛是通过网页的链接地址来寻找网页的。<br>从网站某一个页面（通常是首页）开始，读取网页的内容，找到在网页中的其它链接地址，<br>然后通过这些链接地址寻找下一个网页，每次看到一个可能需要爬的新链接，你就先查查你脑子里是不是已经去过这个页面地址。如果去过，那就别去了。这样一直循环下去，直到把这个网站所有的网页都抓取完为止。<br>如果把整个互联网当成一个网站，那么网络蜘蛛就可以用这个原理把互联网上所有的网页都抓取下来。<br>这样看来，网络爬虫就是一个爬行程序，一个抓取网页的程序。<br>网络爬虫的基本操作是抓取网页。</p>
+<h3 id="爬虫流程"><a href="#爬虫流程" class="headerlink" title="爬虫流程"></a>爬虫流程</h3><ul>
+<li><p>“所有网站皆可爬”</p>
+</li>
+<li><p>框架不变：<strong>发送请求——获得页面——解析页面——下载内容——储存内容</strong></p>
+</li>
+</ul>
+<h3 id="认识URI和URL"><a href="#认识URI和URL" class="headerlink" title="认识URI和URL"></a>认识URI和URL</h3><p>URI：Web上可用的每种资源 -HTML文档、图像、视频片段、程序等 - 由一个通用资源标识符（Uniform Resource Identifier, 简称”URI”）进行定位。</p>
+<p>URL是Uniform Resource Locator的缩写，译为“统一资源定位符”。</p>
+<p>URL是URI命名机制的一个子集。</p>
+<p>URL是一种具体的URI，它不仅唯一标识资源，而且还提供了定位该资源的信息。URI是一种语义上的抽象概念，可以是绝对的，也可以是相对的，而URL则必须提供足够的信息来定位，所以，是绝对的，而通常说的relative URL，则是针对另一个absolute URL，本质上还是绝对的。</p>
+<p>这里的相对绝对指的是是否有<code>协议:</code>这部分的内容，即访问该路径的方式。</p>
+<p>示例：<code>协议://域名/目录a/目录b/文件c</code></p>
+<h2 id="Urllib库的使用"><a href="#Urllib库的使用" class="headerlink" title="Urllib库的使用"></a>Urllib库的使用</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line">__author__ = 'zjbao123'</span><br><span class="line">import urllib2</span><br><span class="line">import urllib</span><br><span class="line"></span><br><span class="line">user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36'</span><br><span class="line">headers = &#123;'User-Agent': user_agent, 'referer': 'https://www.zhihu.com/'&#125;</span><br><span class="line">values = &#123;<span class="string">"username"</span>: <span class="string">"zjbao123"</span>, <span class="string">"password"</span>: <span class="string">"***"</span>&#125;</span><br><span class="line">data = urllib.urlencode(values)</span><br><span class="line">url = 'http://passport.csdn.net/account/login'</span><br><span class="line"><span class="comment"># 向服务器端发送请求</span></span><br><span class="line">request = urllib2.Request(url, data, headers)</span><br><span class="line"><span class="comment"># 响应服务器的请求</span></span><br><span class="line">response = urllib2.urlopen(request)</span><br><span class="line">print response.read()</span><br></pre></td></tr></table></figure>
+<p>首先导入urllib2库。</p>
+<ul>
+<li><p><code>urlopen(url, data, timeout)</code><br>第一个参数url即为URL<br>第二个参数data是访问URL时要传送的数据,默认为None<br>第三个timeout是设置超时时间。默认为<code>socket._GLOBAL_DEFAULT_TIMEOUT</code></p>
+</li>
+<li><p><code>urlencode(query, doseq=0)</code><br>Encode a sequence of two-element tuples or dictionary into a URL query string.<br>将两个元素的元组或者是字典编码为URL查询字符串。</p>
+</li>
+</ul>
+<p>我这边传入的是一个<code>request</code>请求，然后用<code>response</code>来响应请求。通过<code>request</code>来传入所需的url和data。这边所需的data要通过<code>urllib.urlencode</code>来进行编码，输出一个URL查询字符串才可以传入。<br>这里使用的<code>POST</code>的方式进行传输。</p>
+<h3 id="POST和GET"><a href="#POST和GET" class="headerlink" title="POST和GET"></a><code>POST</code>和<code>GET</code></h3><p>网页的数据传送分为<code>POST</code>和<code>GET</code>两种方式。</p>
+<p><code>GET</code>方式是直接以链接形式访问，链接中包含了所有的参数，当然如果包含了密码的话是一种不安全的选择，不过你可以直观地看到自己提交了什么内容。</p>
+<p>而<code>POST</code>则不会在网址上显示所有的参数，不过如果你想直接查看提交了什么就不太方便了，大家可以酌情选择。</p>
+<h3 id="设置Headers"><a href="#设置Headers" class="headerlink" title="设置Headers"></a>设置Headers</h3><p>有些网站不会同意程序直接用上面的方式进行访问，如果识别有问题，那么站点根本不会响应，所以为了完全模拟浏览器的工作，所以，我们需要设置一些<code>Headers</code>的属性。</p>
+<p>如果要查看你的<code>Headers</code>相应的属性，在浏览器界面按下<code>F12</code>-&gt; <code>network</code> -&gt; 选择一个文件 -&gt; <code>Headers</code></p>
+<p><code>user_agent</code>就是请求的身份，如果没有写入请求身份，那么服务器不一定会响应，所以可以在<code>headers</code>中设置<code>agent</code>,另外，我们还有对付”反盗链”的方式，对付防盗链，服务器会识别<code>headers</code>中的<code>referer</code>是不是它自己，如果不是，有的服务器不会响应，所以我们还可以在<code>headers</code>中加入<code>referer</code>。</p>
+<p>同上面的方法，在传送请求时把headers传入Request参数里，这样就能应付防盗链了。</p>
+<p>另外headers的一些属性，下面的需要特别注意一下：</p>
+<blockquote>
+<p>User-Agent : 有些服务器或 Proxy 会通过该值来判断是否是浏览器发出的请求<br>Content-Type : 在使用 REST 接口时，服务器会检查该值，用来确定 HTTP Body 中的内容该怎样解析。<br>application/xml ： 在 XML RPC，如 RESTful/SOAP 调用时使用<br>application/json ： 在 JSON RPC 调用时使用<br>application/x-www-form-urlencoded ： 浏览器提交 Web 表单时使用<br>在使用服务器提供的 RESTful 或 SOAP 服务时， Content-Type 设置错误会导致服务器拒绝服务</p>
+</blockquote>
+<h3 id="Proxy（代理）的设置"><a href="#Proxy（代理）的设置" class="headerlink" title="Proxy（代理）的设置"></a>Proxy（代理）的设置</h3><p>urllib2 默认会使用环境变量 http_proxy 来设置 HTTP Proxy。假如一个网站它会检测某一段时间某个IP 的访问次数，如果访问次数过多，它会禁止你的访问。所以你可以设置一些代理服务器来帮助你做工作，每隔一段时间换一个代理，网站君都不知道是谁在捣鬼了，这酸爽！</p>
+<p>代理的设置用法：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">enable_proxy = True</span><br><span class="line">proxy_handler = urllib2.ProxyHandler(&#123;<span class="string">"http"</span> : 'http://some-proxy.com:8080'&#125;)</span><br><span class="line">null_proxy_handler = urllib2.ProxyHandler(&#123;&#125;)</span><br><span class="line">if enable_proxy:</span><br><span class="line">    opener = urllib2.build_opener(proxy_handler)</span><br><span class="line"><span class="section">else:</span></span><br><span class="line">    opener = urllib2.build_opener(null_proxy_handler)</span><br><span class="line">urllib2.install_opener(opener)</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用-HTTP-的PUT和DELETE方法"><a href="#使用-HTTP-的PUT和DELETE方法" class="headerlink" title="使用 HTTP 的PUT和DELETE方法"></a>使用 HTTP 的<code>PUT</code>和<code>DELETE</code>方法</h3><p>http协议有六种请求方法，get,head,put,delete,post,options，我们有时候需要用到PUT方式或者DELETE方式请求。</p>
+<blockquote>
+<p>PUT：这个方法比较少见。HTML表单也不支持这个。本质上来讲， PUT和POST极为相似，都是向服务器发送数据，但它们之间有一个重要区别，PUT通常指定了资源的存放位置，而POST则没有，POST的数据存放位置由服务器自己决定。</p>
+<p>DELETE：删除某一个资源。基本上这个也很少见，不过还是有一些地方比如amazon的S3云服务里面就用的这个方法来删除资源。</p>
+</blockquote>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line">request = urllib2.Request(uri, <span class="keyword">data</span>=<span class="keyword">data</span>)</span><br><span class="line">request.get_method = lambda: <span class="string">'PUT'</span> # <span class="built_in">or</span> <span class="string">'DELETE'</span></span><br><span class="line">response = urllib2.urlopen(request)</span><br></pre></td></tr></table></figure>
+<h3 id="使用DebugLog"><a href="#使用DebugLog" class="headerlink" title="使用DebugLog"></a>使用DebugLog</h3><p>可以通过下面的方法把 Debug Log 打开，这样收发包的内容就会在屏幕上打印出来，方便调试，这个也不太常用，仅提一下。<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import urllib2</span><br><span class="line">httpHandler = urllib2.HTTPHandler(debuglevel=1)</span><br><span class="line">httpsHandler = urllib2.HTTPSHandler(debuglevel=1)</span><br><span class="line">opener = urllib2.build_opener(httpHandler, httpsHandler)</span><br><span class="line">urllib2.install_opener(opener)</span><br><span class="line">response = urllib2.urlopen('http://www.baidu.com')</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.zhihu.com/question/20899988" target="_blank" rel="noopener">如何入门 Python 爬虫？-知乎</a></p>
+<p><a href="http://cuiqingcai.com/1052.html" target="_blank" rel="noopener">Python爬虫学习系列教程</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/16/python/【python】random模块/" rel="next" title="【python】random模块小结">
+                <i class="fa fa-chevron-left"></i> 【python】random模块小结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/16/python/python爬虫入门(2)/" rel="prev" title="python爬虫入门(2)">
+                python爬虫入门(2) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是爬虫"><span class="nav-number">2.</span> <span class="nav-text">什么是爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫的定义"><span class="nav-number">2.1.</span> <span class="nav-text">爬虫的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫流程"><span class="nav-number">2.2.</span> <span class="nav-text">爬虫流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#认识URI和URL"><span class="nav-number">2.3.</span> <span class="nav-text">认识URI和URL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Urllib库的使用"><span class="nav-number">3.</span> <span class="nav-text">Urllib库的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#POST和GET"><span class="nav-number">3.1.</span> <span class="nav-text">POST和GET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置Headers"><span class="nav-number">3.2.</span> <span class="nav-text">设置Headers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Proxy（代理）的设置"><span class="nav-number">3.3.</span> <span class="nav-text">Proxy（代理）的设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-HTTP-的PUT和DELETE方法"><span class="nav-number">3.4.</span> <span class="nav-text">使用 HTTP 的PUT和DELETE方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用DebugLog"><span class="nav-number">3.5.</span> <span class="nav-text">使用DebugLog</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

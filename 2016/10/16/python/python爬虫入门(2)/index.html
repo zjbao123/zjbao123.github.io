@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,爬虫,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="异常处理这里主要说的是URLError还有HTTPError，以及对它们的一些处理。 URLError首先解释下URLError可能产生的原因：  网络无连接，即本机无法上网 连接不到特定的服务器 服务器不存在">
+<meta name="keywords" content="python,爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python爬虫入门(2)">
+<meta property="og:url" content="http://zjbao123.github.io/2016/10/16/python/python爬虫入门(2)/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="异常处理这里主要说的是URLError还有HTTPError，以及对它们的一些处理。 URLError首先解释下URLError可能产生的原因：  网络无连接，即本机无法上网 连接不到特定的服务器 服务器不存在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.729Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python爬虫入门(2)">
+<meta name="twitter:description" content="异常处理这里主要说的是URLError还有HTTPError，以及对它们的一些处理。 URLError首先解释下URLError可能产生的原因：  网络无连接，即本机无法上网 连接不到特定的服务器 服务器不存在">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2016/10/16/python/python爬虫入门(2)/">
+
+
+
+
+
+  <title>python爬虫入门(2) | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2016/10/16/python/python爬虫入门(2)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python爬虫入门(2)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-16T16:40:02+08:00">
+                2016-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/10/16/python/python爬虫入门(2)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2016/10/16/python/python爬虫入门(2)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>这里主要说的是URLError还有HTTPError，以及对它们的一些处理。</p>
+<h3 id="URLError"><a href="#URLError" class="headerlink" title="URLError"></a>URLError</h3><p>首先解释下URLError可能产生的原因：</p>
+<ul>
+<li>网络无连接，即本机无法上网</li>
+<li>连接不到特定的服务器</li>
+<li>服务器不存在</li>
+</ul>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"> </span><br><span class="line">requset = urllib2.Request(<span class="string">'http://www.xxxxx.com'</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    urllib2.urlopen(request)</span><br><span class="line"><span class="keyword">except</span> urllib2.URLError, e:</span><br><span class="line">    <span class="keyword">print</span> e.reason</span><br></pre></td></tr></table></figure>
+<p>当我们打开一个不存在的网址时，就会报错：<code>[Errno 11004] getaddrinfo failed</code></p>
+<h3 id="HTTPError"><a href="#HTTPError" class="headerlink" title="HTTPError"></a>HTTPError</h3><p><code>HTTPError</code>是<code>URLError</code>的子类，在你利用<code>urlopen</code>方法发出一个请求时，服务器上都会对应一个应答对象<code>response</code>，其中它包含一个数字”状态码”。举个例子，假如<code>response</code>是一个”重定向”，需定位到别的地址获取文档，<code>urllib2</code>将对此进行处理。</p>
+<p>其他不能处理的，<code>urlopen</code>会产生一个<code>HTTPError</code>，对应相应的状态吗，HTTP状态码表示HTTP协议所返回的响应的状态。下面将状态码归结如下：</p>
+<blockquote>
+<p>100：继续  客户端应当继续发送请求。客户端应当继续发送请求的剩余部分，或者如果请求已经完成，忽略这个响应。<br>101： 转换协议  在发送完这个响应最后的空行后，服务器将会切换到在Upgrade 消息头中定义的那些协议。只有在切换新的协议更有好处的时候才应该采取类似措施。<br>102：继续处理   由WebDAV（RFC 2518）扩展的状态码，代表处理将被继续执行。<br>200：请求成功      处理方式：获得响应的内容，进行处理<br>201：请求完成，结果是创建了新资源。新创建资源的URI可在响应的实体中得到    处理方式：爬虫中不会遇到<br>202：请求被接受，但处理尚未完成    处理方式：阻塞等待<br>204：服务器端已经实现了请求，但是没有返回新的信 息。如果客户是用户代理，则无须为此更新自身的文档视图。    处理方式：丢弃<br>300：该状态码不被HTTP/1.0的应用程序直接使用， 只是作为3XX类型回应的默认解释。存在多个可用的被请求资源。    处理方式：若程序中能够处理，则进行进一步处理，如果程序中不能处理，则丢弃<br>301：请求到的资源都会分配一个永久的URL，这样就可以在将来通过该URL来访问此资源    处理方式：重定向到分配的URL<br>302：请求到的资源在一个不同的URL处临时保存     处理方式：重定向到临时的URL<br>304：请求的资源未更新     处理方式：丢弃<br>400：非法请求     处理方式：丢弃<br>401：未授权     处理方式：丢弃<br>403：禁止     处理方式：丢弃<br>404：没有找到     处理方式：丢弃<br>500：服务器内部错误  服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。一般来说，这个问题都会在服务器端的源代码出现错误时出现。<br>501：服务器无法识别  服务器不支持当前请求所需要的某个功能。当服务器无法识别请求的方法，并且无法支持其对任何资源的请求。<br>502：错误网关  作为网关或者代理工作的服务器尝试执行请求时，从上游服务器接收到无效的响应。<br>503：服务出错   由于临时的服务器维护或者过载，服务器当前无法处理请求。这个状况是临时的，并且将在一段时间以后恢复。</p>
+</blockquote>
+<p>HTTPError实例产生后会有一个code属性，这就是是服务器发送的相关错误号。<br>因为urllib2可以为你处理重定向，也就是3开头的代号可以被处理，并且100-299范围的号码指示成功，所以你只能看到400-599的错误号码。</p>
+<p>下面我们写一个例子来感受一下，捕获的异常是HTTPError，它会带有一个code属性，就是错误代号，根据编程经验，父类的异常应当写到子类异常的后面，如果子类捕获不到，那么可以捕获父类的异常,还可以加入 hasattr属性提前对属性进行判断:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"> </span><br><span class="line">req = urllib2.Request(<span class="string">'http://blog.csdn.net/cqcre'</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    urllib2.urlopen(req)</span><br><span class="line"><span class="keyword">except</span> urllib2.URLError, e:</span><br><span class="line">    <span class="keyword">if</span> hasattr(e,<span class="string">"code"</span>):</span><br><span class="line">        <span class="keyword">print</span> e.code</span><br><span class="line">    <span class="keyword">if</span> hasattr(e,<span class="string">"reason"</span>):</span><br><span class="line">        <span class="keyword">print</span> e.reason</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"OK"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>Cookie，指某些网站为了辨别用户身份、进行session跟踪而储存在用户本地终端上的数据（通常经过加密）。</p>
+<p>比如说有些网站需要登录后才能访问某个页面，在登录之前，你想抓取某个页面内容是不允许的。那么我们可以利用Urllib2库保存我们登录的Cookie，然后再抓取其他页面就达到目的了。</p>
+<p>在此之前，先介绍Opener。</p>
+<h3 id="Opener"><a href="#Opener" class="headerlink" title="Opener"></a>Opener</h3><p>Opener是urllib2.OpenerDirector的实例，在前面，我们都是使用的默认的opener，也就是urlopen。它是一个特殊的opener，可以理解成opener的一个特殊实例，传入的参数仅仅是url，data，timeout。</p>
+<p>如果我们需要用到Cookie，只用这个opener是不能达到目的的，所以我们需要创建更一般的opener来实现对Cookie的设置。</p>
+<h3 id="Cookielib"><a href="#Cookielib" class="headerlink" title="Cookielib"></a>Cookielib</h3><p>cookielib模块的主要作用是提供可存储cookie的对象，以便于与urllib2模块配合使用来访问Internet资源。Cookielib模块非常强大，我们可以利用本模块的CookieJar类的对象来捕获cookie并在后续连接请求时重新发送，比如可以实现模拟登录功能。该模块主要的对象有CookieJar、FileCookieJar、MozillaCookieJar、LWPCookieJar。</p>
+<p>它们的关系：<code>CookieJar —-派生—-&gt;FileCookieJar  —-派生—–&gt;MozillaCookieJar和LWPCookieJar</code></p>
+<h4 id="1-获取Cookie保存到变量"><a href="#1-获取Cookie保存到变量" class="headerlink" title="1)获取Cookie保存到变量"></a>1)获取Cookie保存到变量</h4><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import urllib2</span><br><span class="line">import cookielib</span><br><span class="line"><span class="comment">#声明一个CookieJar对象实例来保存cookie</span></span><br><span class="line">cookie = cookielib.CookieJar()</span><br><span class="line"><span class="comment">#利用urllib2库的HTTPCookieProcessor对象来创建cookie处理器</span></span><br><span class="line">handler = urllib2.HTTPCookieProcessor(cookie)</span><br><span class="line"><span class="comment">#通过handler来构建opener</span></span><br><span class="line">opener = urllib2.build_opener(handler)</span><br><span class="line"><span class="comment">#创建一个请求，原理同urllib2的urlopen</span></span><br><span class="line">response = opener.<span class="built_in">open</span>(<span class="string">'http://www.baidu.com'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="keyword">item</span> <span class="keyword">in</span> cookie:</span><br><span class="line">    print <span class="string">'Name = '</span> + <span class="keyword">item</span>.name</span><br><span class="line">    print <span class="string">'Value = '</span>+ <span class="keyword">item</span>.<span class="built_in">value</span></span><br></pre></td></tr></table></figure>
+<h4 id="2）保存Cookie到文件"><a href="#2）保存Cookie到文件" class="headerlink" title="2）保存Cookie到文件"></a>2）保存Cookie到文件</h4><p>在上面的方法中，我们将cookie保存到了cookie这个变量中，如果我们想将cookie保存到文件中该怎么做呢？这时，我们就要用到<br>FileCookieJar这个对象了，在这里我们使用它的子类MozillaCookieJar来实现Cookie的保存。<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import urllib2</span><br><span class="line">import cookielib</span><br><span class="line"><span class="comment">#设置保存cookie的文件，同级目录下的cookie.txt</span></span><br><span class="line">filename = 'cookie.txt'</span><br><span class="line"><span class="comment">#声明一个MozillaCookieJar对象实例来保存cookie，之后写入文件</span></span><br><span class="line">cookie = cookielib.MozillaCookieJar(filename)</span><br><span class="line"><span class="comment">#利用urllib2库的HTTPCookieProcessor对象来创建cookie处理器</span></span><br><span class="line">handler = urllib2.HTTPCookieProcessor(cookie)</span><br><span class="line"><span class="comment">#通过handler来构建opener</span></span><br><span class="line">opener = urllib2.build_opener(handler)</span><br><span class="line"><span class="comment">#此处的open方法同urllib2的urlopen方法，也可以传入request</span></span><br><span class="line">response = opener.open('http://www.baidu.com')</span><br><span class="line"></span><br><span class="line">cookie.save(ignore_discard=True, ignore_expires=True)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>ignore_discard: save even cookies set to be discarded.<br>ignore_expires: save even cookies that have expiredThe file is overwritten if it already exists</p>
+</blockquote>
+<p>gnore_discard:即使cookies将被丢弃也将它保存下来。</p>
+<p>ignore_expires：如果在该文件中cookies已经存在，则覆盖原文件写入。</p>
+<p>在这里，我们将这两个全部设置为True。</p>
+<h4 id="3-从文件中获取Cookie并访问"><a href="#3-从文件中获取Cookie并访问" class="headerlink" title="3)从文件中获取Cookie并访问"></a>3)从文件中获取Cookie并访问</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建MozillaCookieJar实例对象</span></span><br><span class="line">cookie = cookielib.MozillaCookieJar()</span><br><span class="line"><span class="comment">#从文件中读取cookie内容到变量</span></span><br><span class="line">cookie.load('cookie.txt', ignore_discard=True, ignore_expires=True)</span><br><span class="line"><span class="comment">#创建请求的request</span></span><br><span class="line">req = urllib2.Request(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line"><span class="comment">#利用urllib2的build_opener方法创建一个opener</span></span><br><span class="line">opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))</span><br><span class="line">response = opener.open(req)</span><br><span class="line">print response.read()</span><br></pre></td></tr></table></figure>
+<h4 id="4-利用cookie模拟网站登录"><a href="#4-利用cookie模拟网站登录" class="headerlink" title="4)利用cookie模拟网站登录"></a>4)利用cookie模拟网站登录</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import urllib</span><br><span class="line">import urllib2</span><br><span class="line">import cookielib</span><br><span class="line"> </span><br><span class="line">filename = 'cookie.txt'</span><br><span class="line"><span class="comment">#声明一个MozillaCookieJar对象实例来保存cookie，之后写入文件</span></span><br><span class="line">cookie = cookielib.MozillaCookieJar(filename)</span><br><span class="line">opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))</span><br><span class="line">postdata = urllib.urlencode(&#123;</span><br><span class="line">            'stuid':'201200131012',</span><br><span class="line">            'pwd':'23342321'</span><br><span class="line">        &#125;)</span><br><span class="line"><span class="comment">#登录教务系统的URL</span></span><br><span class="line">loginUrl = 'http://jwxt.sdu.edu.cn:7890/pls/wwwbks/bks_login2.login'</span><br><span class="line"><span class="comment">#模拟登录，并把cookie保存到变量</span></span><br><span class="line">result = opener.open(loginUrl,postdata)</span><br><span class="line"><span class="comment">#保存cookie到cookie.txt中</span></span><br><span class="line">cookie.save(ignore_discard=True, ignore_expires=True)</span><br><span class="line"><span class="comment">#利用cookie请求访问另一个网址，此网址是成绩查询网址</span></span><br><span class="line">gradeUrl = 'http://jwxt.sdu.edu.cn:7890/pls/wwwbks/bkscjcx.curscopre'</span><br><span class="line"><span class="comment">#请求访问成绩查询网址</span></span><br><span class="line">result = opener.open(gradeUrl)</span><br><span class="line">print result.read()</span><br></pre></td></tr></table></figure>
+<p>创建一个带有cookie的opener，在访问登录的URL时，将登录后的cookie保存下来，然后利用这个cookie来访问其他网址。</p>
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.zhihu.com/question/20899988" target="_blank" rel="noopener">如何入门 Python 爬虫？-知乎</a></p>
+<p><a href="http://cuiqingcai.com/1052.html" target="_blank" rel="noopener">Python爬虫学习系列教程</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/16/python/python爬虫入门(1)/" rel="next" title="python爬虫入门（1）">
+                <i class="fa fa-chevron-left"></i> python爬虫入门（1）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/17/python/python爬虫入门(3)/" rel="prev" title="python爬虫入门(3)">
+                python爬虫入门(3) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常处理"><span class="nav-number">1.</span> <span class="nav-text">异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#URLError"><span class="nav-number">1.1.</span> <span class="nav-text">URLError</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPError"><span class="nav-number">1.2.</span> <span class="nav-text">HTTPError</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">2.</span> <span class="nav-text">Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Opener"><span class="nav-number">2.1.</span> <span class="nav-text">Opener</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookielib"><span class="nav-number">2.2.</span> <span class="nav-text">Cookielib</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-获取Cookie保存到变量"><span class="nav-number">2.2.1.</span> <span class="nav-text">1)获取Cookie保存到变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）保存Cookie到文件"><span class="nav-number">2.2.2.</span> <span class="nav-text">2）保存Cookie到文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-从文件中获取Cookie并访问"><span class="nav-number">2.2.3.</span> <span class="nav-text">3)从文件中获取Cookie并访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-利用cookie模拟网站登录"><span class="nav-number">2.2.4.</span> <span class="nav-text">4)利用cookie模拟网站登录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
