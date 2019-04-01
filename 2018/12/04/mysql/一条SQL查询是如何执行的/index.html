@@ -88,7 +88,7 @@
 <meta property="og:description" content="MySQL大体可分为 Server层 和 存储引擎层两部分。Server层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖MySQL的大多数核心服务功能以及所有内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程，触发器，试图等。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://zjbao123.github.io/2018/12/04/mysql/一条SQL查询是如何执行的/MySQL逻辑.png">
-<meta property="og:updated_time" content="2019-03-22T14:44:36.723Z">
+<meta property="og:updated_time" content="2019-04-01T02:13:33.555Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一条SQL查询是如何执行的">
 <meta name="twitter:description" content="MySQL大体可分为 Server层 和 存储引擎层两部分。Server层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖MySQL的大多数核心服务功能以及所有内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程，触发器，试图等。">
@@ -374,15 +374,37 @@
       
 
       
-        <p><img src="/2018/12/04/mysql/一条SQL查询是如何执行的/MySQL逻辑.png" alt="MySQL逻辑"><br>MySQL大体可分为 Server层 和 存储引擎层两部分。<br>Server层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖MySQL的大多数核心服务功能以及所有内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程，触发器，试图等。</p>
+        <p>MySQL大体可分为 Server层 和 存储引擎层两部分。<br>Server层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖MySQL的大多数核心服务功能以及所有内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程，触发器，试图等。</p>
 <a id="more"></a>
+<p><img src="/2018/12/04/mysql/一条SQL查询是如何执行的/MySQL逻辑.png" alt="MySQL逻辑"></p>
 <p>而存储引擎层负责数据的存储和提取。其架构模式是插件式的。支持InnoDB，MyISAM、Memory等多个存储引擎，而InnoDB是最常用的，也成为了默认存储引擎。可以使用<code>engine=memory</code>来指定引擎。</p>
 <p>从图中，不同的存储引擎共用一个Server层，也就是从连接器到执行器的部分。</p>
 <h3 id="连接器"><a href="#连接器" class="headerlink" title="连接器"></a>连接器</h3><p>连接器负责跟客户端建立连接，获取权限，维持和管理连接。<br>连接指令一般这样写:</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">mysql</span> -h<span class="variable">$ip</span> -P<span class="variable">$port</span> -u<span class="variable">$user</span> -p</span><br></pre></td></tr></table></figure>
 <p>一般连接生产环境,建议输完命令后输入密码,直接输入容易导致密码泄露。</p>
 <p>在用户名密码验证通过之后，连接器会到权限表里查出你拥有的权限。之后的权限，都依赖与此。也就意味着，在建立成功之后，即使你做了权限的修改，也要再新建连接才会使用新的权限设置。</p>
-<p>连接完成之后，如果没有后续动作，这个连接就处于空闲状态，可以在<code>show processlist</code>中看到他。</p>
+<p>连接完成之后，如果没有后续动作，这个连接就处于空闲状态，可以在<code>show processlist</code>中看到他。太长时间没有动静,在<code>wait_timeout</code> 控制其关闭,默认为8小时。</p>
+<h4 id="长连接和短链接"><a href="#长连接和短链接" class="headerlink" title="长连接和短链接"></a>长连接和短链接</h4><p>在数据库里面,长连接是指在连接成功之后, 如果客户端持续有请求,则一直使用同一个连接。短连接则是指每次执行完很少的几次查询就断开连接，下次查询再重新建立一个。</p>
+<p>因为建立的过程比较复杂，因此要尽量少建立连接的动作，尽量使用长连接。<br>但是在使用长连接之后，MySQL的占用内存涨的很快，因为MySQL在执行过程中临时使用的内存是管理在连接对象里的，这些资源会在断开的时候才释放。如果长连接累计下来，可能会导致内存占用太大，被系统强杀，从现象来看，就是MySQL异常重启了。</p>
+<p>那么怎么解决呢？</p>
+<ol>
+<li>定期断开长连接。</li>
+<li>如果是MySQL或更新版本，可以使用<code>mysql_reset_connection</code>来重新初始化连接资源，这个过程不需要重连和重新做权限验证，但是会将连接恢复到刚刚创建完的状态。</li>
+</ol>
+<h3 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h3><p>连接建立完成后，MySQL拿到一个查询请求后，会先到查询缓存里看看，这个是否执行过这个语句。之前执行过的语句及其结果会以key-value对的形式，被缓存在内存中。但是查询缓存失效非常频繁，只要有对一个表的更新，这个表上额所有查询缓存都会被清空，对于更新压力大的数据库，查询缓存的命中率很低。除非你的业务就是一张静态表，很长时间更新一次。</p>
+<p>好在MySQL提供了”按需使用”的方式，在参数中设置<code>query_cache_type</code>为<code>DEMAND</code>，这样对于默认的SQL语句都不使用查询缓存。而对于要使用的语句，可以如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">SQL_CACHE</span> * <span class="keyword">from</span> <span class="keyword">Table</span> <span class="keyword">where</span> <span class="keyword">ID</span> = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是。<strong>这个功能在MySQL8.0被整块删掉了。</strong>因为其弊大于利。</p>
+<h3 id="分析器"><a href="#分析器" class="headerlink" title="分析器"></a>分析器</h3><p>在没有命中查询缓存之后，就开始真正执行语句了。首先需要对SQL语句做解析。</p>
+<p>分析器会先做“词法分析”。你输入的是由多个字符串和空格组成的一条SQL语句，MySQL需要识别出里面的字符串分别是什么，代表什么。例如，select 拼写错误等。</p>
+<p>做完了这些识别之后，就要做”语法分析”。根据上面的词法分析的结果，语法分析器会根据语法规则，判断你输入的SQL语句是否满足MySQL语法。</p>
+<p>如果语句不对，则会收到“You have an error in your SQL syntax” 的错误提醒。一般会提示第一个出现错误的位置，需要关注<code>Use near</code>的后续内容。</p>
+<h3 id="优化器"><a href="#优化器" class="headerlink" title="优化器"></a>优化器</h3><p>经过了分析器，MySQL就知道你需要做什么了，在开始执行之前，要先经过优化器的处理。</p>
+<p>优化器是在表里面有多个索引的时候，决定需要使用哪个索引；或者在一个语句有多表关联（join）的时候，决定各个表的连接顺序。</p>
+<p>虽然在不同的执行顺序结果一致，但是执行的效率不同，而优化器的作用就是选择使用哪一个方案。</p>
+<p>优化器阶段完成之后，这个语句的执行方案就确定下来了。后续将会继续讲解优化器的具体实现。</p>
+<h3 id="执行器"><a href="#执行器" class="headerlink" title="执行器"></a>执行器</h3><p>MySQL通过分析器知道了你要做什么，通过优化器知道了该怎么做，于是进入了执行器阶段。</p>
+<p>在开始执行的时候，先判断一下权限。有权限之后，</p>
 
       
     </div>
@@ -511,7 +533,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">91</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -588,7 +610,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#连接器"><span class="nav-number">1.</span> <span class="nav-text">连接器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#连接器"><span class="nav-number">1.</span> <span class="nav-text">连接器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#长连接和短链接"><span class="nav-number">1.1.</span> <span class="nav-text">长连接和短链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询缓存"><span class="nav-number">2.</span> <span class="nav-text">查询缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析器"><span class="nav-number">3.</span> <span class="nav-text">分析器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化器"><span class="nav-number">4.</span> <span class="nav-text">优化器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行器"><span class="nav-number">5.</span> <span class="nav-text">执行器</span></a></li></ol></div>
             
 
           </div>
