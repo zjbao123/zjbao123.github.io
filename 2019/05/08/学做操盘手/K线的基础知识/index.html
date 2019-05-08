@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="K线,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="此篇内容是基于摸鱼小组的一个K线学习课的小结，需要时常温故知新并有序执行。">
+<meta name="keywords" content="K线">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何看懂K线">
+<meta property="og:url" content="http://zjbao123.github.io/2019/05/08/学做操盘手/K线的基础知识/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="此篇内容是基于摸鱼小组的一个K线学习课的小结，需要时常温故知新并有序执行。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zjbao123.github.io/2019/05/08/学做操盘手/K线的基础知识/葛南维八大买卖法.jpeg">
+<meta property="og:updated_time" content="2019-05-08T15:42:07.975Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何看懂K线">
+<meta name="twitter:description" content="此篇内容是基于摸鱼小组的一个K线学习课的小结，需要时常温故知新并有序执行。">
+<meta name="twitter:image" content="http://zjbao123.github.io/2019/05/08/学做操盘手/K线的基础知识/葛南维八大买卖法.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2019/05/08/学做操盘手/K线的基础知识/">
+
+
+
+
+
+  <title>如何看懂K线 | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2019/05/08/学做操盘手/K线的基础知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何看懂K线</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-08T23:35:00+08:00">
+                2019-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学做操盘手/" itemprop="url" rel="index">
+                    <span itemprop="name">学做操盘手</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/08/学做操盘手/K线的基础知识/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/05/08/学做操盘手/K线的基础知识/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>此篇内容是基于摸鱼小组的一个K线学习课的小结，需要时常温故知新并有序执行。<br><a id="more"></a></p>
+<h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><p>成交量： 一段时间内成交的股数。成交额：则表示成交量 * 股价；<br>在相同的成交量的时候，股价的不一致，也会导致成交额的不一致；<br>换手率： 成交量 / 总股本 or 流通股本<br>内盘： 主动卖出方的数量<br>外盘： 主动买入方的数量<br>成交量 = 外盘 + 内盘</p>
+<h3 id="量价关系"><a href="#量价关系" class="headerlink" title="量价关系"></a>量价关系</h3><p>量分为： 放量，常量，缩量<br>价分为： 上涨，横盘，下跌<br>因此分为 3*3= 9种组合。</p>
+<p>放量上涨： 主动买盘增加，意味着增量资金进场，较为乐观；</p>
+<p>放量下跌： 主动卖盘增加，一般不健康，但是也有特殊情形，在牛市中出现单根的放量下跌， 意味着获利盘出逃， 多头依然强势时，有买入的机会。</p>
+<p>放量横盘： 多空双方力量僵持；</p>
+<p>缩量上涨： 主动卖盘减少，意味着投资者锁仓，在贵州茅台的拉升中，有这种情况的出现。一般有长期投资者介入才会有这种情况出现。</p>
+<p>缩量下跌：主动买盘减少，两种情况会出现： 下跌趋势中的阴跌走势和上涨趋势后的回调，由于在回调周期，是健康的，我们可以对行情看高一线；</p>
+<p>缩量横盘： 继续观察；</p>
+<p>常量则沿着当前趋势继续；</p>
+<p>量价分析其本质是为了通过分析市场背后多头和空头的态度对市场进一步地研判。</p>
+<p>那么如何判断缩量，常量和放量呢？一般认为3%以下属于缩量， 5%以下常量， 12%放量，以上则为巨量。<br>一般通过换手率来判断量的程度，不同股的比例不同，不能死记硬背；</p>
+<p>放量则表示：</p>
+<ol>
+<li>市场出现分歧，看空与看多的双方有非常多的争议；</li>
+<li>主力行为，庄家对个股进行对倒，并不真实，避免交易；</li>
+</ol>
+<p>缩量一般认为投资者达成共识，比较真实；</p>
+<h3 id="均线系统"><a href="#均线系统" class="headerlink" title="均线系统"></a>均线系统</h3><p>全称移动平均线MA， 有20世纪中期葛南维提出。我们日常听说的五日线，十日线，二十日线都属于均线系统。不同之处就在于周期不同。是趋势指标。<br>五日均线：从今天开始往前数5天，五天收盘价的平均值作为均线数值。</p>
+<p>均线有三个特点：稳定性，滞后性，引力性。这个从字面可以理解。<br>引力性这里要引入乖离的概念， 股价与均线远近程度有关。当股价距离均线较远时，则表示乖离较大，具有回调的需求。</p>
+<h3 id="均线状态"><a href="#均线状态" class="headerlink" title="均线状态"></a>均线状态</h3><p>分为多头排列，空头排列<br>短期均线高于长期均线，则以持股为主；当短期均线下穿长期均线，这个时候多头均线已经破坏，应该适当减仓；如果短期均线都低于长线均线，则以持币为主。<br>要注意的是， 由于是趋势指标， 多空相互转变时，一定是指示右侧操作，也就意味着，不可能买在最低点，也不可能卖在最高点。</p>
+<p>特点：趋势行情中，收益较大，震荡行情收益并不好。但是趋势并不是这么好判断的。对于市场，我们最怕的并不是做错，而是没有结论。</p>
+<h3 id="均线作用"><a href="#均线作用" class="headerlink" title="均线作用"></a>均线作用</h3><p>由于均线是几日的平均值，也一定程度上反映了投资者的成本。这个价格一般对于股价具有一定的支撑和压力作用。<br>比如股价一路上行，但是只要一往下触碰到20日均线就会停止调整继续向上。那么20日线就是股价的支撑线。很多人会找到20线和30日线作为股价的压力线和支撑线。那么，当趋势运行时，给趋势提供支撑或者压力的那根均线，就是可以被用作判断的均线。</p>
+<h3 id="交易方式"><a href="#交易方式" class="headerlink" title="交易方式"></a>交易方式</h3><h4 id="金叉死叉"><a href="#金叉死叉" class="headerlink" title="金叉死叉"></a>金叉死叉</h4><p>当短期均线上穿长期均线时买入，当短期均线下穿长期均线时卖出。<br>但是一旦进入震荡期，就容易频繁止损。这也是趋势指标的特点。</p>
+<h4 id="葛南维八大买卖法"><a href="#葛南维八大买卖法" class="headerlink" title="葛南维八大买卖法"></a>葛南维八大买卖法</h4><p><img src="/2019/05/08/学做操盘手/K线的基础知识/葛南维八大买卖法.jpeg" alt="葛南维八大买卖法"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/K线/" rel="tag"># K线</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/25/业务知识总结/技术管理/" rel="next" title="技术管理课">
+                <i class="fa fa-chevron-left"></i> 技术管理课
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础概念"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#量价关系"><span class="nav-number">2.</span> <span class="nav-text">量价关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#均线系统"><span class="nav-number">3.</span> <span class="nav-text">均线系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#均线状态"><span class="nav-number">4.</span> <span class="nav-text">均线状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#均线作用"><span class="nav-number">5.</span> <span class="nav-text">均线作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交易方式"><span class="nav-number">6.</span> <span class="nav-text">交易方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#金叉死叉"><span class="nav-number">6.1.</span> <span class="nav-text">金叉死叉</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#葛南维八大买卖法"><span class="nav-number">6.2.</span> <span class="nav-text">葛南维八大买卖法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
