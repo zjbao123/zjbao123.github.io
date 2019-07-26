@@ -7,8 +7,8 @@
         <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
     {% else %}
         {% set CommentsClass = "Gitment" %}
-        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-        <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+        <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+        <script src="https://jjeejj.github.io/js/gitment.js"></script>
     {% endif %}
 <!-- END LOCAL -->
 
