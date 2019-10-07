@@ -83,19 +83,19 @@
 <meta name="keywords" content="Java进阶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="谈一谈消息队列">
-<meta property="og:url" content="http://zjbao123.github.io/2019/07/26/架构学习/消息队列/index.html">
+<meta property="og:url" content="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/index.html">
 <meta property="og:site_name" content="不为繁华易匠心">
 <meta property="og:description" content="什么是消息队列？消息队列，也就是所谓的MQ（Message Queue）。消息队列可以简单理解为：把要传输的数据放在队列中。 使用消息队列可以解决什么问题？1.解耦如果在原有系统架构中，需要额外增加一个系统E或者删除一个系统C，也需要对A系统进行修改。A 系统跟其它各种乱七八糟的系统严重耦合，A系统产生一条比较关键的数据，很多系统都需要 A系统将这个数据发送过来。A 系统要时时刻刻考虑BCD三个系">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://zjbao123.github.io/2019/07/26/架构学习/消息队列/system.png">
-<meta property="og:image" content="http://zjbao123.github.io/2019/07/26/架构学习/消息队列/systemAfter.png">
-<meta property="og:image" content="http://zjbao123.github.io/2019/07/26/架构学习/消息队列/systemTiming.png">
-<meta property="og:image" content="http://zjbao123.github.io/2019/07/26/架构学习/消息队列/systemTimingAfter.png">
-<meta property="og:updated_time" content="2019-10-07T15:20:34.009Z">
+<meta property="og:image" content="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/system.png">
+<meta property="og:image" content="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/systemAfter.png">
+<meta property="og:image" content="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/systemTiming.png">
+<meta property="og:image" content="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/systemTimingAfter.png">
+<meta property="og:updated_time" content="2019-10-07T15:27:02.511Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="谈一谈消息队列">
 <meta name="twitter:description" content="什么是消息队列？消息队列，也就是所谓的MQ（Message Queue）。消息队列可以简单理解为：把要传输的数据放在队列中。 使用消息队列可以解决什么问题？1.解耦如果在原有系统架构中，需要额外增加一个系统E或者删除一个系统C，也需要对A系统进行修改。A 系统跟其它各种乱七八糟的系统严重耦合，A系统产生一条比较关键的数据，很多系统都需要 A系统将这个数据发送过来。A 系统要时时刻刻考虑BCD三个系">
-<meta name="twitter:image" content="http://zjbao123.github.io/2019/07/26/架构学习/消息队列/system.png">
+<meta name="twitter:image" content="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/system.png">
 
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <link rel="canonical" href="http://zjbao123.github.io/2019/07/26/架构学习/消息队列/">
+  <link rel="canonical" href="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/">
 
 
 
@@ -278,7 +278,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2019/07/26/架构学习/消息队列/">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zjbao123">
@@ -307,8 +307,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-26T22:49:22+08:00">
-                2019-07-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-07T22:49:22+08:00">
+                2019-10-07
               </time>
             
 
@@ -368,10 +368,10 @@
 
       
         <h3 id="什么是消息队列？"><a href="#什么是消息队列？" class="headerlink" title="什么是消息队列？"></a>什么是消息队列？</h3><p>消息队列，也就是所谓的MQ（Message Queue）。消息队列可以简单理解为：把要传输的数据放在队列中。</p>
-<h3 id="使用消息队列可以解决什么问题？"><a href="#使用消息队列可以解决什么问题？" class="headerlink" title="使用消息队列可以解决什么问题？"></a>使用消息队列可以解决什么问题？</h3><h4 id="1-解耦"><a href="#1-解耦" class="headerlink" title="1.解耦"></a>1.解耦</h4><p><img src="/2019/07/26/架构学习/消息队列/system.png" alt="原有系统架构"><br>如果在原有系统架构中，需要额外增加一个系统E或者删除一个系统C，也需要对A系统进行修改。A 系统跟其它各种乱七八糟的系统严重耦合，A系统产生一条比较关键的数据，很多系统都需要 A系统将这个数据发送过来。A 系统要时时刻刻考虑BCD三个系统如果挂了该咋办？要不要重发，要不要把消息存起来？</p>
-<p>而在增加MQ之后，我们将A系统与BCD系统进行了解耦，A系统只管往MQ中放消息，BCD从消息队列中取消息进行处理。这样下来，A 系统不需要去考虑要给谁发送数据，不需要维护这个代码，也不需要考虑人家是否调用成功、失败超时等情况。通过一个 MQ，Pub/Sub 发布订阅消息这么一个模型，A 系统就跟其它系统彻底解耦了。<br><img src="/2019/07/26/架构学习/消息队列/systemAfter.png" alt="现有系统架构"></p>
-<h4 id="2-异步"><a href="#2-异步" class="headerlink" title="2.异步"></a>2.异步</h4><p><img src="/2019/07/26/架构学习/消息队列/systemTiming.png" alt="原有系统架构"><br>再来看一个场景，A 系统接收一个请求，需要在自己本地写库，还需要在 BCD 三个系统写库，自己本地写库要 3ms，BCD 三个系统分别写库要 300ms、150ms、200ms。最终请求总延时是 3 + 300 + 150 + 200 = 653ms，用户通过浏览器发起请求等待时间这几乎是不可接受的。</p>
-<p>再通过MQ之后，那么 A系统连续发送3条消息到 MQ 队列中，假如耗时15ms，A 系统从接受一个请求到返回响应给用户，总时长是 3 + 15 = 8ms，对于用户而言，其实感觉上就是点个按钮，18ms 以后就直接返回了，用户体验就非常的好。<br><img src="/2019/07/26/架构学习/消息队列/systemTimingAfter.png" alt="现有系统架构"></p>
+<h3 id="使用消息队列可以解决什么问题？"><a href="#使用消息队列可以解决什么问题？" class="headerlink" title="使用消息队列可以解决什么问题？"></a>使用消息队列可以解决什么问题？</h3><h4 id="1-解耦"><a href="#1-解耦" class="headerlink" title="1.解耦"></a>1.解耦</h4><p><img src="/2019/10/07/架构学习/消息队列/system.png" alt="原有系统架构"><br>如果在原有系统架构中，需要额外增加一个系统E或者删除一个系统C，也需要对A系统进行修改。A 系统跟其它各种乱七八糟的系统严重耦合，A系统产生一条比较关键的数据，很多系统都需要 A系统将这个数据发送过来。A 系统要时时刻刻考虑BCD三个系统如果挂了该咋办？要不要重发，要不要把消息存起来？</p>
+<p>而在增加MQ之后，我们将A系统与BCD系统进行了解耦，A系统只管往MQ中放消息，BCD从消息队列中取消息进行处理。这样下来，A 系统不需要去考虑要给谁发送数据，不需要维护这个代码，也不需要考虑人家是否调用成功、失败超时等情况。通过一个 MQ，Pub/Sub 发布订阅消息这么一个模型，A 系统就跟其它系统彻底解耦了。<br><img src="/2019/10/07/架构学习/消息队列/systemAfter.png" alt="现有系统架构"></p>
+<h4 id="2-异步"><a href="#2-异步" class="headerlink" title="2.异步"></a>2.异步</h4><p><img src="/2019/10/07/架构学习/消息队列/systemTiming.png" alt="原有系统架构"><br>再来看一个场景，A 系统接收一个请求，需要在自己本地写库，还需要在 BCD 三个系统写库，自己本地写库要 3ms，BCD 三个系统分别写库要 300ms、150ms、200ms。最终请求总延时是 3 + 300 + 150 + 200 = 653ms，用户通过浏览器发起请求等待时间这几乎是不可接受的。</p>
+<p>再通过MQ之后，那么 A系统连续发送3条消息到 MQ 队列中，假如耗时15ms，A 系统从接受一个请求到返回响应给用户，总时长是 3 + 15 = 8ms，对于用户而言，其实感觉上就是点个按钮，18ms 以后就直接返回了，用户体验就非常的好。<br><img src="/2019/10/07/架构学习/消息队列/systemTimingAfter.png" alt="现有系统架构"></p>
 <h4 id="3-削峰"><a href="#3-削峰" class="headerlink" title="3.削峰"></a>3.削峰</h4><p>用户请求量不是恒定的数值，总会有峰谷的变化。比如高峰期时，大量的请求直接到后台的话，可能直接就把系统给请求崩溃了，从而用户也没法继续使用这个系统。但是高峰期一过，又恢复如初。</p>
 <p>在有MQ的情况，短暂的高峰请求就会积压在MQ中，等到高峰期一过，请求也会依次得到处理。从而解决高峰期访问量飙升的问题。</p>
 <h3 id="MQ有哪些问题？"><a href="#MQ有哪些问题？" class="headerlink" title="MQ有哪些问题？"></a>MQ有哪些问题？</h3><ul>
@@ -478,8 +478,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/25/业务知识总结/技术管理/" rel="next" title="技术管理课">
-                <i class="fa fa-chevron-left"></i> 技术管理课
+              <a href="/2019/09/08/学做操盘手/K线的基础知识/" rel="next" title="如何看懂K线">
+                <i class="fa fa-chevron-left"></i> 如何看懂K线
               </a>
             
           </div>
@@ -487,10 +487,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/26/todo/计算机科学课/" rel="prev" title="计算机科学课">
-                计算机科学课 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -862,7 +858,7 @@
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitment({
-            id: '1564152562000',
+            id: '1570459762000',
             owner: 'zjbao123',
             repo: 'gitment-comments',
             
