@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="不为繁华易匠心">
 <meta property="og:description" content="既然MQ会导致系统的可用性降低，那么如何保证MQ的高可用？ 首先来讲一讲各个MQ的高可用性。 RabbitMQ的高可用性RabbitMQ是比较有代表性的，基于主从来做高可用性。RabbitMQ有三种模式：单机模式、普通集群模式、镜像集群模式。 单机模式就是最简单的模式，一般就是Demo级别，自己启动玩玩的。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://zjbao123.github.io/2019/10/22/架构学习/RabbitMQ的高可用性/消息队列的高可用性/RabbitMQ普通集群.png">
-<meta property="og:image" content="http://zjbao123.github.io/2019/10/22/架构学习/RabbitMQ的高可用性/消息队列的高可用性/RabbitMQ镜像模式.png">
-<meta property="og:image" content="http://zjbao123.github.io/2019/10/22/架构学习/RabbitMQ的高可用性/消息队列的高可用性/Kafka.png">
-<meta property="og:updated_time" content="2019-10-21T16:31:32.651Z">
+<meta property="og:image" content="http://zjbao123.github.io/2019/10/22/架构学习/RabbitMQ的高可用性/RabbitMQ普通集群.png">
+<meta property="og:image" content="http://zjbao123.github.io/2019/10/22/架构学习/RabbitMQ的高可用性/RabbitMQ镜像模式.png">
+<meta property="og:image" content="http://zjbao123.github.io/2019/10/22/架构学习/RabbitMQ的高可用性/Kafka.png">
+<meta property="og:updated_time" content="2019-10-21T16:34:21.612Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息队列的高可用性">
 <meta name="twitter:description" content="既然MQ会导致系统的可用性降低，那么如何保证MQ的高可用？ 首先来讲一讲各个MQ的高可用性。 RabbitMQ的高可用性RabbitMQ是比较有代表性的，基于主从来做高可用性。RabbitMQ有三种模式：单机模式、普通集群模式、镜像集群模式。 单机模式就是最简单的模式，一般就是Demo级别，自己启动玩玩的。">
-<meta name="twitter:image" content="http://zjbao123.github.io/2019/10/22/架构学习/RabbitMQ的高可用性/消息队列的高可用性/RabbitMQ普通集群.png">
+<meta name="twitter:image" content="http://zjbao123.github.io/2019/10/22/架构学习/RabbitMQ的高可用性/RabbitMQ普通集群.png">
 
 
 
@@ -370,14 +370,14 @@
 <p>首先来讲一讲各个MQ的高可用性。</p>
 <h3 id="RabbitMQ的高可用性"><a href="#RabbitMQ的高可用性" class="headerlink" title="RabbitMQ的高可用性"></a>RabbitMQ的高可用性</h3><p>RabbitMQ是比较有代表性的，基于主从来做高可用性。RabbitMQ有三种模式：单机模式、普通集群模式、镜像集群模式。</p>
 <p>单机模式就是最简单的模式，一般就是Demo级别，自己启动玩玩的。<br><a id="more"></a></p>
-<h4 id="普通集群模式"><a href="#普通集群模式" class="headerlink" title="普通集群模式"></a>普通集群模式</h4><p>普通集群模式，意思是多台机器启动多个RabbitMQ实例，每个机器启动一个。你创建的queue，只会放在一个RabbitMQ实例上。但是每个实例会同步queue的元数据（可以理解queue的配置信息）。即使你消费的时候连接到了另一个实例，那么那个实例会从queue所在实例上拉取数据过来。<br><img src="/2019/10/22/架构学习/RabbitMQ的高可用性/消息队列的高可用性/RabbitMQ普通集群.png" alt="RabbitMQ普通集群"></p>
+<h4 id="普通集群模式"><a href="#普通集群模式" class="headerlink" title="普通集群模式"></a>普通集群模式</h4><p>普通集群模式，意思是多台机器启动多个RabbitMQ实例，每个机器启动一个。你创建的queue，只会放在一个RabbitMQ实例上。但是每个实例会同步queue的元数据（可以理解queue的配置信息）。即使你消费的时候连接到了另一个实例，那么那个实例会从queue所在实例上拉取数据过来。<br><img src="/2019/10/22/架构学习/RabbitMQ的高可用性/RabbitMQ普通集群.png" alt="RabbitMQ普通集群"></p>
 <p>其实并没有做到所谓的分布式，还是普通集群。因为会导致你要么消费者每次随机连接一个实例然后拉取数据，要么固定连接那个queue所在实例消费数据。前者有数据拉取的开销，后者会导致单实例性能瓶颈。</p>
 <p>如果放queue的实例宕机了，则会导致其他实例都没有办法进行拉取。如果你开启了消息持久化，让RabbitMQ落地存储消息的话，消息不一定会丢。得等这个实例恢复了，然后才可以继续从这个queue拉取数据。</p>
 <p>这个方案主要是提高吞吐量。也就是说让多个节点来服务某个queue的读写操作。</p>
-<h4 id="镜像模式"><a href="#镜像模式" class="headerlink" title="镜像模式"></a>镜像模式</h4><p>镜像集群模式，才是所谓的HA，跟普通集群不一样的是，在镜像集群模式下，你创造的元数据还是queue的消息都会存在多个实例上，也就是说，每个Rabbit节点都是一个完整的镜像，包含了所有queue的数据信息，当你写消息的时候，都会吧消息同步到多个实例的queue中。<br><img src="/2019/10/22/架构学习/RabbitMQ的高可用性/消息队列的高可用性/RabbitMQ镜像模式.png" alt="RabbitMQ镜像集群模式"><br>这种的好处就在于任何一个宕机，都可以从其他节点取消费数据。<br>而他的坏处，也显而易见。第一，性能开销很大，消息需要同步到所有汲取，没有办法对你的queue进行线性拓展。如果数据量很大，大到你一个机器无法容纳了，该如何处理呢？</p>
+<h4 id="镜像模式"><a href="#镜像模式" class="headerlink" title="镜像模式"></a>镜像模式</h4><p>镜像集群模式，才是所谓的HA，跟普通集群不一样的是，在镜像集群模式下，你创造的元数据还是queue的消息都会存在多个实例上，也就是说，每个Rabbit节点都是一个完整的镜像，包含了所有queue的数据信息，当你写消息的时候，都会吧消息同步到多个实例的queue中。<br><img src="/2019/10/22/架构学习/RabbitMQ的高可用性/RabbitMQ镜像模式.png" alt="RabbitMQ镜像集群模式"><br>这种的好处就在于任何一个宕机，都可以从其他节点取消费数据。<br>而他的坏处，也显而易见。第一，性能开销很大，消息需要同步到所有汲取，没有办法对你的queue进行线性拓展。如果数据量很大，大到你一个机器无法容纳了，该如何处理呢？</p>
 <h3 id="Kafka的高可用性"><a href="#Kafka的高可用性" class="headerlink" title="Kafka的高可用性"></a>Kafka的高可用性</h3><p>kafka由多个broker组成，每个broker是一个节点；你创建的一个topic，可以划分为多个partition，每个partition存在不同的broker上，每个partition存放一部分的数据。也就是一个topic的数据，是分散在多个机器上的，每个机器就放一部分数据。</p>
 <p>Kafka0.8以前，没有HA机制，任何一台broker宕机了，这个部分的数据就丢失了。<br>在0.8版本之后，提供了HA机制，就是replica副本机制，每个partition数据都会同步到其他机器上，形成自己的多个副本，所有replica会选出一个leader来，来和生产者和消费者打交道，以保证数据一致性的问题。并且提高了容错率。</p>
-<p><img src="/2019/10/22/架构学习/RabbitMQ的高可用性/消息队列的高可用性/Kafka.png" alt="Kafka"></p>
+<p><img src="/2019/10/22/架构学习/RabbitMQ的高可用性/Kafka.png" alt="Kafka"></p>
 <p>写数据的时候，生产者就写leader，然后leader将数据落地写本地磁盘，接着其他follower自己从leader来pull数据，一旦所有follower同步好数据了，就会发送ack给leader，leader收到所有的follower的ack之后，就会返回写成功的消息给生产者。（这只是其中一种模式）</p>
 <p>消费的时候，只会从leader去读，但是只有当一个消息已经被所有follower都同步成功并且返回ack的时候，这个消息才会被消费者读到。</p>
 
