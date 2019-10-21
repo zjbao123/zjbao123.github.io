@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="什么是消息队列？消息队列，也就是所谓的MQ（Message Queue）。消息队列可以简单理解为：把要传输的数据放在队列中。 使用消息队列可以解决什么问题？1.解耦如果在原有系统架构中，需要额外增加一个系统E或者删除一个系统C，也需要对A系统进行修改。A 系统跟其它各种乱七八糟的系统严重耦合，A系统产生一条比较关键的数据，很多系统都需要 A系统将这个数据发送过来。A 系统要时时刻刻考虑BCD三个系">
+<meta name="description" content="什么是消息队列？消息队列，也就是所谓的MQ（Message Queue）。消息队列可以简单理解为：把要传输的数据放在队列中。">
 <meta name="keywords" content="Java进阶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="谈一谈消息队列">
 <meta property="og:url" content="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/index.html">
 <meta property="og:site_name" content="不为繁华易匠心">
-<meta property="og:description" content="什么是消息队列？消息队列，也就是所谓的MQ（Message Queue）。消息队列可以简单理解为：把要传输的数据放在队列中。 使用消息队列可以解决什么问题？1.解耦如果在原有系统架构中，需要额外增加一个系统E或者删除一个系统C，也需要对A系统进行修改。A 系统跟其它各种乱七八糟的系统严重耦合，A系统产生一条比较关键的数据，很多系统都需要 A系统将这个数据发送过来。A 系统要时时刻刻考虑BCD三个系">
+<meta property="og:description" content="什么是消息队列？消息队列，也就是所谓的MQ（Message Queue）。消息队列可以简单理解为：把要传输的数据放在队列中。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/system.png">
 <meta property="og:image" content="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/systemAfter.png">
 <meta property="og:image" content="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/systemTiming.png">
 <meta property="og:image" content="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/systemTimingAfter.png">
-<meta property="og:updated_time" content="2019-10-07T15:27:02.511Z">
+<meta property="og:updated_time" content="2019-10-21T16:31:41.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="谈一谈消息队列">
-<meta name="twitter:description" content="什么是消息队列？消息队列，也就是所谓的MQ（Message Queue）。消息队列可以简单理解为：把要传输的数据放在队列中。 使用消息队列可以解决什么问题？1.解耦如果在原有系统架构中，需要额外增加一个系统E或者删除一个系统C，也需要对A系统进行修改。A 系统跟其它各种乱七八糟的系统严重耦合，A系统产生一条比较关键的数据，很多系统都需要 A系统将这个数据发送过来。A 系统要时时刻刻考虑BCD三个系">
+<meta name="twitter:description" content="什么是消息队列？消息队列，也就是所谓的MQ（Message Queue）。消息队列可以简单理解为：把要传输的数据放在队列中。">
 <meta name="twitter:image" content="http://zjbao123.github.io/2019/10/07/架构学习/消息队列/system.png">
 
 
@@ -367,7 +367,7 @@
       
 
       
-        <h3 id="什么是消息队列？"><a href="#什么是消息队列？" class="headerlink" title="什么是消息队列？"></a>什么是消息队列？</h3><p>消息队列，也就是所谓的MQ（Message Queue）。消息队列可以简单理解为：把要传输的数据放在队列中。</p>
+        <h3 id="什么是消息队列？"><a href="#什么是消息队列？" class="headerlink" title="什么是消息队列？"></a>什么是消息队列？</h3><p>消息队列，也就是所谓的MQ（Message Queue）。消息队列可以简单理解为：把要传输的数据放在队列中。<br><a id="more"></a></p>
 <h3 id="使用消息队列可以解决什么问题？"><a href="#使用消息队列可以解决什么问题？" class="headerlink" title="使用消息队列可以解决什么问题？"></a>使用消息队列可以解决什么问题？</h3><h4 id="1-解耦"><a href="#1-解耦" class="headerlink" title="1.解耦"></a>1.解耦</h4><p><img src="/2019/10/07/架构学习/消息队列/system.png" alt="原有系统架构"><br>如果在原有系统架构中，需要额外增加一个系统E或者删除一个系统C，也需要对A系统进行修改。A 系统跟其它各种乱七八糟的系统严重耦合，A系统产生一条比较关键的数据，很多系统都需要 A系统将这个数据发送过来。A 系统要时时刻刻考虑BCD三个系统如果挂了该咋办？要不要重发，要不要把消息存起来？</p>
 <p>而在增加MQ之后，我们将A系统与BCD系统进行了解耦，A系统只管往MQ中放消息，BCD从消息队列中取消息进行处理。这样下来，A 系统不需要去考虑要给谁发送数据，不需要维护这个代码，也不需要考虑人家是否调用成功、失败超时等情况。通过一个 MQ，Pub/Sub 发布订阅消息这么一个模型，A 系统就跟其它系统彻底解耦了。<br><img src="/2019/10/07/架构学习/消息队列/systemAfter.png" alt="现有系统架构"></p>
 <h4 id="2-异步"><a href="#2-异步" class="headerlink" title="2.异步"></a>2.异步</h4><p><img src="/2019/10/07/架构学习/消息队列/systemTiming.png" alt="原有系统架构"><br>再来看一个场景，A 系统接收一个请求，需要在自己本地写库，还需要在 BCD 三个系统写库，自己本地写库要 3ms，BCD 三个系统分别写库要 300ms、150ms、200ms。最终请求总延时是 3 + 300 + 150 + 200 = 653ms，用户通过浏览器发起请求等待时间这几乎是不可接受的。</p>
