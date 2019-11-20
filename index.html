@@ -272,6 +272,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2019/11/20/架构学习/设计模式之美--面向对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/20/架构学习/设计模式之美--面向对象/" itemprop="url">设计模式之美--面向对象</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-20T22:49:22+08:00">
+                2019-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="从面向对象开始"><a href="#从面向对象开始" class="headerlink" title="从面向对象开始"></a>从面向对象开始</h3><p>面向对象编程是一种编程范式或者编程风格。它以类或者对象作为组织代码的基本单元，并将封装、抽象、继承、多态四个特性，作为编程设计和实现的基石。</p>
+<p>面向对象编程语言，支持类或者对象的语法机制，并有现成的语法机制，能方便地实现面向对象编程的四大特性的编程语言。</p>
+<p>面向对象分析就是要清楚要做什么，面向对象设计就是要搞清楚怎么做。两个阶段最终的产物是类的设计。包括程序被拆解为哪些类，每个类有哪些属性方法，类和类之间如何交互等等。</p>
+<h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><p>WHAT： 隐藏信息，保护数据访问。<br>HOW：  通过暴露有限的访问接口，授权外部仅能通过类提供的方式来访问内部信息或者数据。<br>WHY：  一方面，保护数据不被随意修改，提高代码的可维护性；另一方面，仅仅暴露有限的必要接口，提高类的易用性。</p>
+<h4 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h4><p>WHAT： 隐藏方法的具体实现，让使用者只需要关心提供了哪些功能，不需要知道实现。<br>HOW：  通过接口类或者抽象类实现。特殊语法机制，非必须。<br>WHY：  一方面，提高了代码的可拓展性、维护性，修改实现不需要改变定义，减少了代码的改动范围；另一方面。也是处理复杂系统的有效手段，能够有效的过滤掉不必要关注的信息。</p>
+<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p>WHAT： 继承用来表示 <code>is-a</code>关系。主要有单继承和多继承。（多继承会有菱形继承问题）<br>HOW：  需要编程语言提供特殊的语法机制，比如Java的extends，C++的<code>：</code><br>WHY：  解决代码复用的问题。</p>
+<h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><p>WHAT：  子类可以替换父类，在实际代码运行中，调用子类的方法进行实现。<br>HOW：   特殊机制，比如继承，接口类，duck-typing。<br>HWHY：  多态可以提高代码的可拓展性和复用性，遵循 <code>对修改关闭，对拓展开放</code>的设计原则。是很多设计模式，设计原则，编程技巧的代码实现基础。</p>
+<h3 id="面向对象相比面向过程的优势"><a href="#面向对象相比面向过程的优势" class="headerlink" title="面向对象相比面向过程的优势"></a>面向对象相比面向过程的优势</h3><p>1.OOP能够应对大规模复杂程序的开发，可以在应对复杂程序开发的时候，思路更加清晰。<br>程序处理流程并非单一的一条主线，而是错综复杂的网状结构。通过面相对象的方式，先去思考如何给业务建模，如何将需求翻译为类，如何给类之间建立交互关系。有了类的设计之后，然后再像搭积木一样，按照处理流程，再进行组装。</p>
+<ol start="2">
+<li><p>OOP风格的代码更易服用，易扩展，易维护。因为四大特性，可以极大的满足复杂的编程需求</p>
+</li>
+<li><p>OOP语言更加人性化，更加高级，更加智能。面向过程是一种计算机思维模式，而面向对象是一种replied额思维模式。我们在思考，如何给业务建模，如何将真实的世界映射为类或者对象，这让我们更加能够聚焦到业务本身，而不是思考如何跟机器打交道。 </p>
+</li>
+</ol>
+<h3 id="哪些代码看似面向对象，实际面向过程？"><a href="#哪些代码看似面向对象，实际面向过程？" class="headerlink" title="哪些代码看似面向对象，实际面向过程？"></a>哪些代码看似面向对象，实际面向过程？</h3><p>1.滥用getter，setter方法，破坏封装<br>2.滥用全局变量和全局方法,如Constants类、Utils类的设计问题。尽量细化成小类，如果能将这些类的属性和方法，划分到其他业务类中，能更好的提高类的内聚性和可复用性。<br>3.基于贫血模型的开发模式。数据和操作是分开定义在VO/BO/Entity 和 Controller/Service/Repository中的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2019/10/22/架构学习/RabbitMQ的高可用性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1577,152 +1733,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2018/11/15/java学习/引用的类型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zjbao123">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不为繁华易匠心">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/15/java学习/引用的类型/" itemprop="url">Java对象引用类型及其区别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-15T18:22:00+08:00">
-                2018-11-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在Java语言中，除了基本数据类型外，其他的都是指向各类对象的对象引用；Java中根据其生命周期的长短，将引用分为4类。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/15/java学习/引用的类型/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1775,7 +1785,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">97</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1786,7 +1796,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1797,7 +1807,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
