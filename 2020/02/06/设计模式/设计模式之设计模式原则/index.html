@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="心法,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -80,16 +80,15 @@
 
 
 <meta name="description" content="单一职责原则（SRP）单一职责，全称为Single Responsibility Principle。单一职责，顾名思义，就是让一个类只负责一个职责或者功能。那么，如何判定是否职责单一呢？不同的业务场景下，对同一类的职责是否单一可能有不同的判定结果。可以从一下几个方面来判断。">
-<meta name="keywords" content="心法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式之美--设计模式原则">
+<meta property="og:title" content="不为繁华易匠心">
 <meta property="og:url" content="http://zjbao123.github.io/2020/02/06/设计模式/设计模式之设计模式原则/index.html">
 <meta property="og:site_name" content="不为繁华易匠心">
 <meta property="og:description" content="单一职责原则（SRP）单一职责，全称为Single Responsibility Principle。单一职责，顾名思义，就是让一个类只负责一个职责或者功能。那么，如何判定是否职责单一呢？不同的业务场景下，对同一类的职责是否单一可能有不同的判定结果。可以从一下几个方面来判断。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-06T15:15:41.444Z">
+<meta property="og:updated_time" content="2020-02-12T11:06:25.020Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式之美--设计模式原则">
+<meta name="twitter:title" content="不为繁华易匠心">
 <meta name="twitter:description" content="单一职责原则（SRP）单一职责，全称为Single Responsibility Principle。单一职责，顾名思义，就是让一个类只负责一个职责或者功能。那么，如何判定是否职责单一呢？不同的业务场景下，对同一类的职责是否单一可能有不同的判定结果。可以从一下几个方面来判断。">
 
 
@@ -126,7 +125,7 @@
 
 
 
-  <title>设计模式之美--设计模式原则 | 不为繁华易匠心</title>
+  <title> | 不为繁华易匠心</title>
   
 
 
@@ -290,7 +289,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">设计模式之美--设计模式原则</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -302,7 +301,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-06T22:49:22+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-06T22:02:02+08:00">
                 2020-02-06
               </time>
             
@@ -312,28 +311,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -373,7 +350,33 @@
 </ol>
 <h3 id="开闭原则（OCP）"><a href="#开闭原则（OCP）" class="headerlink" title="开闭原则（OCP）"></a>开闭原则（OCP）</h3><p>开闭原则的英文全称是 Open Closed Principle，即对拓展开放，对修改关闭<br>如何判定拓展还是修改？新增加一个功能，是在原有的代码基础上扩展代码，而非修改原有代码。<br>这条原则的设计初衷：只要它没有破坏原有的代码的正常运行，没有破坏原有的单元测试，我们就可以说，这是一个合格的代码改动。</p>
 <p>基于接口或抽象实现“封闭”，基于实现接口或继承实现“开放”。</p>
-<p>场景一：函数存在多个入参的时候，需要新增的入参需求。<br>可以将其重构为单独类。那只需要新加属性而不用改动函数入参。<br>场景二：对于其分支判断，另外拆分为各个hander。对抽象类进行继承重写。</p>
+<h4 id="一些业务场景"><a href="#一些业务场景" class="headerlink" title="一些业务场景"></a>一些业务场景</h4><p>场景一：函数存在多个入参的时候，需要新增的入参需求。<br>可以将其重构为单独类。那只需要新加属性而不用改动函数入参。<br>场景二：对于其分支判断，另外拆分为各个hander。对抽象类进行继承重写。</p>
+<h3 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h3><p>里式替换原则全称是<code>Liskov Substitution Principle</code>,缩写为LSP。<br>定义为 子类对象（object of subtype/derived class）能够替换程序（program）中父类对象（object of base/parent class）出现的任何地方，并且保证原来程序的逻辑行为（behavior）不变及正确性不被破坏。是用来指导继承关系中的子类该如何设计，保证在替换父类的时候，不该百年原有程序的逻辑以及不破坏原有程序的正确性，</p>
+<h4 id="违背里氏替换原则的案例"><a href="#违背里氏替换原则的案例" class="headerlink" title="违背里氏替换原则的案例"></a>违背里氏替换原则的案例</h4><ol>
+<li>子类违背父类对输入、输出、异常的约定</li>
+<li>子类违背父类声明要实现的功能</li>
+<li>子类违背父类注释中所罗列的任何特殊说明</li>
+</ol>
+<h3 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h3><p>接口隔离原则全称为<code>Interface Segregation Principle</code>,缩写为ISP。<br>Robert Martin 在 SOLID 原则中是这样定义它的：“Clients should not be forced to depend upon interfaces that they do not use。”直译成中文的话就是：客户端不应该强迫依赖它不需要的接口。</p>
+<h4 id="如何理解接口"><a href="#如何理解接口" class="headerlink" title="如何理解接口"></a>如何理解接口</h4><ol>
+<li>理解为一组接口的集合。部分接口只被部分调用者使用，将不同的接口隔离出来。例如权限隔离。</li>
+<li>理解为单个API接口或函数，只需要使用到函数中部分功能，则可以拆分为更加细颗粒度的多个函数。</li>
+<li>理解为OOP中的接口。就是和单一性原则类似，接口功能单一。</li>
+</ol>
+<h4 id="和单一职责的区别"><a href="#和单一职责的区别" class="headerlink" title="和单一职责的区别"></a>和单一职责的区别</h4><p>单一职责是针对模块，类，接口的设计。接口隔离侧重点不同，主要是接口，并且提供了一种判断接口是否单一的标准，如果调用者只使用一部分功能，那接口的设计就不够单一。</p>
+<h3 id="依赖反转原则"><a href="#依赖反转原则" class="headerlink" title="依赖反转原则"></a>依赖反转原则</h3><p>我们先来谈一谈控制反转、依赖反转、依赖注入这三者的关系。</p>
+<h4 id="控制反转（IOC）"><a href="#控制反转（IOC）" class="headerlink" title="控制反转（IOC）"></a>控制反转（IOC）</h4><p>控制指的是程序对执行流程的控制，而反转是指没有使用框架钱，程序元自己控制整个程序的执行。在使用框架之后，整个程序的执行流程可以通过框架来控制。流程的控制权从程序员反转到了框架。<br>控制反转并不是一种具体的实现技巧，而是一个比较笼统的设计思想，一般用来指导框架层面的设计。</p>
+<h4 id="依赖注入（DI）"><a href="#依赖注入（DI）" class="headerlink" title="依赖注入（DI）"></a>依赖注入（DI）</h4><p>一句话概括就是：不通过<code>new()</code>的方式在类内部创建依赖类对象，而是将依赖的类对象在外部创建好了之后，通过构造函数、函数参数等方式传递给类使用。提高了代码的扩展性，</p>
+<h4 id="依赖注入框架（DI-framework）"><a href="#依赖注入框架（DI-framework）" class="headerlink" title="依赖注入框架（DI framework）"></a>依赖注入框架（DI framework）</h4><p>我们通过依赖注入框架的扩展点，简单配置一下所有需要的类以及类与类之间的关系，就可以实现由框架来自动创建对象、管理对象的生命周期、依赖注入等原本需要程序员来做的事情。</p>
+<p>实际上，现成的依赖注入框架有很多，比如 Google Guice、Java Spring、Pico Container、Butterfly Container 等。不过，如果你熟悉 Java Spring 框架，你可能会说，Spring 框架自己声称是控制反转容器（Inversion Of Control Container）。</p>
+<p>只是控制反转容器这种表述是一种非常宽泛的描述，DI 依赖注入框架的表述更具体、更有针对性。因为我们前面讲到实现控制反转的方式有很多，除了依赖注入，还有模板模式等，而 Spring 框架的控制反转主要是通过依赖注入来实现的。</p>
+<h5 id="依赖反转原则（DIP）"><a href="#依赖反转原则（DIP）" class="headerlink" title="依赖反转原则（DIP）"></a>依赖反转原则（DIP）</h5><p>依赖反转原则也称为依赖倒置原则，英文原意为:</p>
+<blockquote>
+<p>High-level modules shouldn’t depend on low-level modules. Both modules should depend on abstractions. In addition, abstractions shouldn’t depend on details. Details depend on abstractions.</p>
+</blockquote>
+<p>高层模块不要依赖低层模块。高层模块和底层模块应该通过抽象来相互依赖。除此之外，抽象不要依赖具体实现细节，具体实现细节依赖抽象。</p>
+<p>所谓的高层模块和低层模块的划分，简单的来说，在调用链上，调用者属于高层， 被调用者属于低层。</p>
+<p>Tomcat 是运行 Java Web 应用程序的容器。我们编写的 Web 应用程序代码只需要部署在 Tomcat 容器下，便可以被 Tomcat 容器调用执行。按照之前的划分原则，Tomcat 就是高层模块，我们编写的 Web 应用程序代码就是低层模块。Tomcat 和应用程序代码之间并没有直接的依赖关系，两者都依赖同一个“抽象”，也就是 Servlet 规范。Servlet 规范不依赖具体的 Tomcat 容器和应用程序的实现细节，而 Tomcat 容器和应用程序依赖 Servlet 规范。</p>
 
       
     </div>
@@ -388,12 +391,6 @@
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/心法/" rel="tag"># 心法</a>
-          
-        </div>
       
 
       
@@ -579,7 +576,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责原则（SRP）"><span class="nav-number">1.</span> <span class="nav-text">单一职责原则（SRP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开闭原则（OCP）"><span class="nav-number">2.</span> <span class="nav-text">开闭原则（OCP）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责原则（SRP）"><span class="nav-number">1.</span> <span class="nav-text">单一职责原则（SRP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开闭原则（OCP）"><span class="nav-number">2.</span> <span class="nav-text">开闭原则（OCP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一些业务场景"><span class="nav-number">2.1.</span> <span class="nav-text">一些业务场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#里氏替换原则"><span class="nav-number">3.</span> <span class="nav-text">里氏替换原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#违背里氏替换原则的案例"><span class="nav-number">3.1.</span> <span class="nav-text">违背里氏替换原则的案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口隔离原则"><span class="nav-number">4.</span> <span class="nav-text">接口隔离原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何理解接口"><span class="nav-number">4.1.</span> <span class="nav-text">如何理解接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#和单一职责的区别"><span class="nav-number">4.2.</span> <span class="nav-text">和单一职责的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖反转原则"><span class="nav-number">5.</span> <span class="nav-text">依赖反转原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#控制反转（IOC）"><span class="nav-number">5.1.</span> <span class="nav-text">控制反转（IOC）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖注入（DI）"><span class="nav-number">5.2.</span> <span class="nav-text">依赖注入（DI）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖注入框架（DI-framework）"><span class="nav-number">5.3.</span> <span class="nav-text">依赖注入框架（DI framework）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#依赖反转原则（DIP）"><span class="nav-number">5.3.1.</span> <span class="nav-text">依赖反转原则（DIP）</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -788,7 +785,7 @@
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitment({
-            id: '1581000562000',
+            id: '1580997722038',
             owner: 'zjbao123',
             repo: 'gitment-comments',
             
