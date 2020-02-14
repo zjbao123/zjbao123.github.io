@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="心法,">
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="单一职责原则（SRP）单一职责，全称为Single Responsibility Principle。单一职责，顾名思义，就是让一个类只负责一个职责或者功能。那么，如何判定是否职责单一呢？不同的业务场景下，对同一类的职责是否单一可能有不同的判定结果。可以从一下几个方面来判断。">
+<meta name="description" content="SOLID原则是单一职责原则，开闭原则，里氏替换原则， 接口隔离原则，依赖反转原则的统称。下面，我们来详细介绍一下这5类原则。">
+<meta name="keywords" content="心法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="不为繁华易匠心">
-<meta property="og:url" content="http://zjbao123.github.io/2020/02/06/设计模式/设计模式之设计模式原则/index.html">
+<meta property="og:title" content="设计模式之美--SOLID原则">
+<meta property="og:url" content="http://zjbao123.github.io/2020/02/13/设计模式/设计模式之美--SOLID原则/index.html">
 <meta property="og:site_name" content="不为繁华易匠心">
-<meta property="og:description" content="单一职责原则（SRP）单一职责，全称为Single Responsibility Principle。单一职责，顾名思义，就是让一个类只负责一个职责或者功能。那么，如何判定是否职责单一呢？不同的业务场景下，对同一类的职责是否单一可能有不同的判定结果。可以从一下几个方面来判断。">
+<meta property="og:description" content="SOLID原则是单一职责原则，开闭原则，里氏替换原则， 接口隔离原则，依赖反转原则的统称。下面，我们来详细介绍一下这5类原则。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-12T11:06:25.020Z">
+<meta property="og:updated_time" content="2020-02-14T02:52:41.026Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="不为繁华易匠心">
-<meta name="twitter:description" content="单一职责原则（SRP）单一职责，全称为Single Responsibility Principle。单一职责，顾名思义，就是让一个类只负责一个职责或者功能。那么，如何判定是否职责单一呢？不同的业务场景下，对同一类的职责是否单一可能有不同的判定结果。可以从一下几个方面来判断。">
+<meta name="twitter:title" content="设计模式之美--SOLID原则">
+<meta name="twitter:description" content="SOLID原则是单一职责原则，开闭原则，里氏替换原则， 接口隔离原则，依赖反转原则的统称。下面，我们来详细介绍一下这5类原则。">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://zjbao123.github.io/2020/02/06/设计模式/设计模式之设计模式原则/">
+  <link rel="canonical" href="http://zjbao123.github.io/2020/02/13/设计模式/设计模式之美--SOLID原则/">
 
 
 
 
 
-  <title> | 不为繁华易匠心</title>
+  <title>设计模式之美--SOLID原则 | 不为繁华易匠心</title>
   
 
 
@@ -272,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2020/02/06/设计模式/设计模式之设计模式原则/">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2020/02/13/设计模式/设计模式之美--SOLID原则/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zjbao123">
@@ -289,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">设计模式之美--SOLID原则</h1>
         
 
         <div class="post-meta">
@@ -301,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-06T22:02:02+08:00">
-                2020-02-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-13T22:49:22+08:00">
+                2020-02-13
               </time>
             
 
@@ -311,6 +312,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -339,8 +362,9 @@
       
 
       
-        <h3 id="单一职责原则（SRP）"><a href="#单一职责原则（SRP）" class="headerlink" title="单一职责原则（SRP）"></a>单一职责原则（SRP）</h3><p>单一职责，全称为Single Responsibility Principle。单一职责，顾名思义，就是让一个类只负责一个职责或者功能。<br>那么，如何判定是否职责单一呢？不同的业务场景下，对同一类的职责是否单一可能有不同的判定结果。可以从一下几个方面来判断。</p>
+        <p>SOLID原则是单一职责原则，开闭原则，里氏替换原则， 接口隔离原则，依赖反转原则的统称。下面，我们来详细介绍一下这5类原则。</p>
 <a id="more"></a>
+<h3 id="单一职责原则（SRP）"><a href="#单一职责原则（SRP）" class="headerlink" title="单一职责原则（SRP）"></a>单一职责原则（SRP）</h3><p>单一职责，全称为Single Responsibility Principle。单一职责，顾名思义，就是让一个类只负责一个职责或者功能。<br>那么，如何判定是否职责单一呢？不同的业务场景下，对同一类的职责是否单一可能有不同的判定结果。可以从一下几个方面来判断。</p>
 <ol>
 <li>类中函数或者属性过多</li>
 <li>类中依赖其他类过多，或者依赖类的其他类过多</li>
@@ -392,6 +416,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/心法/" rel="tag"># 心法</a>
+          
+        </div>
+      
 
       
       
@@ -401,8 +431,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/02/05/设计模式/设计模式之实战/" rel="next" title="设计模式之美--鉴权功能实战">
-                <i class="fa fa-chevron-left"></i> 设计模式之美--鉴权功能实战
+              <a href="/2020/02/07/摘录/历史上的经济泡沫/" rel="next" title="历史上的经济泡沫">
+                <i class="fa fa-chevron-left"></i> 历史上的经济泡沫
               </a>
             
           </div>
@@ -410,10 +440,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/02/07/摘录/历史上的经济泡沫/" rel="prev" title="历史上的经济泡沫">
-                历史上的经济泡沫 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -785,7 +811,7 @@
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitment({
-            id: '1580997722038',
+            id: '1581605362000',
             owner: 'zjbao123',
             repo: 'gitment-comments',
             
