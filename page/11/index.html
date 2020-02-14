@@ -272,6 +272,156 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2007/04/06/java学习/基础知识点杂记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2007/04/06/java学习/基础知识点杂记/" itemprop="url">java学习基础（二）基础知识杂记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2007-04-06T20:22:00+08:00">
+                2007-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这里会记录一些java语言和其它语言基础的一些小区别和自己觉得需要记忆的内容。</p>
+<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>在我们处理数字时,一般使用的是原始数据类型，如 byte，int，long，double 等。<br>然而,在开发过程中,我们往往需要使用到对象而不是原始数据类型，此时的java便为我们包装好了类。</p>
+<p>所有的包装类 (Integer, Long, Byte, Double, Float, Short) 都继承自抽象类 <code>Number</code>(来源于<code>java.lang</code> 包)。</p>
+<h4 id="装箱"><a href="#装箱" class="headerlink" title="装箱"></a>装箱</h4><p>上述这种包装是由编译器处理，这个过程称为装箱。因此，当一个原始数据类型被使用，当需要一个对象时，编译器将原始数据放入其包装类。同样地，编译器也能将对象取出返回到<br>原始数据类型。</p>
+<p>当 x 被分配整数值，则编译器将整数放入箱中，因为 x 为整数对象。然后，x 被拆箱，以便它们可以被添加为整数。</p>
+<h3 id="Number-一些常用方法"><a href="#Number-一些常用方法" class="headerlink" title="Number 一些常用方法"></a>Number 一些常用方法</h3><p><code>xxxValue()</code>：用于将这个Number对象的值转换为XXX的数据类型并返回。</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>任何其他对象可以通过使用 new 关键字，并通过构造函数创建 String 对象。 String 类有11种构造函数提供使用不同类型的字符串的初始值。</p>
+<p>String 类是不可变的，因此，一旦创建了 String 对象那么是不能改变的。如果需要大量修改字符的字符串，那么应该使用 StringBuffer &amp; StringBuilder 类。</p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>java的数组编写风格为 <code>dataType[] arrayRefVar;</code>, 风格 <code>dataType arrayRefVar[]</code>来自于 C/C++ 语言，因为Java 继承 C/C++ 的编程风格,所以可以用,但不推荐使用。 </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2007/04/06/业务知识总结/业务报表学习1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -472,7 +622,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
