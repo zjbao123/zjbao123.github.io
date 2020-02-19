@@ -3,7 +3,7 @@ title: python大闯关(0-4)
 date: 2016-10-18 20:51:02
 tags:
 - python
-categories: 总结/
+categories: 总结
 ---
 
 最近在找python对应的学习实例时,看到了一个古老的游戏,方便大家边玩边学：
