@@ -83,11 +83,11 @@
 <meta name="keywords" content="心法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式之美--单例模式">
-<meta property="og:url" content="http://zjbao123.github.io/2020/02/15/设计模式/设计模式之美--单例模式/index.html">
+<meta property="og:url" content="http://zjbao123.github.io/2020/02/24/设计模式/设计模式之美--单例模式/index.html">
 <meta property="og:site_name" content="不为繁华易匠心">
 <meta property="og:description" content="动机在某一些程序中，只有一个实例非常重要。  处理资源访问冲突。  例如，我们需要打印东西，只有一台打印机，每次只能有一个打印任务。   表示全局唯一的类">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-19T15:46:08.602Z">
+<meta property="og:updated_time" content="2020-02-24T14:14:05.627Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式之美--单例模式">
 <meta name="twitter:description" content="动机在某一些程序中，只有一个实例非常重要。  处理资源访问冲突。  例如，我们需要打印东西，只有一台打印机，每次只能有一个打印任务。   表示全局唯一的类">
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://zjbao123.github.io/2020/02/15/设计模式/设计模式之美--单例模式/">
+  <link rel="canonical" href="http://zjbao123.github.io/2020/02/24/设计模式/设计模式之美--单例模式/">
 
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2020/02/15/设计模式/设计模式之美--单例模式/">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2020/02/24/设计模式/设计模式之美--单例模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zjbao123">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-15T22:49:22+08:00">
-                2020-02-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-24T22:49:22+08:00">
+                2020-02-24
               </time>
             
 
@@ -414,7 +414,15 @@
 </blockquote>
 </li>
 </ol>
-<h3 id="替换解决方案"><a href="#替换解决方案" class="headerlink" title="替换解决方案"></a>替换解决方案</h3>
+<h3 id="替换解决方案"><a href="#替换解决方案" class="headerlink" title="替换解决方案"></a>替换解决方案</h3><p>通过IOC容器，或者工厂模式。静态类静态方法来做单例的替换。</p>
+<h3 id="如何理解为单例模式的唯一性"><a href="#如何理解为单例模式的唯一性" class="headerlink" title="如何理解为单例模式的唯一性"></a>如何理解为单例模式的唯一性</h3><p>单例的定义中，一个类只允许创建唯一一个对象，那么，这个唯一性的作用范围是什么呢？<br>是线程内唯一？还是进程内唯一？如何实现呢？</p>
+<h4 id="线程内唯一的实现方式"><a href="#线程内唯一的实现方式" class="headerlink" title="线程内唯一的实现方式"></a>线程内唯一的实现方式</h4><p>可以通过一个HashMap来存储对象，key是线程ID，value是对象，这样就可以做到不同的线程对应不同的对象了。也可以使用Java自身提供的ThreadLocal工具类，来实现线程内唯一的实例。实现详见代码。</p>
+<h4 id="进程内唯一的实现方式"><a href="#进程内唯一的实现方式" class="headerlink" title="进程内唯一的实现方式"></a>进程内唯一的实现方式</h4><p>我们需要把这个实例对象序列化并存储到外部共享存储区（比如文件）。进程在使用这个单例对象的时候，需要先从外部共享存储区将它读到内存，并反序列化成对象，然后再使用，使用完成之后，还需要再存储回外部共享存储区。因此需要对对象进行加锁。在进程使用完这个对象之后，还需要显式将对象从内存中删除，并且释放对对象的枷锁。</p>
+<blockquote>
+<p>当唯一性的作用范围是进程时，实际上，他的作用范围并非进程，而是类加载器（Class Loader）。<br>Class Loader有两个作用：1.将class类加载到JVM中；2.确认每个类应该由哪个类加载器加载，并用于判断JVM运行时两个类是否相等。双亲委派模型通过优先委派给父类加载器加载来保证了类在内存中的唯一性，也就是class Loader内的唯一。所以这里所说单例类实例唯一性的作用范围是类加载器指的就是即使类全名相同的类文件也必须要保证被同个类应用类加载器加载。</p>
+</blockquote>
+<h3 id="多例模式"><a href="#多例模式" class="headerlink" title="多例模式"></a>多例模式</h3><p>相对于单例，多例是指一个类可以创建有限个数的对象。通过静态代码块来初始化对象实例。<br>还有一种理解方式就是同一类型的只能创建一个对象，不同类型的可以创建多个对象。实现方式也可以通过线程内唯一的思路，增加HashMap，key是类型，而value是对象。</p>
+
       
     </div>
     
@@ -615,7 +623,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机"><span class="nav-number">1.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单例的实现"><span class="nav-number">3.</span> <span class="nav-text">单例的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#饿汉式"><span class="nav-number">3.1.</span> <span class="nav-text">饿汉式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#懒汉式"><span class="nav-number">3.2.</span> <span class="nav-text">懒汉式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双重检测"><span class="nav-number">3.3.</span> <span class="nav-text">双重检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态内部类"><span class="nav-number">3.4.</span> <span class="nav-text">静态内部类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#枚举"><span class="nav-number">3.5.</span> <span class="nav-text">枚举</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存在的问题"><span class="nav-number">4.</span> <span class="nav-text">存在的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换解决方案"><span class="nav-number">5.</span> <span class="nav-text">替换解决方案</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机"><span class="nav-number">1.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单例的实现"><span class="nav-number">3.</span> <span class="nav-text">单例的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#饿汉式"><span class="nav-number">3.1.</span> <span class="nav-text">饿汉式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#懒汉式"><span class="nav-number">3.2.</span> <span class="nav-text">懒汉式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双重检测"><span class="nav-number">3.3.</span> <span class="nav-text">双重检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态内部类"><span class="nav-number">3.4.</span> <span class="nav-text">静态内部类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#枚举"><span class="nav-number">3.5.</span> <span class="nav-text">枚举</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存在的问题"><span class="nav-number">4.</span> <span class="nav-text">存在的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换解决方案"><span class="nav-number">5.</span> <span class="nav-text">替换解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何理解为单例模式的唯一性"><span class="nav-number">6.</span> <span class="nav-text">如何理解为单例模式的唯一性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程内唯一的实现方式"><span class="nav-number">6.1.</span> <span class="nav-text">线程内唯一的实现方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程内唯一的实现方式"><span class="nav-number">6.2.</span> <span class="nav-text">进程内唯一的实现方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多例模式"><span class="nav-number">7.</span> <span class="nav-text">多例模式</span></a></li></ol></div>
             
 
           </div>
@@ -824,7 +832,7 @@
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitment({
-            id: '1581778162000',
+            id: '1582555762000',
             owner: 'zjbao123',
             repo: 'gitment-comments',
             
