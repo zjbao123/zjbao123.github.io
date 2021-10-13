@@ -59,7 +59,7 @@ you know that while you are extraordinary on your own,we are all stronger and ca
 
 Tomrrow you all become part of a lifelong community,which offers truly great opportunity and therefore comes with real obligation.
 
-明天你们都将步入社会，这将是一生的旅途，图中会遇到很好的机会也会有很重大的责任。
+明天你们都将步入社会，这将是一生的旅途，途中会遇到很好的机会也会有很重大的责任。
 
 ## 单词杂记
 ```

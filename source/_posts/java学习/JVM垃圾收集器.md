@@ -3,7 +3,7 @@ title: JVM垃圾收集器
 date: 2021-10-13 11:07:00
 tags: 
 - Java
-categories: 总结
+categories: Java
 ---
 
 本文主要介绍JVM垃圾回收机制以及实际遇到的内存收缩能力相关的问题以及解决方案。
