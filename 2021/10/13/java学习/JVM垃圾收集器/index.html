@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍JVM垃圾回收机制以及实际遇到的内存收缩能力相关的问题以及解决方案。 这里的内存收缩能力主要是指：JVM在向操作系统申请内存使用之后，在进行JVM垃圾回收并且释放一定内存后是否一直占用操作系统的内存。若JVM一直占用，将导致ACS容器平台中的内存利用率较低，很多空余的内存没有得到实际的使用。 前提都是在Xms和Xmx不一致并且相差不接近的情况。">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM垃圾收集器">
+<meta property="og:url" content="http://zjbao123.github.io/2021/10/13/java学习/JVM垃圾收集器/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="本文主要介绍JVM垃圾回收机制以及实际遇到的内存收缩能力相关的问题以及解决方案。 这里的内存收缩能力主要是指：JVM在向操作系统申请内存使用之后，在进行JVM垃圾回收并且释放一定内存后是否一直占用操作系统的内存。若JVM一直占用，将导致ACS容器平台中的内存利用率较低，很多空余的内存没有得到实际的使用。 前提都是在Xms和Xmx不一致并且相差不接近的情况。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-10-13T03:07:51.400Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM垃圾收集器">
+<meta name="twitter:description" content="本文主要介绍JVM垃圾回收机制以及实际遇到的内存收缩能力相关的问题以及解决方案。 这里的内存收缩能力主要是指：JVM在向操作系统申请内存使用之后，在进行JVM垃圾回收并且释放一定内存后是否一直占用操作系统的内存。若JVM一直占用，将导致ACS容器平台中的内存利用率较低，很多空余的内存没有得到实际的使用。 前提都是在Xms和Xmx不一致并且相差不接近的情况。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2021/10/13/java学习/JVM垃圾收集器/">
+
+
+
+
+
+  <title>JVM垃圾收集器 | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2021/10/13/java学习/JVM垃圾收集器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JVM垃圾收集器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-13T11:07:00+08:00">
+                2021-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍JVM垃圾回收机制以及实际遇到的内存收缩能力相关的问题以及解决方案。</p>
+<p>这里的内存收缩能力主要是指：JVM在向操作系统申请内存使用之后，在进行JVM垃圾回收并且释放一定内存后是否一直占用操作系统的内存。若JVM一直占用，将导致ACS容器平台中的内存利用率较低，很多空余的内存没有得到实际的使用。</p>
+<p>前提都是在Xms和Xmx不一致并且相差不接近的情况。</p>
+<a id="more"></a>
+<h3 id="Java堆结构"><a href="#Java堆结构" class="headerlink" title="Java堆结构"></a>Java堆结构</h3><p>在JVM中，一般存在方法区、堆区、程序计数器，本地方法站，java虚拟机栈。<br>一般对象的创建和销毁都发生在堆中，内存溢出等现象大多数情况都发生在堆空间，所以本文指的内存伸缩能力都指的是堆空间的内存申请和释放。</p>
+<p>在JVM中，一般把堆分为两个区，年轻代和老年代。年轻代占堆的1/3，老年代占2/3。</p>
+<h4 id="年轻代"><a href="#年轻代" class="headerlink" title="年轻代"></a>年轻代</h4><p>年轻代分为Eden区，Survivor 0区和Survivor 1区。<br>年轻代的垃圾回收称之为Minor GC，Eden区满，垃圾回收，放到S1，S1满垃圾回收，放到S2，S1和S2循环，达到晋升年龄，转移到老年代。通过复制法清理<br>Eden:s1:s2 = 8:1:1</p>
+<h4 id="老年代"><a href="#老年代" class="headerlink" title="老年代"></a>老年代</h4><p>老年代一般用标记-清理法进行垃圾清理。老年代的垃圾回收一般称之为Major GC（Full GC）。</p>
+<h3 id="常见的垃圾收集算法"><a href="#常见的垃圾收集算法" class="headerlink" title="常见的垃圾收集算法"></a>常见的垃圾收集算法</h3><p>在介绍垃圾收集算法之前，首先要明确什么是垃圾。</p>
+<h4 id="确定垃圾"><a href="#确定垃圾" class="headerlink" title="确定垃圾"></a>确定垃圾</h4><p>一般有两种办法确定垃圾。</p>
+<ol>
+<li>引用计数法，通过引用次数来判断是否回收，注意：<strong>循环引用不能回收</strong>。</li>
+<li>可达性分析，GC Roots作为起始节点，看是否可达。</li>
+</ol>
+<h4 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h4><p>标记清除，复制算法，标记清理，标记压缩（往一端移动），分代收集，分区收集。</p>
+<h4 id="各个垃圾收集器介绍"><a href="#各个垃圾收集器介绍" class="headerlink" title="各个垃圾收集器介绍"></a>各个垃圾收集器介绍</h4><p>新生代：<br>    Serial 标记-复制，适用于单CPU环境<br>    Parallel ParNew 标记-复制 client模式下的JVM<br>    Parallel Scavenge 标记-复制，又称为吞吐量优先收集器，达到可控吞吐量，JDK1.7，JDK1.8默认新生代收集器<br>    吞吐量 = 运行用户代码时间/（运行用户代码时间+垃圾回收时间）<br>    系统会根据系统的当前GC情况自适应调节MaxGCPauseMillis、GCTimeRatio参数，来保证系统最合适的停顿时间和吞吐量。<br>老年代：<br>    Serial Old 标记压缩 单线程 CMS后备方案<br>    Parallel Old 标记压缩 多线程，JDK1.8默认老年代收集器<br>    CMS 标记清除 会产生碎片，基本被G1取代<br>    G1  标记压缩    多核 并行 高回收率</p>
+<h4 id="垃圾收集器组合及选择"><a href="#垃圾收集器组合及选择" class="headerlink" title="垃圾收集器组合及选择"></a>垃圾收集器组合及选择</h4><p>UseSerialGC（串行GC）： Serial（新生代）+ Serial Old（老年代）<br>UseParallelGC（并行GC）：arallel Scavenge（新生代）+ Parallel Old（老年代）<br>UseConcMarkSweepGC:   Parallel ParNew（新生代） + CMS收集器（老年代）+ Serial Old， Serial Old作为CMS出错后的垃圾收集。<br>UseG1GC(并发GC): 都使用G1。</p>
+<ol>
+<li>如果应用程序很小（最多大约100M），则选择UseSerialGC</li>
+<li>如果应用程序将在单个处理器上运行并且没有暂停时间要求，那么让VM自己选择，或者选择带有选项的则选择UseSerialGC</li>
+<li>如果应用程序性能是第一优先级且没有暂停时间要求或者1秒或者更长的暂停是可以接受的，那么就让VM选择，或者使用UseParallelGC</li>
+<li>如果响应时间比总吞吐时间更重要并且垃圾收集暂停必需保持短于大约1秒，则用UseConcMarkSweepGC或者UseG1GC</li>
+</ol>
+<h3 id="四种组合对比"><a href="#四种组合对比" class="headerlink" title="四种组合对比"></a>四种组合对比</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>新生代收集器</th>
+<th>新生代GC算法</th>
+<th>老年代收集器</th>
+<th>老年代GC算法</th>
+<th>是否具有伸缩能力</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UseSerialGC</td>
+<td>Serial</td>
+<td>复制算法</td>
+<td>Serial Old</td>
+<td>标记整理</td>
+<td>是</td>
+<td>稳定，GC效率高</td>
+<td>单线程，GC时间长，不适合大内存的服务</td>
+<td>适用于Client段，小内存，单CPU场景</td>
+</tr>
+<tr>
+<td>UseParallelGC</td>
+<td>arallel Scavenge</td>
+<td>复制算法</td>
+<td>Parallel Old</td>
+<td>标记整理</td>
+<td>是，但无法模拟</td>
+<td>多线程并行回收，吞吐量高</td>
+<td>停顿时间较长</td>
+<td>适用于多CPU，在后台处理而不需要过多交互的应用</td>
+</tr>
+<tr>
+<td>UseConcMarkSweepGC</td>
+<td>Parallel ParNew</td>
+<td>复制算法</td>
+<td>CMS + Serial Old</td>
+<td>标记清除</td>
+<td>是</td>
+<td>并发执行，停顿时间段，响应快</td>
+<td>会产生大量内存碎片，对CPU压力大</td>
+<td>适用于内存大，CPU核数多的服务端，适合应用在互联网网站或者B/S系统的服务器上，这类应用尤其重视服务器的响应速度，希望系统的响应时间最短</td>
+</tr>
+<tr>
+<td>UseG1GC</td>
+<td>G1</td>
+<td>标记整理，局部复制</td>
+<td>G1</td>
+<td>标记整理，局部复制</td>
+<td>是</td>
+<td>能满足高吞吐和暂停时间，能并发执行，能更快整理空闲内存，可预测GC时间</td>
+<td>调优复杂</td>
+<td>适合内存大，CPU核数多的服务端，可替换CMS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ACS云Java应用内存占用高实例"><a href="#ACS云Java应用内存占用高实例" class="headerlink" title="ACS云Java应用内存占用高实例"></a>ACS云Java应用内存占用高实例</h3><p>JVM存在申请了堆内存后，并未将未使用的内存返回给操作系统。<br>JDK1.8分为两种情况：<br>    若采用JDK1.8的默认垃圾收集器（UseParallelGC：Parallel Scavenge（新生代） + Parallel Old （老年代） ）：<br>        在启动应用时，一般会配置-Xms和-Xmx参数。一般在JVM启动后，回向操作系统申请应用需要的内存大小。<br>        当应用由于并发高或需要大内存分析任务等情况时，此时JVM内存不足，JVM会不断向操作系统申请内存直到最大堆内存。<br>        当应用由于并发减少或占用的内存不断减少时，JVM会触发GC，JVM堆内存空间总大小会在峰值的大小，内存未释放给操作系统，<br>        所以一直处在峰值<br>        通过内存占用指标，不一定能真实反馈JVM的内存情况，需要查看JVM中实际的内存占用情况。<br>    若采用JDK1.8的G1垃圾收集器时：<br>        在应用申请JVM内存之后，在应用无需过多JVM内存，GC后堆内存减少，此时内存占用率会下降。<br>在JDK1.9已经将G1作为默认垃圾收集器。</p>
+<h4 id="演示方式："><a href="#演示方式：" class="headerlink" title="演示方式："></a>演示方式：</h4><ol>
+<li>在应用中，会模拟一个缓存，并在缓存中创建一个数组对象。</li>
+<li>通过接口不断创建缓存，模拟JVM堆内存增长</li>
+<li>通过接口不断删除缓存，模拟JVM堆内存减少</li>
+<li>通过接口清空JVM堆内存</li>
+<li>通过接口手动gc触发JVM的GC</li>
+</ol>
+<h4 id="模拟过程："><a href="#模拟过程：" class="headerlink" title="模拟过程："></a>模拟过程：</h4><ol start="0">
+<li>-Xloggc：/tmp/gc.log 将GC日志打印到日志文件<pre><code>-XX:PrintGCDetails： 打印JVM的GC详细信息
+</code></pre></li>
+<li>应用启动时状态 top</li>
+<li>增加JVM内存，增加4次后，手动gc，发现内存占用上升</li>
+<li>再次申请直至峰值</li>
+<li>删除堆内存，并触发gc，top发现内存占用率不变</li>
+<li>清空堆内存，内存占用率不变，要看gc日志中对内存空间的实际占用情况</li>
+</ol>
+<h3 id="JVM内存占用率与容器平台内存占用率"><a href="#JVM内存占用率与容器平台内存占用率" class="headerlink" title="JVM内存占用率与容器平台内存占用率"></a>JVM内存占用率与容器平台内存占用率</h3><p>从上述示例可以看出，容器重的JVM内存占用率和容器平台内存占用率并不完全相等。</p>
+<p>当容器中的-Xmx和-Xms不同，并且JVM内存具有伸缩能力的时候，容器平台中的内存占用率大致可以反映出JVM内存的占用情况。<br>当容器中的-Xmx和-Xms相同，JVM不具备内存伸缩能力时，容器平台中的内存占用率不能体现JVM内存占用情况，体现不了JVM堆内存的空闲或是占用高。</p>
+<p>第二种情况，需要开发者通过：</p>
+<ol>
+<li>Java分析工具</li>
+<li>JDK自带的分析工具  jmap -hep xxx[可通过jps命令查看]</li>
+<li>显式调用Java的Runtime.getRuntime().totalMemory()、Runtime.getRuntime().maxMemory(), Runtime.getRuntime().freeMemory()方法，查看JVM内存占用情况。</li>
+</ol>
+<h4 id="上述问题解决方案"><a href="#上述问题解决方案" class="headerlink" title="上述问题解决方案"></a>上述问题解决方案</h4><p>优先通过JVM参数控制内存资源，控制堆内存在垃圾回收后将内存释放给操作系统，并通过实际JVM内存占用率辅助决策（可能需要容器平台提供Java应用的实际内存占用情况），评估JVM最大内存用量以及容器内存limit，让内存利用率更高。<br>若堆内存在垃圾回收之后无法将内存释放给操作系统，通过JVM实际堆内存占用率和应用各方面情况，进行人工流程去评估内存资源的上下限。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/24/设计模式/设计模式之美--工厂模式/" rel="next" title="设计模式之美--工厂模式">
+                <i class="fa fa-chevron-left"></i> 设计模式之美--工厂模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java堆结构"><span class="nav-number">1.</span> <span class="nav-text">Java堆结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#年轻代"><span class="nav-number">1.1.</span> <span class="nav-text">年轻代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#老年代"><span class="nav-number">1.2.</span> <span class="nav-text">老年代</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的垃圾收集算法"><span class="nav-number">2.</span> <span class="nav-text">常见的垃圾收集算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#确定垃圾"><span class="nav-number">2.1.</span> <span class="nav-text">确定垃圾</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾收集算法"><span class="nav-number">2.2.</span> <span class="nav-text">垃圾收集算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#各个垃圾收集器介绍"><span class="nav-number">2.3.</span> <span class="nav-text">各个垃圾收集器介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾收集器组合及选择"><span class="nav-number">2.4.</span> <span class="nav-text">垃圾收集器组合及选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种组合对比"><span class="nav-number">3.</span> <span class="nav-text">四种组合对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACS云Java应用内存占用高实例"><span class="nav-number">4.</span> <span class="nav-text">ACS云Java应用内存占用高实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#演示方式："><span class="nav-number">4.1.</span> <span class="nav-text">演示方式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模拟过程："><span class="nav-number">4.2.</span> <span class="nav-text">模拟过程：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM内存占用率与容器平台内存占用率"><span class="nav-number">5.</span> <span class="nav-text">JVM内存占用率与容器平台内存占用率</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#上述问题解决方案"><span class="nav-number">5.1.</span> <span class="nav-text">上述问题解决方案</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+        <script src="https://billts.site/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1634094420000',
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
