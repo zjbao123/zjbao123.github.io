@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="协议,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="翻译自官方文档  本文档从模块开发人员的角度描述了Python Distribution Utilities（“Distutils”），介绍了如何使用Distutils将Python模块和扩展程序提供给更加广泛的使用者，并使得构建/释放/安装机制的开销很少。">
+<meta name="keywords" content="协议">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Distutils分发自己编写的Python包">
+<meta property="og:url" content="http://zjbao123.github.io/2017/04/19/python/Python模块分发/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="翻译自官方文档  本文档从模块开发人员的角度描述了Python Distribution Utilities（“Distutils”），介绍了如何使用Distutils将Python模块和扩展程序提供给更加广泛的使用者，并使得构建/释放/安装机制的开销很少。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.728Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Distutils分发自己编写的Python包">
+<meta name="twitter:description" content="翻译自官方文档  本文档从模块开发人员的角度描述了Python Distribution Utilities（“Distutils”），介绍了如何使用Distutils将Python模块和扩展程序提供给更加广泛的使用者，并使得构建/释放/安装机制的开销很少。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2017/04/19/python/Python模块分发/">
+
+
+
+
+
+  <title>使用Distutils分发自己编写的Python包 | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2017/04/19/python/Python模块分发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用Distutils分发自己编写的Python包</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-19T21:22:50+08:00">
+                2017-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>翻译自<a href="https://docs.python.org/2.7/distutils/index.html" target="_blank" rel="noopener">官方文档</a></p>
+</blockquote>
+<p>本文档从模块开发人员的角度描述了Python Distribution Utilities（“Distutils”），介绍了如何使用Distutils将Python模块和扩展程序提供给更加广泛的使用者，并使得构建/释放/安装机制的开销很少。</p>
+<a id="more"></a>
+<h2 id="概念-amp-术语"><a href="#概念-amp-术语" class="headerlink" title="概念&amp;术语"></a>概念&amp;术语</h2><p>对于模块开发人员和安装第三方模块的用户/管理员来说，使用Distutils是非常简单的。作为一名开发人员，您的责任（当然除了编写可靠的，有详细记录和经过良好测试的代码）是：</p>
+<ul>
+<li>写一个安装脚本（按照惯例为setup.py）</li>
+<li>（可选）写入设置配置文件</li>
+<li>建立一个源码分发包</li>
+<li>（可选）创建一个或多个内置（二进制）分发包</li>
+</ul>
+<p>这些都会在本文档中一一提到。</p>
+<p>并不是所有的模块开发人员都可以访问多种平台，因此总想着他们可以创建大量的内置分发包是不可行的。希望出现一类称为“packagers”的中介机构，以满足这一需求。packagers将采用模块开发人员发布的源代码，将其构建在一个或多个平台上，并发布生成的内置分发包。因此，最流行的平台上的用户将能够以最自然的方式为他们的平台安装大多数流行的Python模块分发包，而无需运行单个安装脚本或编译一行代码。</p>
+<h2 id="一个简单实例"><a href="#一个简单实例" class="headerlink" title="一个简单实例"></a>一个简单实例</h2><p>安装脚本通常非常简单，尽管由Python编写，但是对于可以使用的脚本没有任何限制，可还是要在安装脚本中应该谨慎处理那些重要的操作。 与<code>Autoconf</code>风格的配置脚本不同的是，在构建和安装模块分发包的过程中，安装脚本可能会多次运行。</p>
+<p>如果你想做的只是分发一个包含在<code>foo.py</code>文件中的<code>foo</code>模块，那么你的安装脚本就可以这么简单：<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from distutils.core <span class="keyword">import</span> <span class="built_in">setup</span></span><br><span class="line"><span class="built_in">setup</span>(name=<span class="string">'foo'</span>,</span><br><span class="line">      version=<span class="string">'1.0'</span>,</span><br><span class="line">      py_modules=[<span class="string">'foo'</span>],</span><br><span class="line">      )</span><br></pre></td></tr></table></figure></p>
+<p>一些需要注意的地方：</p>
+<ul>
+<li><p>您提供给<code>Distutils</code>的大多数信息都作为关键字参数提供给<code>setup（）</code>函数</p>
+</li>
+<li><p>这些关键字参数分为两类：包元数据（名称，版本号）以及有关软件包内容的信息（在这种情况下是纯<code>Python</code>模块的列表）</p>
+</li>
+<li><p>模块由模块名称指定，而不是文件名（对于包和扩展名也是如此）</p>
+</li>
+<li><p>建议您提供更多元数据，特别是您的名称，电子邮件地址和项目的URL（请参阅编写安装脚本一节）</p>
+</li>
+</ul>
+<p>如果要将源码进行分发，你需要在<code>setup.py</code>写入上述代码，并从命令行处运行：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup<span class="selector-class">.py</span> sdist</span><br></pre></td></tr></table></figure>
+<p>对于Windows用户来说，你需要执行：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setup<span class="selector-class">.py</span> sdist</span><br></pre></td></tr></table></figure>
+<p><code>sdist</code>将创建一个存档文件（例如，Unix上的tarball文件，Windows上的ZIP文件），其中包含您的安装脚本<code>setup.py</code>和您的模块<code>foo.py</code>。 归档文件将被命名为<code>foo-1.0.tar.gz（或.zip）</code>，并将打包到目录<code>foo-1.0</code>中。</p>
+<p>如果最终用户希望安装您的foo模块，那么她所要做的就是下载<code>foo-1.0.tar.gz（或.zip）</code>，解压缩，并从<code>foo-1.0</code>目录运行：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup<span class="selector-class">.py</span> install</span><br></pre></td></tr></table></figure>
+<p>这将最终将<code>foo.py</code>复制到Python安装中的第三方模块的相应目录。</p>
+<p>这个简单的例子演示了<code>Distutils</code>的一些基本概念。 首先，开发人员和安装人员都有相同的基本用户界面，即安装脚本。 区别在于<code>Distutils</code>使用的命令：<code>sdist</code>命令几乎专门用于模块开发人员，而安装程序更常用于安装程序（尽管大多数开发人员都希望偶尔安装自己的代码）。</p>
+<p>如果你想为用户做一些简单的事情，你可以为他们创建一个或多个内置（二进制）的分发包。 例如，如果您正在Windows机器上运行，并希望为其他Windows用户提供方便，则可以使用<code>bdist_wininst</code>命令创建一个可执行安装程序（这个平台最合适的构建版本的类型）。 例如：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup<span class="selector-class">.py</span> bdist_wininst</span><br></pre></td></tr></table></figure></p>
+<p>这将在当前目录中创建可执行安装程序<code>foo-1.0.win32.exe</code>。</p>
+<p>其他有用的内置分发格式是RPM。 例如，以下命令将创建一个名为<code>foo-1.0.noarch.rpm</code>的RPM文件：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup<span class="selector-class">.py</span> bdist_rpm</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：bdist_rpm命令使用rpm可执行文件，因此必须在基于RPM的系统上运行，如Red Hat Linux，SuSE Linux或Mandrake Linux。</p>
+</blockquote>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">python</span> setup.<span class="keyword">py</span> bdist --<span class="keyword">help</span>-formats</span><br></pre></td></tr></table></figure>
+<p>你可以通过这条指令来查看运行了什么样的分发格式。</p>
+<h2 id="常用的Python术语"><a href="#常用的Python术语" class="headerlink" title="常用的Python术语"></a>常用的Python术语</h2><p><strong>模块(module)</strong>:Python中代码可重用性的基本单位：由一些其他代码导入的代码块。 这里涉及到三种类型的模块：纯Python模块（Python modules），扩展模块（extension modules）和包（packages）。</p>
+<p><strong>纯Python模块（Python modules）</strong>：一个用Python编写并包含在一个.py文件中的模块（也可能是关联的.pyc和/或.pyo文件）。 有时被称为“纯模块”。</p>
+<p><strong>扩展模块（extension modules）</strong>：一个用Python实现的低级语言编写的模块：C / C ++ for Python，Java for Jython。 通常包含在单个可动态加载的预编译文件中。 Unix上的Python扩展的共享对象（.so）文件，Windows上的Python扩展的DLL（给定.pyd扩展名）或Jython扩展的Java类文件。 （请注意，目前，Distutils仅处理Python的C / C ++扩展。）</p>
+<p><strong>包（packages）</strong>:包含其他模块的模块; 通常包含在文件系统中的目录中，并通过存在文件<code>__init__.py</code>与其他目录区分开来。</p>
+<p><strong>根包（root packages）</strong>：<br>包的层次结构的根。 （这不是一个包，因为它没有一个<code>__init__.py</code>文件，但我们必须称之为一些）。绝大多数的标准库是根包，许多小的，独立的第三个 不属于较大模块集合的一个模块。 与常规包不同，根包中的模块可以在许多目录中找到：实际上，<code>sys.path</code>中列出的每个目录都向根包提供模块。</p>
+<h2 id="Distutils特定术语"><a href="#Distutils特定术语" class="headerlink" title="Distutils特定术语"></a>Distutils特定术语</h2><p>以下术语更具体地适用于使用<code>Distutils</code>分发<code>Python</code>模块的方面：</p>
+<p><strong>模块分发包</strong>:作为一个可下载的资源一起分发的Python模块的集合，并且要大量安装。一些众所周知的模块分布的例子有数字Python，PyXML，PIL（Python影像库）或mxBase。 （这将被称为包，除了该术语已经在Python上下文中：单个模块分发可能包含零个，一个或多个Python包。）</p>
+<p><strong>纯模块分发包</strong>：一个仅包含纯Python模块和包的模块分发。有时被称为“纯分配”。</p>
+<p><strong>非纯模块分发包</strong>：一个包含至少一个扩展模块的模块分发。有时被称为“非纯分配”。</p>
+<p><strong>根分发包</strong>：源树（或源分发）的顶层目录; setup.py存在的目录。一般来说，setup.py将从此目录运行。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/协议/" rel="tag"># 协议</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/15/摘录/我们培养了很多高学历的野蛮人/" rel="next" title="我们培养了很多高学历的野蛮人">
+                <i class="fa fa-chevron-left"></i> 我们培养了很多高学历的野蛮人
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/27/摘录/提问的智慧/" rel="prev" title="如何有效的报告bug">
+                如何有效的报告bug <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念-amp-术语"><span class="nav-number">1.</span> <span class="nav-text">概念&amp;术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个简单实例"><span class="nav-number">2.</span> <span class="nav-text">一个简单实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的Python术语"><span class="nav-number">3.</span> <span class="nav-text">常用的Python术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distutils特定术语"><span class="nav-number">4.</span> <span class="nav-text">Distutils特定术语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+        <script src="https://billts.site/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1492608170000',
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

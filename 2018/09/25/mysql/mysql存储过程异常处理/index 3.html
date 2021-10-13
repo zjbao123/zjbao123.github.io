@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql,存储过程,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="当我们处理存储过程的时候,难免会遇到如何将存储过程中的报错统一处理之后返回出来。在工作中正好需要用到这方面的知识，所以来学习并做个记录。">
+<meta name="keywords" content="mysql,存储过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql 存储过程异常处理">
+<meta property="og:url" content="http://zjbao123.github.io/2018/09/25/mysql/mysql存储过程异常处理/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="当我们处理存储过程的时候,难免会遇到如何将存储过程中的报错统一处理之后返回出来。在工作中正好需要用到这方面的知识，所以来学习并做个记录。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.723Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql 存储过程异常处理">
+<meta name="twitter:description" content="当我们处理存储过程的时候,难免会遇到如何将存储过程中的报错统一处理之后返回出来。在工作中正好需要用到这方面的知识，所以来学习并做个记录。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2018/09/25/mysql/mysql存储过程异常处理/">
+
+
+
+
+
+  <title>mysql 存储过程异常处理 | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2018/09/25/mysql/mysql存储过程异常处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mysql 存储过程异常处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-25T21:22:50+08:00">
+                2018-09-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>当我们处理存储过程的时候,难免会遇到如何将存储过程中的报错统一处理之后返回出来。在工作中正好需要用到这方面的知识，所以来学习并做个记录。</p>
+<a id="more"></a>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="function"><span class="keyword">procedure</span> <span class="title">duplicate_teams</span><span class="params">(<span class="keyword">out</span> p int)</span></span></span><br><span class="line"><span class="function"><span class="title">BEGIN</span></span></span><br><span class="line"><span class="function"><span class="title">set</span> <span class="title">p</span> = 1;</span></span><br><span class="line">insert <span class="keyword">into</span> test values (<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"><span class="keyword">set</span> p =<span class="number">2</span>;</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+<p>这里的test表只有一个字段,我们临时测试使用,因此没有在对其创建表。<br>在进行调用时:</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">call</span> <span class="selector-tag">pr_test</span>(<span class="variable">@q</span>);</span><br><span class="line"><span class="selector-tag">select</span> @<span class="selector-tag">q</span>;</span><br></pre></td></tr></table></figure>
+<p>在默认情况下，当存储过程运行出错时，过程会立即终止，并打印系统错误消息：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">1136 </span>- Column count doesn<span class="comment">'t match value count at row 1</span></span><br></pre></td></tr></table></figure>
+<p>输出为空。</p>
+<h2 id="1-定义异常处理"><a href="#1-定义异常处理" class="headerlink" title="1. 定义异常处理"></a>1. 定义异常处理</h2><p>通过对异常的定义，我们可以对其作出相应的处理步骤。</p>
+<p>DECLARE … HANDLER语句来进行定义处理：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">DECLARE</span> handler_action <span class="keyword">HANDLER</span></span><br><span class="line">    <span class="keyword">FOR</span> condition_value [, condition_value] ...</span><br><span class="line">    <span class="keyword">statement</span></span><br><span class="line"><span class="comment"># 定义操作的动作:</span></span><br><span class="line"><span class="comment"># CONTINUE 继续执行当前程序</span></span><br><span class="line"><span class="comment"># EXIT 当前程序终止(退出当前declare所在的begin end)；</span></span><br><span class="line">handler_action:</span><br><span class="line">    CONTINUE</span><br><span class="line">    | <span class="keyword">EXIT</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># condition_value用以指明触发条件</span></span><br><span class="line">condition_value:</span><br><span class="line">    mysql_error_code</span><br><span class="line">    | <span class="keyword">SQLSTATE</span> [<span class="keyword">VALUE</span>] sqlstate_value</span><br><span class="line">    | condition_name</span><br><span class="line">    | SQLWARNING</span><br><span class="line">    | <span class="keyword">NOT</span> <span class="keyword">FOUND</span></span><br><span class="line">    | SQLEXCEPTION</span><br><span class="line"></span><br><span class="line"><span class="comment"># statement触发的时候需要做的操作</span></span><br><span class="line"><span class="keyword">statement</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-实践"><a href="#2-实践" class="headerlink" title="2. 实践"></a>2. 实践</h2><p>将上述代码修改为:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> duplicate_teams(<span class="keyword">out</span> p <span class="built_in">int</span>)</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">DECLARE</span> CONTINUE <span class="keyword">HANDLER</span> <span class="keyword">FOR</span> SQLEXCEPTION</span><br><span class="line">    <span class="keyword">BEGIN</span></span><br><span class="line">        <span class="keyword">set</span> p = <span class="string">"10086"</span>;</span><br><span class="line">    <span class="keyword">END</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> p = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">test</span> <span class="keyword">values</span> (<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"><span class="keyword">set</span> p =<span class="number">2</span>;</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+<p>此时再去调用得到结果为 2,当为EXIT模式时,则返回10086。</p>
+<h2 id="3-获取错误内容"><a href="#3-获取错误内容" class="headerlink" title="3. 获取错误内容"></a>3. 获取错误内容</h2><p>虽然我们获取了错误,但是并没有很方便的定位到报错位置以及报错信息。<code>mysql 5.6.4</code>以后的版本提供了<code>GET DIAGNOSTICS</code>来获取缓冲区的报错内容。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#关键字CURRENT表示从当前诊断区域检索信息。在MySQL中，它没有任何效果，因为这是默认行为。</span></span><br><span class="line">GET [CURRENT] DIAGNOSTICS</span><br><span class="line">&#123;</span><br><span class="line">    statement_information_item</span><br><span class="line">    [, statement_information_item] ...</span><br><span class="line">  <span class="string">| CONDITION condition_number</span></span><br><span class="line">    condition_information_item</span><br><span class="line">    [, condition_information_item] ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta"># </span></span><br><span class="line">statement_information_item:</span><br><span class="line">    target = statement_information_item_name</span><br><span class="line"></span><br><span class="line">condition_information_item:</span><br><span class="line">    target = condition_information_item_name</span><br><span class="line"></span><br><span class="line">statement_information_item_name:</span><br><span class="line">    NUMBER</span><br><span class="line">  <span class="string">| ROW_COUNT</span></span><br><span class="line"></span><br><span class="line">condition_information_item_name:</span><br><span class="line">    CLASS_ORIGIN</span><br><span class="line">  <span class="string">| SUBCLASS_ORIGIN</span></span><br><span class="line">  <span class="string">| RETURNED_SQLSTATE</span></span><br><span class="line">  <span class="string">| MESSAGE_TEXT</span></span><br><span class="line">  <span class="string">| MYSQL_ERRNO</span></span><br><span class="line">  <span class="string">| CONSTRAINT_CATALOG</span></span><br><span class="line">  <span class="string">| CONSTRAINT_SCHEMA</span></span><br><span class="line">  <span class="string">| CONSTRAINT_NAME</span></span><br><span class="line">  <span class="string">| CATALOG_NAME</span></span><br><span class="line">  <span class="string">| SCHEMA_NAME</span></span><br><span class="line">  <span class="string">| TABLE_NAME</span></span><br><span class="line">  <span class="string">| COLUMN_NAME</span></span><br><span class="line">  <span class="string">| CURSOR_NAME</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta"># 要获取语句信息，请将所需的语句项检索到目标变量中。此实例 GET DIAGNOSTICS将可用条件数和受行影响的计数分配给用户变量</span></span><br><span class="line">GET DIAGNOSTICS @p1 = NUMBER, @p2 = ROW_COUNT;</span><br><span class="line"></span><br><span class="line"><span class="meta">#要获取条件信息，请指定条件编号并将所需的条件项检索到目标变量中。此实例GET DIAGNOSTICS将SQLSTATE值和错误消息分配给用户变量</span></span><br><span class="line">GET DIAGNOSTICS CONDITION <span class="number">1</span> @p3 = RETURNED_SQLSTATE, @p4 = MESSAGE_TEXT;</span><br></pre></td></tr></table></figure>
+<p>代码修正如下:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> duplicate_teams(<span class="keyword">out</span> <span class="keyword">result</span> <span class="built_in">varchar</span>(<span class="number">1024</span>))</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"><span class="keyword">DECLARE</span> code <span class="built_in">VARCHAR</span>(<span class="number">1024</span>);</span><br><span class="line"><span class="keyword">DECLARE</span> msg <span class="built_in">VARCHAR</span>(<span class="number">1024</span>);</span><br><span class="line"><span class="keyword">DECLARE</span> <span class="keyword">EXIT</span> <span class="keyword">HANDLER</span> <span class="keyword">FOR</span> SQLEXCEPTION</span><br><span class="line">    <span class="keyword">BEGIN</span></span><br><span class="line">		<span class="keyword">GET</span> <span class="keyword">DIAGNOSTICS</span> CONDITION <span class="number">1</span></span><br><span class="line">        code = RETURNED_SQLSTATE, msg = MESSAGE_TEXT;</span><br><span class="line">        <span class="keyword">SET</span> <span class="keyword">result</span> = <span class="keyword">CONCAT</span>(<span class="string">'insert failed, error = '</span>,code,<span class="string">', message = '</span>,msg);</span><br><span class="line">    <span class="keyword">END</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> <span class="keyword">result</span> = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">test</span> <span class="keyword">values</span> (<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">result</span> =<span class="number">2</span>;</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+<p>输出为:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> pr_test(@q);</span><br><span class="line"><span class="keyword">select</span> @q;</span><br><span class="line"></span><br><span class="line">@q</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">failed</span>, <span class="keyword">error</span> = <span class="number">21</span>S01, message = <span class="keyword">Column</span> <span class="keyword">count</span> doesn<span class="string">'t match value count at row 1</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-补充说明"><a href="#4-补充说明" class="headerlink" title="4. 补充说明"></a>4. 补充说明</h2><h3 id="关于错误编号"><a href="#关于错误编号" class="headerlink" title="关于错误编号"></a>关于错误编号</h3><p>每个MySQL错误都有一个唯一的数字错误编号(<code>mysql_error_code</code>)，每个错误又对应一个5字符的SQLSTATE码(ANSI SQL 采用)。</p>
+<p>SQLSTATE码对应的处理程序：</p>
+<p>　　1、SQLWARNING处理程序：以‘01’开头的所有sqlstate码与之对应,对应为警告</p>
+<p>　　2、NOT FOUND处理程序：以‘02’开头的所有sqlstate码与之对应为无数据</p>
+<p>　　3、SQLEXCEPTION处理程序：不以‘01’或‘02’开头的所有sqlstate码，也就是所有未被SQLWARNING或NOT FOUND捕获的SQLSTATE(常遇到的MySQL错误就是非‘01’、‘02’开头的)</p>
+<ul>
+<li>注意：‘01’、‘02’开头和‘1’、‘2’开头是有区别的，是不一样的错误sqlsate码。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+            <a href="/tags/存储过程/" rel="tag"># 存储过程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/27/数字货币/搬砖进阶/" rel="next" title="搬砖进阶">
+                <i class="fa fa-chevron-left"></i> 搬砖进阶
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/13/通用杂货/buying_Amercia/" rel="prev" title="Buy America. I am.">
+                Buy America. I am. <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-定义异常处理"><span class="nav-number">1.</span> <span class="nav-text">1. 定义异常处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-实践"><span class="nav-number">2.</span> <span class="nav-text">2. 实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-获取错误内容"><span class="nav-number">3.</span> <span class="nav-text">3. 获取错误内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-补充说明"><span class="nav-number">4.</span> <span class="nav-text">4. 补充说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于错误编号"><span class="nav-number">4.1.</span> <span class="nav-text">关于错误编号</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+        <script src="https://billts.site/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1537881770000',
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

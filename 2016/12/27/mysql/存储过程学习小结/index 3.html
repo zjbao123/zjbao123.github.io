@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="存储过程的概述是在大型数据库系统中，一组为了完成特定功能的SQL语句集，存储在数据库中，经过第一次编译后再次调用不需要再次编译。外部程序可以直接调用数据库里面定义好的存储过程，另外数据库内部的触发器(trigger)、或者其他存储过程也可以调用它。">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="存储过程学习小结">
+<meta property="og:url" content="http://zjbao123.github.io/2016/12/27/mysql/存储过程学习小结/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="存储过程的概述是在大型数据库系统中，一组为了完成特定功能的SQL语句集，存储在数据库中，经过第一次编译后再次调用不需要再次编译。外部程序可以直接调用数据库里面定义好的存储过程，另外数据库内部的触发器(trigger)、或者其他存储过程也可以调用它。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.727Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="存储过程学习小结">
+<meta name="twitter:description" content="存储过程的概述是在大型数据库系统中，一组为了完成特定功能的SQL语句集，存储在数据库中，经过第一次编译后再次调用不需要再次编译。外部程序可以直接调用数据库里面定义好的存储过程，另外数据库内部的触发器(trigger)、或者其他存储过程也可以调用它。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2016/12/27/mysql/存储过程学习小结/">
+
+
+
+
+
+  <title>存储过程学习小结 | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2016/12/27/mysql/存储过程学习小结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">存储过程学习小结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-27T16:22:50+08:00">
+                2016-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="存储过程的概述"><a href="#存储过程的概述" class="headerlink" title="存储过程的概述"></a>存储过程的概述</h2><p>是在大型数据库系统中，一组为了完成特定功能的SQL语句集，存储在<code>数据库</code>中，经过第一次编译后再次调用不需要再次编译。外部程序可以直接调用数据库里面定义好的存储过程，另外数据库内部的触发器(trigger)、或者其他存储过程也可以调用它。</p>
+<a id="more"></a>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>1.性能上的提高，减少了交互频率，提高了重用性。<br>2.类似于接口的概念，提高了安全性。尽管无法直接访问，但可以通过存储过程进行处理。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>1.存储过程会加大数据库占用的系统资源。<br>2.无法编写复杂逻辑的存储过程，不容易调试。<br>3.存储过程书写及维护难度都比较大。</p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DECLARE variable_name datatype(size)<span class="built_in"> DEFAULT </span>default_value;</span><br></pre></td></tr></table></figure>
+<p>多个变量可以这样定义：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DECLARE x, y INT<span class="built_in"> DEFAULT </span>0 ;</span><br></pre></td></tr></table></figure></p>
+<h3 id="变量的赋值"><a href="#变量的赋值" class="headerlink" title="变量的赋值"></a>变量的赋值</h3><p>可以通过<code>set</code>或者<code>select...into...</code>来进行赋值。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> x =<span class="number">10</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">into</span> x <span class="keyword">from</span> usertabl;</span><br></pre></td></tr></table></figure></p>
+<h3 id="变量的scope-作用范围"><a href="#变量的scope-作用范围" class="headerlink" title="变量的scope(作用范围)"></a>变量的scope(作用范围)</h3><p>作用范围一般在begin和end之间。<br>还有一种是会话变量(session variable)，也叫做用户定义的变量(user defined variable)。这种变量要在变量名称前面加上“@”符号，作用域是全局。这个变量可以在被调用的存储过程或者代码之间共享数据。</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>MySql的参数分为三类:IN、OUT、INOUT。</p>
+<p>IN(默认)：这是个默认的类型，也就是如果参数没指定类型的话，那么默认就是IN类型了，这种参数主要是传递进去的值，这个值提供给存储过程使用，另外存储过程对其做的改变不会对传入的参数发生作用。</p>
+<p>OUT：这个主要是存储过程要传递出去的值，也就是存储过程给你将它改变，并且传回去给调用它的程序。</p>
+<p>INOUT：则把上面两个的特点合在一起了，即可以传递值给存储过程使用，同时存储过程也可以改变这个值在传给调用它的程序。</p>
+<h3 id="参数的定义"><a href="#参数的定义" class="headerlink" title="参数的定义"></a>参数的定义</h3><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">MODE</span> param_name param_<span class="keyword">type</span>(param_size)；</span><br></pre></td></tr></table></figure>
+<p>这里的MODE指的就是以上的三类。</p>
+<h2 id="逻辑判断和循环"><a href="#逻辑判断和循环" class="headerlink" title="逻辑判断和循环"></a>逻辑判断和循环</h2><p>存储过程中也有对应的条件判断，功能类似于if、switch。在MySQL里面对应的是IF和CASE。MySQL的存储过程中可使用的循环有三种：WHILE、REPEAT、LOOP。</p>
+<h3 id="IF"><a href="#IF" class="headerlink" title="IF"></a>IF</h3><figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">IF</span> expression <span class="keyword">THEN</span> commands  </span><br><span class="line">   [<span class="keyword">ELSEIF</span> expression <span class="keyword">THEN</span> commands]  </span><br><span class="line">   [<span class="keyword">ELSE</span> commands]  </span><br><span class="line">   <span class="keyword">END</span> <span class="keyword">IF</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="CASE"><a href="#CASE" class="headerlink" title="CASE"></a>CASE</h3><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CASE</span>  case_expression  </span><br><span class="line">   <span class="keyword">WHEN</span> when_expression <span class="keyword">THEN</span> commands  </span><br><span class="line">   <span class="keyword">WHEN</span> when_expression <span class="keyword">THEN</span> commands  </span><br><span class="line">   ...  </span><br><span class="line">   <span class="keyword">ELSE</span> commands  </span><br><span class="line"><span class="keyword">END</span> <span class="keyword">CASE</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="WHILE"><a href="#WHILE" class="headerlink" title="WHILE"></a>WHILE</h3><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WHILE</span> expression <span class="keyword">DO</span>  </span><br><span class="line">   <span class="built_in">Statements</span>  </span><br><span class="line"><span class="keyword">END</span> <span class="keyword">WHILE</span></span><br></pre></td></tr></table></figure>
+<h3 id="REPEAT"><a href="#REPEAT" class="headerlink" title="REPEAT"></a>REPEAT</h3><p>类似于<code>do...while...</code><br><figure class="highlight cal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">REPEAT</span>  </span><br><span class="line">Statements;  </span><br><span class="line"><span class="keyword">UNTIL</span> expression  </span><br><span class="line"><span class="keyword">END</span> <span class="keyword">REPEAT</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="LOOP-及-LEAVE、ITERATE"><a href="#LOOP-及-LEAVE、ITERATE" class="headerlink" title="LOOP 及 LEAVE、ITERATE"></a>LOOP 及 LEAVE、ITERATE</h3><p>这里LOOP用来标记循环；而LEAVE表示离开循环，好比编程里面的break一样；ITERATE则继续循环，类型与编程里面的continue。<br>例.输出小于10的偶数：<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">loop_label:  <span class="keyword">LOOP</span>  </span><br><span class="line">  <span class="keyword">IF</span>  x &gt; <span class="number">10</span> <span class="keyword">THEN</span>  </span><br><span class="line">   LEAVE  loop_label;  </span><br><span class="line">  <span class="keyword">END</span>  <span class="keyword">IF</span>;  </span><br><span class="line">  <span class="keyword">SET</span>  x = x + <span class="number">1</span>;  </span><br><span class="line">  <span class="keyword">IF</span>  (x <span class="keyword">mod</span> <span class="number">2</span>) <span class="keyword">THEN</span>  </span><br><span class="line">   ITERATE  loop_label;  </span><br><span class="line">  <span class="keyword">ELSE</span>  </span><br><span class="line">   <span class="keyword">SET</span>  str = <span class="keyword">CONCAT</span>(str,x,<span class="string">','</span>);  </span><br><span class="line">  <span class="keyword">END</span>  <span class="keyword">IF</span>;  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">END</span> <span class="keyword">LOOP</span>;  </span><br><span class="line"><span class="keyword">select</span> str;</span><br></pre></td></tr></table></figure></p>
+<h2 id="游标"><a href="#游标" class="headerlink" title="游标"></a>游标</h2><p>游标的作用就是用于对查询数据库所返回的记录进行遍历，以便进行相应的操作。</p>
+<h3 id="游标属性"><a href="#游标属性" class="headerlink" title="游标属性"></a>游标属性</h3><p>游标有下列属性：<br>a、游标是只读的，也就是不能更新它；<br>b、游标是不能滚动的，也就是只能在一个方向上进行遍历，不能在记录之间随意进退，不能跳过某些记录；<br>c、避免在已经打开游标的表上更新数据。</p>
+<h3 id="游标的使用"><a href="#游标的使用" class="headerlink" title="游标的使用"></a>游标的使用</h3><p>a.首先用DECLARE语句声明一个游标<br> <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span> cursor_name <span class="keyword">CURSOR</span> <span class="keyword">FOR</span> SELECT_statement;</span><br></pre></td></tr></table></figure></p>
+<p> 上面这条语句就给我们执行的select语句返回的记录指定了一个游标。</p>
+<p>b.其次需要使用OPEN语句来打开上面你定义的游标<br> <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OPEN cursor_name<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>c.接下来你可以用FETCH语句来获得下一行数据，并且游标也将移动到对应的记录上(这个就类似java里面的那个iterator)。<br> <figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FETCH cursor_name <span class="keyword">INTO</span> <span class="built_in">variable</span> <span class="built_in">list</span>;</span><br></pre></td></tr></table></figure></p>
+<p>d.然后最后当我们所需要进行的操作都结束后我们要把游标释放掉。<br> <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CLOSE </span>cursor_name<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>在使用游标时需要注意的是，使用定义一个针对NOT FOUND的条件处理函数(condition handler)来避免出现“no data to fetch”这样的错误，条件处理函数就是当某种条件产生时所执行的代码，这里但我们游标指到记录的末尾时，便达到NOT FOUND这样条件，这个时候我们希望继续进行后面的操作，所以我们会加CONTINUE。然后判断<code>no_more_flag</code>标志位来进行进一步的操作。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span>  CONTINUE <span class="keyword">HANDLER</span> </span><br><span class="line">	<span class="keyword">FOR</span> <span class="keyword">NOT</span> <span class="keyword">FOUND</span>  </span><br><span class="line">	<span class="keyword">SET</span>  no_more_flag = <span class="number">1</span>;</span><br><span class="line">	<span class="comment">/*when "not found" occur,just continue*/</span></span><br></pre></td></tr></table></figure></p>
+<p>接下来会解释一下上面这个用法的意思。</p>
+<h2 id="条件处理-错误、异常处理"><a href="#条件处理-错误、异常处理" class="headerlink" title="条件处理 / 错误、异常处理"></a>条件处理 / 错误、异常处理</h2><p>在游标里面我们有简要的介绍了一个NOT FOUND这个条件处理（错误、异常处理）的情况，条件处理涉及到两个语句，一个是<code>DECLARE...CONDITION</code>，另一个是<code>DECLARE....HANDLER</code>。</p>
+<h3 id="1、DECLARE…-HANDLER语句"><a href="#1、DECLARE…-HANDLER语句" class="headerlink" title="1、DECLARE….HANDLER语句"></a>1、DECLARE….HANDLER语句</h3><p>这个语句用于但数据库出现某种情况的时候(condition，大部分指发生某种错误时)，来定义具体的处理办法(handler)；所以这里涉及到包括：a、就是个什么情况 b、如何处理它；下面是其格式。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span> handler_action <span class="keyword">HANDLER</span>  </span><br><span class="line">    <span class="keyword">FOR</span> condition_value [, condition_value] ...  <span class="comment">#可以包括多种情况</span></span><br><span class="line">    <span class="keyword">statement</span>  </span><br><span class="line"> <span class="comment">#处理方法有： </span></span><br><span class="line">handler_action:  </span><br><span class="line">    CONTINUE  </span><br><span class="line">  | <span class="keyword">EXIT</span>  </span><br><span class="line">  | <span class="keyword">UNDO</span>  </span><br><span class="line"> <span class="comment">#存在情况有：</span></span><br><span class="line">condition_value:  </span><br><span class="line">    mysql_error_code  <span class="comment"># MySQL的错误代码</span></span><br><span class="line">  | <span class="keyword">SQLSTATE</span> [<span class="keyword">VALUE</span>] sqlstate_value  <span class="comment"># 一个5个字符组成的字符串的错误信息，同错误代码类似形成一一对应的关系 </span></span><br><span class="line">  | condition_name  <span class="comment"># 这个是条件名称，它使用DECLARE...CONDITION语句来定义</span></span><br><span class="line">  | SQLWARNING  <span class="comment"># 表示SQLTATE中的字符串以‘01’起始的那些错误</span></span><br><span class="line">  | <span class="keyword">NOT</span> <span class="keyword">FOUND</span>  <span class="comment"># 表示SQLTATE中的字符串以‘02’起始的那些错误</span></span><br><span class="line">  | SQLEXCEPTION  <span class="comment"># 表示SQLSTATE中的字符串不是以'00'、'01'、'02' 起始的那些错误，这里'00'起始的SQLSTATE其实表示的是成功执行而不是错误，另外两个就是上面的`NOT FOUND`和`SQLWARNING`的两种情况。</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="a-condition-value"><a href="#a-condition-value" class="headerlink" title="a.condition_value"></a>a.condition_value</h4><p> 上面的6种情况其实可以分为两类，一类就是比较明确的处理，就是对指定的错误情况进行处理，包括前三种方式；另一类是对对应类型的错误的处理，就是对某一群错误的处理，包括后三种方式另外还要注意的一个内容是MySQL在默认情况下(也就是我们没有定义处理错误的方法-handler)自己的错误处理机制：<br> 1、对于SQLWARNING和NOT FOUND的处理方法就是无视错误继续执行，所以在游标的例子里面如果我们没有对repeat的条件判断的那个值做个no_more_products=1的handler来处理，那么循环就会一直下去。<br> 2、对于SQLEXCEPTION的话，其默认的处理方法是在出现错误的地方就终止掉了。</p>
+<h4 id="b-statement"><a href="#b-statement" class="headerlink" title="b.statement"></a>b.statement</h4><p> 这个比较简单就是当出现某种条件/错误时，我们要执行的语句，可以是简单的如 SET  var = value这样的简单的语句，也可以是复杂的多行的语句，多行的话可以使用BEGIN  …..  END这里把语句包括在里面(这个好比delphi里面的情况，注意到我们的存储过程也是多行的，所以也要BEGIN …. END)。</p>
+<h4 id="c-handler-action"><a href="#c-handler-action" class="headerlink" title="c.handler_action"></a>c.handler_action</h4><p> 这个表示当执行完上面的statement后，希望执行怎样的动作，这里包括CONTINUE、EXIT、UNDO，表示继续、退出、撤销(暂时不支持)。<br> CONTINUE就是一个是SQLWARNING和NOT FOUND的默认处理方法，而EXIT就是SQLEXCEPTION的默认处理方法。</p>
+<h3 id="2、DECLARE…CONDITION语句"><a href="#2、DECLARE…CONDITION语句" class="headerlink" title="2、DECLARE…CONDITION语句"></a>2、DECLARE…CONDITION语句</h3><p>这个语句其实是为了让我们的错误条件更加的清晰明了化的。例如，SQLSTATE ‘23000’并不清晰，要通过相应的文档去对应 。<br><code>DECLARE....CONDITION</code>可以对条件定义相对应的名称。我们可以这样写：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span> duplicate_key CONDITION <span class="keyword">FOR</span> <span class="keyword">SQLSTATE</span> <span class="string">'23000'</span>;  </span><br><span class="line"><span class="keyword">DECLARE</span> CONTINUE <span class="keyword">HANDLER</span> <span class="keyword">FOR</span> duplicate_key  </span><br><span class="line">  <span class="keyword">BEGIN</span>  </span><br><span class="line">    <span class="comment">-- body of handler  </span></span><br><span class="line">  <span class="keyword">END</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这样更加直观清晰。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/15/mysql/mysql学习小结-范式/" rel="next" title="mysql学习小结-范式">
+                <i class="fa fa-chevron-left"></i> mysql学习小结-范式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/22/mysql/数据库原理/" rel="prev" title="数据库原理">
+                数据库原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#存储过程的概述"><span class="nav-number">1.</span> <span class="nav-text">存储过程的概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">1.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">2.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的赋值"><span class="nav-number">2.2.</span> <span class="nav-text">变量的赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的scope-作用范围"><span class="nav-number">2.3.</span> <span class="nav-text">变量的scope(作用范围)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数"><span class="nav-number">3.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数的定义"><span class="nav-number">3.1.</span> <span class="nav-text">参数的定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑判断和循环"><span class="nav-number">4.</span> <span class="nav-text">逻辑判断和循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IF"><span class="nav-number">4.1.</span> <span class="nav-text">IF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CASE"><span class="nav-number">4.2.</span> <span class="nav-text">CASE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WHILE"><span class="nav-number">4.3.</span> <span class="nav-text">WHILE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#REPEAT"><span class="nav-number">4.4.</span> <span class="nav-text">REPEAT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LOOP-及-LEAVE、ITERATE"><span class="nav-number">4.5.</span> <span class="nav-text">LOOP 及 LEAVE、ITERATE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#游标"><span class="nav-number">5.</span> <span class="nav-text">游标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#游标属性"><span class="nav-number">5.1.</span> <span class="nav-text">游标属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#游标的使用"><span class="nav-number">5.2.</span> <span class="nav-text">游标的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件处理-错误、异常处理"><span class="nav-number">6.</span> <span class="nav-text">条件处理 / 错误、异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、DECLARE…-HANDLER语句"><span class="nav-number">6.1.</span> <span class="nav-text">1、DECLARE….HANDLER语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-condition-value"><span class="nav-number">6.1.1.</span> <span class="nav-text">a.condition_value</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-statement"><span class="nav-number">6.1.2.</span> <span class="nav-text">b.statement</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-handler-action"><span class="nav-number">6.1.3.</span> <span class="nav-text">c.handler_action</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、DECLARE…CONDITION语句"><span class="nav-number">6.2.</span> <span class="nav-text">2、DECLARE…CONDITION语句</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+        <script src="https://billts.site/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1482826970000',
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

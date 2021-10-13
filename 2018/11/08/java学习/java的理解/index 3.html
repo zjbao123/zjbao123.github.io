@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Write once， run anywhere“Write once， run anywhere” 说的是Java语言跨平台的特性，Java的跨平台特性与Java虚拟机的存在密不可分，可在不同的环境中运行。比如说Windows平台和Linux平台都有相应的JDK，安装好JDK后也就有了Java语言的运行环境。其实Java语言本身与其他的编程语言没有特别大的差异，并不是说Java语言可以跨平台，而">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对java的理解">
+<meta property="og:url" content="http://zjbao123.github.io/2018/11/08/java学习/java的理解/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="Write once， run anywhere“Write once， run anywhere” 说的是Java语言跨平台的特性，Java的跨平台特性与Java虚拟机的存在密不可分，可在不同的环境中运行。比如说Windows平台和Linux平台都有相应的JDK，安装好JDK后也就有了Java语言的运行环境。其实Java语言本身与其他的编程语言没有特别大的差异，并不是说Java语言可以跨平台，而">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.721Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对java的理解">
+<meta name="twitter:description" content="Write once， run anywhere“Write once， run anywhere” 说的是Java语言跨平台的特性，Java的跨平台特性与Java虚拟机的存在密不可分，可在不同的环境中运行。比如说Windows平台和Linux平台都有相应的JDK，安装好JDK后也就有了Java语言的运行环境。其实Java语言本身与其他的编程语言没有特别大的差异，并不是说Java语言可以跨平台，而">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2018/11/08/java学习/java的理解/">
+
+
+
+
+
+  <title>对java的理解 | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2018/11/08/java学习/java的理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">对java的理解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-08T17:35:00+08:00">
+                2018-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Write-once，-run-anywhere"><a href="#Write-once，-run-anywhere" class="headerlink" title="Write once， run anywhere"></a>Write once， run anywhere</h3><p>“Write once， run anywhere” 说的是Java语言跨平台的特性，Java的跨平台特性与Java虚拟机的存在密不可分，可在不同的环境中运行。比如说Windows平台和Linux平台都有相应的JDK，安装好JDK后也就有了Java语言的运行环境。其实Java语言本身与其他的编程语言没有特别大的差异，并不是说Java语言可以跨平台，而是在不同的平台都有可以让Java语言运行的环境而已，所以才有了Java一次编译，到处运行这样的效果。有了编译器就屏蔽了不同机器语言的区别，有了系统API就屏蔽了不同硬件的区别，有了JVM就屏蔽了不同操作系统的区别，有了TCP/IP就屏蔽了不同系统之间通讯的差异。</p>
+<a id="more"></a>
+<h3 id="java语言特性"><a href="#java语言特性" class="headerlink" title="java语言特性"></a>java语言特性</h3><p>包括面向对象，泛型、反射、Lambda等语言特性；</p>
+<h4 id="Java类库"><a href="#Java类库" class="headerlink" title="Java类库"></a>Java类库</h4><p>核心类库包括集合、IO/NIO等，网络，并发，安全等基础类库，其他第三方类库。</p>
+<h4 id="Java的类加载机制"><a href="#Java的类加载机制" class="headerlink" title="Java的类加载机制"></a>Java的类加载机制</h4><p>常用版本JDK内嵌的Class-Loader，例如Bootstrap、Application和Extension Class-loader， 以及自定义Class-Loader等。</p>
+<h4 id="类加载的大致过程"><a href="#类加载的大致过程" class="headerlink" title="类加载的大致过程"></a>类加载的大致过程</h4><p>加载 \rightarrow 验证 \rightarrow 链接 \rightarrow 初始化</p>
+<h4 id="垃圾收集的基本原理"><a href="#垃圾收集的基本原理" class="headerlink" title="垃圾收集的基本原理"></a>垃圾收集的基本原理</h4><p>最常见额垃圾收集器，如SerialGC、Parallel GC、CMS、G1等，适用于什么样的负载<br>还有运行时，动态编译，辅助功能JFR等</p>
+<h4 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h4><p><code>辅助工具</code>：jlink、jar、jdeps之类<br><code>编译器</code>：javac，sjavac<br><code>诊断工具</code>：jmap、jstack、jconsole、jhsdb，jcmd等进行监控诊断工具，程序的性能进行监控诊断，进行程序的诊断和调优工作</p>
+<h4 id="Java-JVM生态"><a href="#Java-JVM生态" class="headerlink" title="Java/JVM生态"></a>Java/JVM生态</h4><p>Java EE，spring， Hadoop，Spark，Cassandra，ElasticSearch，Maven</p>
+<h3 id="Java的编译时和运行时"><a href="#Java的编译时和运行时" class="headerlink" title="Java的编译时和运行时"></a>Java的编译时和运行时</h3><p>Java分为编译时和运行时。<br>编译指的是生成<code>。class</code>字节码，而不是可以直接执行的机器码，通过字节码和Java虚拟机(JVM)这种跨平台的抽象来屏蔽了操作系统和硬件的细节，从而实现`write once， run anywhere。</p>
+<p>在运行时，JVM会通过类加载器(class-Loader)加载字节码，解释或者编译执行。主流Java版本中，如JDK 8实际是解释和编译混合的一种模式，即混合模式(-Xmixed)。通常运行在server模式的JVM。会进行上万次调用以收集足够的信息来进行高效的编译，Client模式这个门限是1500次。Oracle Hotspot JVM 内置了两个不同的JIT complier，C1对应前面说的Client模式，适用于对于启动速度敏感的应用，比如普通的java桌面应用;C2对应server模式，他的优化是为长时间运行的服务器端的应用设计的。默认是采用所谓的分层编译(TieredCompilation)。</p>
+<p>Java虚拟机启动时，可以指定不同的参数对运行模式进行选择。比如指定<code>-Xint</code>，就是告诉JVM只进行解释执行，不对代码进行编译，这种模式抛弃了JIT可能带来的性能优势。毕竟解释其是逐条读入，逐条运行的。与其相对应的，还有一个<code>-XComp</code>会导致JVM启动变慢很多，同时有些JIT编译器优化方式，比如分支预测，如果不进行profilling，往往并不能进行有效优化。</p>
+<h3 id="哪些是发生在编译时，运行时，或者两者都有？"><a href="#哪些是发生在编译时，运行时，或者两者都有？" class="headerlink" title="哪些是发生在编译时，运行时，或者两者都有？"></a>哪些是发生在编译时，运行时，或者两者都有？</h3><p>方法重载发生在编译时，方法重载也被称为编译时多态，因为编译器根据参数的类型来选择使用哪个方法。<br>方法覆盖发生在运行时，方法覆盖被称为运行时多态，因为在编译期编译器不知道并且没法知道该去调用哪个方法。JVM会在代码运行的时候做出决定。</p>
+<p>Java编译器会在编译时进行常量折叠，由于<code>final</code>变量的值不会改变，因此可以对它们进行优化。</p>
+<p>泛型（又称类型检验）发生在编译期的。编译器负责检查程序中类型的正确性，然后把使用了泛型的代码翻译或者重写成可以执行在当前JVM上的非泛型代码。这个技术被称为“类型擦除“。换句话来说，编译器会擦除所有在尖括号里的类型信息，来保证和版本1。4。0或者更早版本的JRE的兼容性。</p>
+<p>在运行时或者编译时都可以使用注解。<br>@Override可以用来捕获类似于在子类中把toString()写成tostring()这样的错误。在Java 5中，用户自定义的注解可以用注解处理工具(Anotation Process Tool ——APT)在编译时进行处理。到了Java 6，这个功能已经是编译器的一部分了。</p>
+<p>@Test是JUnit框架用来在运行时通过反射来决定调用测试类的哪个（些）方法的注解。@Test (timeout=100)如果运行时间超过100ms的话，测试用例就会失败。</p>
+<p>在运行时或者编译时都可以使用异常。</p>
+<p>运行时异常（RuntimeException）也称作未检测的异常（unchecked exception），这表示这种异常不需要编译器来检测。RuntimeException是所有可以在运行时抛出的异常的父类。一个方法除要捕获异常外，如果它执行的时候可能会抛出RuntimeException的子类，那么它就不需要用throw语句来声明抛出的异常。</p>
+<p>受检查异常（checked exception）都是编译器在编译时进行校验的，通过throws语句或者try{}cathch{} 语句块来处理检测异常。编译器会分析哪些异常会在执行一个方法或者构造函数的时候抛出。</p>
+<p>面向切面的编程（Aspect Oriented Programming-AOP）：切面可以在编译时，运行时或，加载时或者运行时织入。</p>
+<ol>
+<li><p>编译期：编译期织入是最简单的方式。如果你拥有应用的代码，你可以使用AOP编译器（例如，ajc – AspectJ编译器）对源码进行编译，然后输出织入完成的class文件。AOP编译的过程包含了waver的调用。切面的形式可以是源码的形式也可以是二进制的形式。如果切面需要针对受影响的类进行编译，那么你就需要在编译期织入了。</p>
+</li>
+<li><p>编译后：这种方式有时候也被称为二进制织入，它被用来织入已有的class文件和jar文件。和编译时织入方式相同，用来织入的切面可以是源码也可以是二进制的形式，并且它们自己也可以被织入切面。</p>
+</li>
+<li><p>装载期：这种织入是一种二进制织入，它被延迟到JVM加载class文件和定义类的时候。为了支持这种织入方式，需要显式地由运行时环境或者通过一种“织入代理（weaving agent）“来提供一个或者多个“织入类加载器（weaving class loader）”。</p>
+</li>
+<li><p>运行时：对已经加载到JVM里的类进行织入。</p>
+</li>
+</ol>
+<p>继承发生在编译时，因为它是静态的。</p>
+<p>代理或者组合发生在运行时，因为它更加具有动态性和灵活性。</p>
+<p>这也是为什么有<code>组合优于继承</code>这种说法，继承是一种多态工具，而不是一种代码复用工具。过度使用继承（通过“extends”关键字）的话，如果修改了父类，会损坏所有的子类。这是因为子类和父类的紧耦合关系是在编译期产生的。果你的类之间没有继承关系，并且你想要实现多态，那么你可以通过接口和组合的方式来实现，这样不仅可以实现代码重用，同时也可以实现运行时的灵活性。</p>
+<h3 id="AOT"><a href="#AOT" class="headerlink" title="AOT"></a>AOT</h3><p>除了日常最常见的java使用模式，还有一种新的编译方式，即所谓的AOT(Ahead-of-Time Compilation)，直接将字节码编译成机器代码，这样就避免了JIT预热等各方面的开销，比如Oracle JDK 9 就引入了实验性的AOT特性，并且增加了新的jaotc工具，利用下面的命令吧某一类或者摸个模块编译成为AOT库。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">jaotc --output libHelloWorld.so HelloWorld.class</span><br><span class="line">jaotc --output libjava.base.so --<span class="keyword">module</span> java.base</span><br></pre></td></tr></table></figure>
+<p>然后，在启动时直接指定的指定就可以了。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">java -XX:AOTLibrary=./libHelloWorld<span class="selector-class">.so</span> ./libjava<span class="selector-class">.base</span><span class="selector-class">.so</span> HelloWorld</span><br></pre></td></tr></table></figure>
+<p>而且，Oracle JDK支持分层编译和AOT协作使用，并不是二选一的关系。AOT也不仅仅是只有这一种方式，业界早有第三方工具(如GCJ，Excelsior JET)提供相关功能。</p>
+<p>另外，JVM作为一个强大的平台，不仅仅只有java语言可以运行在JVM上，本质上合规的字节码都可以运行，Java语言自身也为此提供了便利，类似Clojure、Scala、Groovy、Jruby、Jython等大量JVM语言，活跃在不同的场景。</p>
+<h3 id="提问"><a href="#提问" class="headerlink" title="提问"></a>提问</h3><ol>
+<li>JVM的内存模型，堆、栈、方法区；字节码的跨平台性；对象在JVM中的强引用，弱引用，软引用，虚引用，是否可用finalise方法救救它？;双亲委派进行类加载，什么是双亲呢？双亲就是多亲，一份文档由我加载，然后你也加载，这份文档在JVM中是一样的吗？；多态思想是Java需要最核心的概念，也是面向对象的行为的一个最好诠释；理解方法重载与重写在内存中的执行流程，怎么定位到这个具体方法的。</li>
+<li>发展流程，JDK5(重写bug)，JDK6(商用最稳定版)，JDK7(switch的字符串支持)，JDK8(函数式编程)，一直在发展进化。</li>
+<li>理解祖先类Object，它的行为是怎样与现实生活连接起来的。</li>
+<li>理解23种设计模式，因为它是道与术的结合体。</li>
+</ol>
+<hr>
+<p>参考:</p>
+<p><a href="https://zhuanlan。zhihu。com/p/22886648" target="_blank" rel="noopener">知乎专栏</a><br><a href="https://time。geekbang。org/column/article/6845" target="_blank" rel="noopener">Java核心36讲</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/05/通用杂货/敏捷开发/" rel="next" title="敏捷开发">
+                <i class="fa fa-chevron-left"></i> 敏捷开发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/12/java学习/final、finally、 finalize 有何不同/" rel="prev" title="final、finally、 finalize 有何不同">
+                final、finally、 finalize 有何不同 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Write-once，-run-anywhere"><span class="nav-number">1.</span> <span class="nav-text">Write once， run anywhere</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java语言特性"><span class="nav-number">2.</span> <span class="nav-text">java语言特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java类库"><span class="nav-number">2.1.</span> <span class="nav-text">Java类库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java的类加载机制"><span class="nav-number">2.2.</span> <span class="nav-text">Java的类加载机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类加载的大致过程"><span class="nav-number">2.3.</span> <span class="nav-text">类加载的大致过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾收集的基本原理"><span class="nav-number">2.4.</span> <span class="nav-text">垃圾收集的基本原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工具类"><span class="nav-number">2.5.</span> <span class="nav-text">工具类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-JVM生态"><span class="nav-number">2.6.</span> <span class="nav-text">Java/JVM生态</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java的编译时和运行时"><span class="nav-number">3.</span> <span class="nav-text">Java的编译时和运行时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些是发生在编译时，运行时，或者两者都有？"><span class="nav-number">4.</span> <span class="nav-text">哪些是发生在编译时，运行时，或者两者都有？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOT"><span class="nav-number">5.</span> <span class="nav-text">AOT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提问"><span class="nav-number">6.</span> <span class="nav-text">提问</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+        <script src="https://billts.site/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1541669700000',
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

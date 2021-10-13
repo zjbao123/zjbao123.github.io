@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据库,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="伯乐在线学习总结  本文会从一些计算机科学方面的知识谈起，比如时间复杂度。我知道有些人讨厌这个概念，但是没有它你就不能理解数据库内部的巧妙之处。由于这是个很大的话题，我将集中探讨我认为必要的内容：数据库处理SQL查询的方式。我仅仅介绍数据库背后的基本概念，以便在读完本文后你会对底层到底发生了什么有个很好的了解。">
+<meta name="keywords" content="数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库原理">
+<meta property="og:url" content="http://zjbao123.github.io/2017/01/22/mysql/数据库原理/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="伯乐在线学习总结  本文会从一些计算机科学方面的知识谈起，比如时间复杂度。我知道有些人讨厌这个概念，但是没有它你就不能理解数据库内部的巧妙之处。由于这是个很大的话题，我将集中探讨我认为必要的内容：数据库处理SQL查询的方式。我仅仅介绍数据库背后的基本概念，以便在读完本文后你会对底层到底发生了什么有个很好的了解。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.728Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库原理">
+<meta name="twitter:description" content="伯乐在线学习总结  本文会从一些计算机科学方面的知识谈起，比如时间复杂度。我知道有些人讨厌这个概念，但是没有它你就不能理解数据库内部的巧妙之处。由于这是个很大的话题，我将集中探讨我认为必要的内容：数据库处理SQL查询的方式。我仅仅介绍数据库背后的基本概念，以便在读完本文后你会对底层到底发生了什么有个很好的了解。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2017/01/22/mysql/数据库原理/">
+
+
+
+
+
+  <title>数据库原理 | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2017/01/22/mysql/数据库原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-22T10:22:50+08:00">
+                2017-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://blog.jobbole.com/100349/" target="_blank" rel="noopener">伯乐在线</a>学习总结</p>
+</blockquote>
+<p>本文会从一些计算机科学方面的知识谈起，比如时间复杂度。我知道有些人讨厌这个概念，但是没有它你就不能理解数据库内部的巧妙之处。由于这是个很大的话题，我将集中探讨我认为必要的内容：数据库处理SQL查询的方式。我仅仅介绍数据库背后的基本概念，以便在读完本文后你会对底层到底发生了什么有个很好的了解。</p>
+<a id="more"></a>
+<p>本文分为三个部分：</p>
+<ul>
+<li>底层和上层数据库组件概况</li>
+<li>查询优化过程概况</li>
+<li>事务和缓冲池管理概况</li>
+</ul>
+<p>算法的复杂度包括：算法的磁盘 I/O 消耗，时间消耗，内存消耗三个方面。这里我们主要讨论时间复杂度。</p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度用来检验某个算法处理一定量的数据要花多长时间。O(函数) 这里表达的含义就是：这个算法需要多少次运算才能完成。</p>
+<p>大O符号是一种算法复杂度的相对表示方式。这里重要的不是数据量，而是<strong>当数据量增加时运算如何增加。</strong>时间复杂度不会给出确切的运算次数，但是给出的是一种理念。<code>n^2 +2n</code>在百万数据时，<code>2n</code>的部分根本无关紧要。<strong>我们只关心复杂度最重要的部分。</strong></p>
+<p>时间复杂度经常处于最差情况场景。</p>
+<h2 id="合并排序"><a href="#合并排序" class="headerlink" title="合并排序"></a>合并排序</h2><p>合并排序有助于我们以后理解数据库常见的联接操作，即合并联接 。</p>
+<h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><p>合并排序是把问题拆分为小问题，通过解决小问题来解决最初的问题（注：这种算法叫分治法，即『分而治之、各个击破』）。</p>
+<ul>
+<li>拆分阶段，将序列分为更小的序列，有log(N)次运算。</li>
+<li>排序阶段，把小的序列合在一起（使用合并算法）来构成更大的序列。每次运算N次，共log(N)次，整体成本是 N<em>log(N) 次运算。</em></li>
+</ul>
+<h3 id="强大之处"><a href="#强大之处" class="headerlink" title="强大之处"></a>强大之处</h3><p>1.『原地算法』(in-place algorithm)：你可以更改算法，以便于节省内存空间，方法是不创建新的序列而是直接修改输入序列。<br>2.『外部排序』(external sorting)：你可以更改算法，以便于同时使用磁盘空间和少量内存而避免巨量磁盘 I/O。方法是只向内存中加载当前处理的部分。在仅仅100MB的内存缓冲区内排序一个几个GB的表时，这是个很重要的技巧。<br>3.分布式运行：你可以更改算法，以便于在 多处理器/多线程/多服务器 上运行。</p>
+<h2 id="阵列，树和哈希表"><a href="#阵列，树和哈希表" class="headerlink" title="阵列，树和哈希表"></a>阵列，树和哈希表</h2><p>接下来介绍三种常用的数据结构，此为现代数据库的强大支柱。</p>
+<h3 id="阵列-array"><a href="#阵列-array" class="headerlink" title="阵列(array)"></a>阵列(array)</h3><p>二维阵列是最简单的数据结构。一个表可以看作是个阵列，这种方法用来保存和可视化数据确实不错，但是在查找的时候，就需要<code>N</code>次运算，那有没有更快的方式呢？这就需要树了。</p>
+<h3 id="树和数据库索引"><a href="#树和数据库索引" class="headerlink" title="树和数据库索引"></a>树和数据库索引</h3><p>二叉查找树(B树)是带有特殊属性的二叉树，每个节点的关键字必须：<br>1.比保存在左子树的任何键值都要大；<br>2.比保存在右子树的任何键值都要小。</p>
+<p>这样，按层找确实运算次数有所减少，变为<code>log(N)</code>次。这也是<code>数据库索引</code>所做的。<br>但是问题又来了，如果你要找的是查找两个值之间的多个元素时，你的运算成本就变为O(N)，因为你需要遍历每一个去寻找符合条件的(例如，使用中序遍历，父节点在中，左中右)。而且，对磁盘I/O消耗巨大。为了解决这个问题，现代数据库使用了一种修订版的树，叫做B+树。</p>
+<h4 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h4><p>在一个B+树里：<br>1.只有最底层的节点（叶子节点）才保存信息（相关表的行位置）；<br>2.其它节点只是在搜索中用来指引到正确节点的。</p>
+<p><a href="http://jbcdn2.b0.upaiyun.com/2016/05/15c4b064af9ac7f357404a1b17ff1cae.png" target="_blank" rel="noopener">B+树</a></p>
+<p>尽管节点更多了（多了两倍）。确实，你有了额外的节点，它们就是帮助你找到正确节点的『决策节点』（正确节点保存着相关表中行的位置）。但是搜索复杂度还是在 O(log(N))（只多了一层）。一个重要的不同点是，最底层的节点是跟后续节点相连接的。</p>
+<p>那你想找N之后的M个节点，时间复杂度就是<code>M+log(N)</code>。那你就不需要读整个树，减少了I/O的消耗。</p>
+<p>然而还有新的问题（又来了！）。如果你在数据库中增加或删除一行（从而在相关的 B+树索引里）：</p>
+<p>1.你必须在B+树中的节点之间保持顺序，否则节点会变得一团糟，你无法从中找到想要的节点。<br>2.你必须尽可能降低B+树的层数，否则 O(log(N)) 复杂度会变成 O(N)。</p>
+<p>换句话说，B+树需要自我整理和自我平衡。B+树需要自我整理和自我平衡。谢天谢地，我们有智能删除和插入。但是这样也带来了成本：在B+树中，插入和删除操作是 O(log(N)) 复杂度。所以导致了<strong>使用太多索引会减慢了快速插入/更新/删除表中的一个行的操作</strong>，因为数据库需要以代价高昂的每索引 O(log(N)) 运算来更新表的索引。再者，增加索引意味着给事务管理器带来更多的工作负荷。</p>
+<h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><p>当你想快速查找值时，哈希表是非常有用的。而且，理解哈希表会帮助我们接下来理解一个数据库常见的联接操作，叫做『哈希联接』。这个数据结构也被数据库用来保存一些内部的东西（比如锁表或者缓冲池，我们在下文会研究这两个概念）。</p>
+<p>哈希表这种数据结构可以用关键字来快速找到一个元素。为了构建一个哈希表，你需要定义：</p>
+<p>1.元素的关键字<br>2.关键字的哈希函数。关键字计算出来的哈希值给出了元素的位置（叫做哈希桶）。<br>3.关键字比较函数。一旦你找到正确的哈希桶，你必须用比较函数在桶内找到你要的元素。</p>
+<p>这里面真正的挑战是找到好的哈希函数，让哈希桶里包含非常少的元素。可以使哈希表里搜索的时间复杂度为 O(1)。</p>
+<h4 id="那为什么不用阵列呢？"><a href="#那为什么不用阵列呢？" class="headerlink" title="那为什么不用阵列呢？"></a>那为什么不用阵列呢？</h4><p>1.阵列需要分配连续的空间，而哈希表的空间是分散的，剩下的哈希桶可以留在硬盘上。<br>2.用哈希表的话，你可以选择你要的关键字</p>
+<h2 id="全局概览"><a href="#全局概览" class="headerlink" title="全局概览"></a>全局概览</h2><p>数据库是由多种互相交互的组件构成的。</p>
+<h3 id="核心组件"><a href="#核心组件" class="headerlink" title="核心组件"></a>核心组件</h3><ul>
+<li><p>进程管理器（process manager）：很多数据库具备一个需要妥善管理的进程/线程池。再者，为了实现纳秒级操作，一些现代数据库使用自己的线程而不是操作系统线程。</p>
+</li>
+<li><p>网络管理器（network manager）：网路I/O是个大问题，尤其是对于分布式数据库。所以一些数据库具备自己的网络管理器。</p>
+</li>
+<li><p>文件系统管理器（File system manager）：磁盘I/O是数据库的首要瓶颈。具备一个文件系统管理器来完美地处理OS文件系统甚至取代OS文件系统，是非常重要的。</p>
+</li>
+<li><p>内存管理器（memory manager）：为了避免磁盘I/O带来的性能损失，需要大量的内存。但是如果你要处理大容量内存你需要高效的内存管理器，尤其是你有很多查询同时使用内存的时候。</p>
+</li>
+<li><p>安全管理器（Security Manager）：用于对用户的验证和授权。</p>
+</li>
+<li><p>客户端管理器（Client manager）：用于管理客户端连接。</p>
+</li>
+<li><p>……</p>
+</li>
+</ul>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><ul>
+<li><p>备份管理器（Backup manager）：用于保存和恢复数据。</p>
+</li>
+<li><p>复原管理器（Recovery manager）：用于崩溃后重启数据库到一个一致状态。</p>
+</li>
+<li><p>监控管理器（Monitor manager）：用于记录数据库活动信息和提供监控数据库的工具。</p>
+</li>
+<li><p>Administration管理器（Administration manager）：用于保存元数据（比如表的名称和结构），提供管理数据库、模式、表空间的工具。</p>
+</li>
+<li><p>……</p>
+</li>
+</ul>
+<h3 id="查询管理器："><a href="#查询管理器：" class="headerlink" title="查询管理器："></a>查询管理器：</h3><ul>
+<li><p>查询解析器（Query parser）：用于检查查询是否合法</p>
+</li>
+<li><p>查询重写器（Query rewriter）：用于预优化查询</p>
+</li>
+<li><p>查询优化器（Query optimizer）：用于优化查询</p>
+</li>
+<li><p>查询执行器（Query executor）：用于编译和执行查询</p>
+</li>
+</ul>
+<hr>
+<p>未完！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/27/mysql/存储过程学习小结/" rel="next" title="存储过程学习小结">
+                <i class="fa fa-chevron-left"></i> 存储过程学习小结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/14/javaweb/javaweb总结(一)基础概念/" rel="prev" title="javaweb总结（一）基础概念">
+                javaweb总结（一）基础概念 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度"><span class="nav-number">1.</span> <span class="nav-text">时间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并排序"><span class="nav-number">2.</span> <span class="nav-text">合并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#过程"><span class="nav-number">2.1.</span> <span class="nav-text">过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强大之处"><span class="nav-number">2.2.</span> <span class="nav-text">强大之处</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阵列，树和哈希表"><span class="nav-number">3.</span> <span class="nav-text">阵列，树和哈希表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阵列-array"><span class="nav-number">3.1.</span> <span class="nav-text">阵列(array)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树和数据库索引"><span class="nav-number">3.2.</span> <span class="nav-text">树和数据库索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#B-树"><span class="nav-number">3.2.1.</span> <span class="nav-text">B+树</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希表"><span class="nav-number">3.3.</span> <span class="nav-text">哈希表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#那为什么不用阵列呢？"><span class="nav-number">3.3.1.</span> <span class="nav-text">那为什么不用阵列呢？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局概览"><span class="nav-number">4.</span> <span class="nav-text">全局概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#核心组件"><span class="nav-number">4.1.</span> <span class="nav-text">核心组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具"><span class="nav-number">4.2.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询管理器："><span class="nav-number">4.3.</span> <span class="nav-text">查询管理器：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+        <script src="https://billts.site/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1485051770000',
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

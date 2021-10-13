@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JavaScript基本语法变量1var a = 1; 上面的代码先声明变量a，然后在变量a与数值1之间建立引用关系，也称为将数值1“赋值”给变量a。以后，引用变量a就会得到数值1。最前面的var，是变量声明命令。它表示通知解释引擎，要创建一个变量a。">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript学习(2)数据类型转换">
+<meta property="og:url" content="http://zjbao123.github.io/2016/08/24/前端相关学习/js/javascript学习(2)/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="JavaScript基本语法变量1var a = 1; 上面的代码先声明变量a，然后在变量a与数值1之间建立引用关系，也称为将数值1“赋值”给变量a。以后，引用变量a就会得到数值1。最前面的var，是变量声明命令。它表示通知解释引擎，要创建一个变量a。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.737Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript学习(2)数据类型转换">
+<meta name="twitter:description" content="JavaScript基本语法变量1var a = 1; 上面的代码先声明变量a，然后在变量a与数值1之间建立引用关系，也称为将数值1“赋值”给变量a。以后，引用变量a就会得到数值1。最前面的var，是变量声明命令。它表示通知解释引擎，要创建一个变量a。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2016/08/24/前端相关学习/js/javascript学习(2)/">
+
+
+
+
+
+  <title>JavaScript学习(2)数据类型转换 | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2016/08/24/前端相关学习/js/javascript学习(2)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript学习(2)数据类型转换</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-24T22:14:50+08:00">
+                2016-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="JavaScript基本语法"><a href="#JavaScript基本语法" class="headerlink" title="JavaScript基本语法"></a>JavaScript基本语法</h2><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">var a</span> = 1;</span><br></pre></td></tr></table></figure>
+<p>上面的代码先声明变量a，然后在变量a与数值1之间建立引用关系，也称为将数值1“赋值”给变量a。以后，引用变量a就会得到数值1。最前面的var，是变量声明命令。它表示通知解释引擎，要创建一个变量a。</p>
+<a id="more"></a>
+<p>JavaScirpt是一种动态类型语言，也就是说，变量的类型没有限制，可以赋予各种类型的值。</p>
+<p>可重新赋值，但无需重新声明。</p>
+<h4 id="null和undefined"><a href="#null和undefined" class="headerlink" title="null和undefined"></a>null和undefined</h4><p>如果只是声明变量而没有赋值，则该变量的值是<code>undefined</code>。<code>undefined</code>是一个JavaScript关键字，表示“无定义，不存在的值”。而不是<code>null</code>(理解为无值)。</p>
+<p><code>null</code>表示一个“空”的值，它和0以及空字符串’’不同，0是一个数值，’’表示长度为0的字符串，而<code>null</code>表示“空”。</p>
+<p>在其他语言中，也有类似JavaScript的<code>null</code>的表示，例如Java也用<code>null</code>，Swift用<code>nil</code>，Python用<code>None</code>表示。但是，在JavaScript中，还有一个和<code>null</code>类似的<code>undefined</code>，它表示“未定义”。</p>
+<p>JavaScript的设计者希望用<code>null</code>表示一个空的值，而<code>undefined</code>表示值未定义。事实证明，这并没有什么卵用，区分两者的意义不大。大多数情况下，我们都应该用<code>null</code>。<code>undefined</code>仅仅在判断函数参数是否传递的情况下有用。</p>
+<h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p>JavaScript引擎的工作方式是，先解析代码，获取所有被声明的变量，就是所有的变量的声明语句，都会被提升到代码的头部，这就叫做变量提升（hoisting）。</p>
+<h3 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3><p>标识符（identifier）是用来识别具体对象的一个名称。</p>
+<p>标识符命名规则：</p>
+<blockquote>
+<p>第一个字符，可以是任意Unicode字母（包括英文字母和其他语言的字母），以及美元符号（$）和下划线（_）。<br>第二个字符及后面的字符，除了Unicode字母、美元符号和下划线，还可以用数字0-9</p>
+</blockquote>
+<p>注意不要用保留字，有<code>arguments、break、case、catch、class、const、continue、debugger、default、delete、do、else、enum、eval、export、extends、false、finally、for、function、if、implements、import、in、instanceof、interface、let、new、null、package、private、protected、public、return、static、super、switch、this、throw、true、try、typeof、var、void、while、with、yield。</code></p>
+<p>另外，还有三个词虽然不是保留字，但是因为具有特别含义，也不应该用作标识符。分别是<code>Infinity(无限大，当数值超过了JavaScript的Number所能表示的最大值时，就表示为Infinity)、NaN(表示Not a Number，当无法计算结果时用NaN表示)、undefined(未定义)。</code></p>
+<h3 id="注释符"><a href="#注释符" class="headerlink" title="注释符"></a>注释符</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是单行注释</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 这是</span></span><br><span class="line"><span class="comment"> 多行</span></span><br><span class="line"><span class="comment"> 注释</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>此外，由于历史上JavaScript兼容HTML代码的注释，所以<code>&lt;\!--和--&gt;</code>也被视为单行注释。</p>
+<h3 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h3><p>JavaScript使用大括号，将多个相关的语句组合在一起，称为“区块”（block）。</p>
+<p>与大多数编程语言不一样，JavaScript的区块不构成单独的作用域（scope）。也就是说，区块中的变量与区块外的变量，属于同一个作用域。</p>
+<h3 id="标签-label"><a href="#标签-label" class="headerlink" title="标签(label)"></a>标签(label)</h3><p>JavaScript语言允许，语句的前面有标签（label），相当于定位符，用于跳转到程序的任意位置，标签的格式如下。<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">label</span><span class="bash">:</span></span><br><span class="line">  statement</span><br></pre></td></tr></table></figure></p>
+<h2 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h2><p>JavaScript是一种动态类型语言，变量没有类型限制，可以随时赋予任意值。虽然变量没有类型，但是数据本身和各种运算符是有类型的。如果运算符发现，数据的类型与预期不符，就会自动转换类型。当然有些时候也会出现需要强制转换的时候。</p>
+<h3 id="强制转换"><a href="#强制转换" class="headerlink" title="强制转换"></a>强制转换</h3><p>强制转换主要指使用<code>Number</code>、<code>String</code>和<code>Boolean</code>三个构造函数，手动将各种类型的值，转换成数字、字符串或者布尔值。</p>
+<h4 id="Number"><a href="#Number" class="headerlink" title="Number()"></a>Number()</h4><p>可以将任意类型的值转化成数值。</p>
+<h5 id="1-原始类型值的转换规则"><a href="#1-原始类型值的转换规则" class="headerlink" title="(1)原始类型值的转换规则"></a>(1)原始类型值的转换规则</h5><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数值：转换后还是原来的值</span></span><br><span class="line"><span class="function"><span class="title">Number</span><span class="params">(<span class="number">324</span>)</span></span> <span class="comment">// 324</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 字符串：如果可以被解析为数值，则转换为相应的数值</span></span><br><span class="line"><span class="function"><span class="title">Number</span><span class="params">(<span class="string">'\t\v\r324\n'</span>)</span></span> <span class="comment">// 324</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 字符串：如果不可以被解析为数值，返回NaN</span></span><br><span class="line"><span class="function"><span class="title">Number</span><span class="params">(<span class="string">'abc'</span>)</span></span> <span class="comment">// NaN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 空字符串转为0</span></span><br><span class="line"><span class="function"><span class="title">Number</span><span class="params">(<span class="string">''</span>)</span></span> <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// undefined：转成 NaN</span></span><br><span class="line"><span class="function"><span class="title">Number</span><span class="params">(undefined)</span></span> <span class="comment">// NaN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// null：转成0</span></span><br><span class="line"><span class="function"><span class="title">Number</span><span class="params">(null)</span></span> <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">parseInt</span><span class="params">(<span class="string">'42 abc'</span>)</span></span> <span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
+<p><code>parseInt</code>逐个解析字符，而<code>Number</code>函数整体转换字符串的类型。<br>另外，<code>Number</code>函数会自动过滤一个字符串前导和后缀的空格。</p>
+<h5 id="2-对象的转换规则"><a href="#2-对象的转换规则" class="headerlink" title="(2)对象的转换规则"></a>(2)对象的转换规则</h5><p>Number方法的参数是对象时，将返回NaN。</p>
+<blockquote>
+<p>1.调用对象自身的valueOf方法。如果返回原始类型的值，则直接对该值使用Number函数，不再进行后续步骤。</p>
+</blockquote>
+<blockquote>
+<p>2.如果valueOf方法返回的还是对象，则改为调用对象自身的toString方法。如果返回原始类型的值，则对该值使用Number函数，不再进行后续步骤。</p>
+</blockquote>
+<blockquote>
+<p>3.如果toString方法返回的是对象，就报错。</p>
+</blockquote>
+<h4 id="String"><a href="#String" class="headerlink" title="String()"></a>String()</h4><p>可以将任意类型的值转化成字符串。</p>
+<h5 id="1-原始类型值的转换规则-1"><a href="#1-原始类型值的转换规则-1" class="headerlink" title="(1)原始类型值的转换规则"></a>(1)原始类型值的转换规则</h5><blockquote>
+<p>数值：转为相应的字符串。<br>字符串：转换后还是原来的值。<br>布尔值：true转为”true”，false转为”false”。<br>undefined：转为”undefined”。<br>null：转为”null”。</p>
+</blockquote>
+<h5 id="String-对象的转换规则"><a href="#String-对象的转换规则" class="headerlink" title="String()对象的转换规则"></a>String()对象的转换规则</h5><p><code>String</code>方法的参数如果是对象，返回一个类型字符串；如果是数组，返回该数组的字符串形式。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">String</span><span class="params">(&#123;a: <span class="number">1</span>&#125;)</span></span> <span class="comment">// "[object Object]"</span></span><br><span class="line"><span class="function"><span class="title">String</span><span class="params">([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span></span> <span class="comment">// "1,2,3"</span></span><br></pre></td></tr></table></figure>
+<p><code>String</code>方法背后的转换规则，优先<code>toString</code>方法，后<code>valueOf</code>方法。</p>
+<h4 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean()"></a>Boolean()</h4><p>使用Boolean函数，可以将任意类型的变量转为布尔值。</p>
+<p>它的转换规则相对简单：除了以下六个值的转换结果为false，其他的值全部为true。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">undefined</span></span><br><span class="line"><span class="literal">null</span></span><br><span class="line"><span class="number">-0</span></span><br><span class="line"><span class="number">0</span>或+<span class="number">0</span></span><br><span class="line"><span class="literal">NaN</span></span><br><span class="line"><span class="string">''</span>（空字符串）</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意</strong>:所有对象（包括空对象）的转换结果都是true，甚至连false对应的布尔对象new Boolean(false)也是true。</p>
+<h3 id="自动转换"><a href="#自动转换" class="headerlink" title="自动转换"></a>自动转换</h3><p>下面介绍自动转换，它是以强制转换为基础的。</p>
+<p>遇到以下三种情况时，JavaScript会自动转换数据类型，即转换是自动完成的，对用户不可见。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span> <span class="number">1</span>. 不同类型的数据互相运算</span><br><span class="line"><span class="number">123</span> + <span class="string">'abc'</span> <span class="regexp">//</span> <span class="string">"123abc"</span></span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> <span class="number">2</span>. 对非布尔值类型的数据求布尔值</span><br><span class="line"><span class="keyword">if</span> (<span class="string">'abc'</span>) &#123;</span><br><span class="line">  console.log(<span class="string">'hello'</span>)</span><br><span class="line">&#125;  <span class="regexp">//</span> <span class="string">"hello"</span></span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> <span class="number">3</span>. 对非数值类型的数据使用一元运算符（即“+”和“-”）</span><br><span class="line">+ &#123;foo: <span class="string">'bar'</span>&#125; <span class="regexp">//</span> NaN</span><br><span class="line">- [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] <span class="regexp">//</span> NaN</span><br></pre></td></tr></table></figure>
+<p>自动转换的规则是这样的：预期什么类型的值，就调用该类型的转换函数。比如，某个位置预期为字符串，就调用String函数进行转换。如果该位置即可以是字符串，也可能是数值，那么默认转为数值。</p>
+<p>由于自动转换具有不确定性，而且不易出错，建议在预期为布尔值、数值、字符串的地方，全部使用Boolean、Number和String函数进行显式转换。</p>
+<p>除了加法运算符有可能把运算子转为字符串，其他运算符都会把运算子自动转成数值。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">false</span> / <span class="string">'5'</span> <span class="comment">// 0</span></span><br><span class="line"><span class="string">'abc'</span> - <span class="number">1</span>   <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>学习参考：<br><a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000" target="_blank" rel="noopener">廖雪峰的JavaScript教程</a><br><a href="http://javascript.ruanyifeng.com/" target="_blank" rel="noopener">JavaScript 标准参考教程 阮一峰</a><br><a href="http://www.ycku.com/javascript/?utm_source=caibaojian.com" target="_blank" rel="noopener">李炎恢的JavaScript视频教程</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/22/前端相关学习/js/javascript学习(1)/" rel="next" title="JavaScript学习(1)基础概念">
+                <i class="fa fa-chevron-left"></i> JavaScript学习(1)基础概念
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/27/WEB交互/互联网协议入门(1)/" rel="prev" title="互联网协议入门(1)">
+                互联网协议入门(1) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript基本语法"><span class="nav-number">1.</span> <span class="nav-text">JavaScript基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">1.1.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#null和undefined"><span class="nav-number">1.1.1.</span> <span class="nav-text">null和undefined</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量提升"><span class="nav-number">1.2.</span> <span class="nav-text">变量提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标识符"><span class="nav-number">1.3.</span> <span class="nav-text">标识符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注释符"><span class="nav-number">1.4.</span> <span class="nav-text">注释符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区块"><span class="nav-number">1.5.</span> <span class="nav-text">区块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签-label"><span class="nav-number">1.6.</span> <span class="nav-text">标签(label)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型转换"><span class="nav-number">2.</span> <span class="nav-text">数据类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强制转换"><span class="nav-number">2.1.</span> <span class="nav-text">强制转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Number"><span class="nav-number">2.1.1.</span> <span class="nav-text">Number()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-原始类型值的转换规则"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">(1)原始类型值的转换规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-对象的转换规则"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">(2)对象的转换规则</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#String"><span class="nav-number">2.1.2.</span> <span class="nav-text">String()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-原始类型值的转换规则-1"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">(1)原始类型值的转换规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#String-对象的转换规则"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">String()对象的转换规则</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Boolean"><span class="nav-number">2.1.3.</span> <span class="nav-text">Boolean()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动转换"><span class="nav-number">2.2.</span> <span class="nav-text">自动转换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+        <script src="https://billts.site/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1472048090000',
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="hexo,nexT优化,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是NexT？NexT为hexo一个较为经典的主题，我的博客目前所用的就是这个主题。感谢作者iissnan的提供。">
+<meta name="keywords" content="hexo,nexT优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优化你的 nexT">
+<meta property="og:url" content="http://zjbao123.github.io/2016/04/07/博客相关/优化你的 nexT/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="什么是NexT？NexT为hexo一个较为经典的主题，我的博客目前所用的就是这个主题。感谢作者iissnan的提供。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xsp7y.com2.z0.glb.qiniucdn.com/16-4-7/64957320.jpg">
+<meta property="og:image" content="http://theme-next.iissnan.com/uploads/duoshuo-ua.png">
+<meta property="og:image" content="http://7xsp7y.com2.z0.glb.qiniucdn.com/16-4-7/11047875.jpg">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.737Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="优化你的 nexT">
+<meta name="twitter:description" content="什么是NexT？NexT为hexo一个较为经典的主题，我的博客目前所用的就是这个主题。感谢作者iissnan的提供。">
+<meta name="twitter:image" content="http://7xsp7y.com2.z0.glb.qiniucdn.com/16-4-7/64957320.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2016/04/07/博客相关/优化你的 nexT/">
+
+
+
+
+
+  <title>优化你的 nexT | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2016/04/07/博客相关/优化你的 nexT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">优化你的 nexT</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-07T13:07:57+08:00">
+                2016-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/优化/" itemprop="url" rel="index">
+                    <span itemprop="name">优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xsp7y.com2.z0.glb.qiniucdn.com/16-4-7/64957320.jpg" alt="next"></p>
+<h2 id="什么是NexT？"><a href="#什么是NexT？" class="headerlink" title="什么是NexT？"></a>什么是NexT？</h2><p><a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">NexT</a>为hexo一个较为经典的主题，我的博客目前所用的就是这个主题。感谢作者<a href="https://github.com/iissnan" target="_blank" rel="noopener">iissnan</a>的提供。<a id="more"></a></p>
+<p><code>NexT</code> 主旨在于简洁优雅且易于使用，所以首先要尽量确保 <code>NexT</code> 的简洁易用性。在保证其原有的基础上，我对其一些基本功能进行了优化。<br>如果你也想尝试与我一样的主题，可以参考<a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT帮助文档</a>来个性化你的<code>NexT</code>。或者你也可以选择一个Hexo主题：</p>
+<blockquote>
+<p>选择主题建议遵循KISS原则,即简单就是美。</p>
+</blockquote>
+<ul>
+<li>Hexo Themes - <a href="http://hexo.io/themes/" target="_blank" rel="noopener">http://hexo.io/themes/</a></li>
+<li>Jacman - <a href="http://wsgzao.github.io/post/hexo-jacman/" target="_blank" rel="noopener">http://wsgzao.github.io/post/hexo-jacman/</a></li>
+</ul>
+<h2 id="如何设置阅读全文"><a href="#如何设置阅读全文" class="headerlink" title="如何设置阅读全文"></a>如何设置阅读全文</h2><p><code>hexo</code>提供了在文章中使用 <!-- more --> 手动进行截断的方式，前提是需要在主题文件夹下的<code>_config.yml</code>设置：</p>
+<blockquote>
+<p>scroll_to_more: true</p>
+</blockquote>
+<h2 id="hexo-NexT主题首页title的优化"><a href="#hexo-NexT主题首页title的优化" class="headerlink" title="hexo NexT主题首页title的优化"></a>hexo NexT主题首页title的优化</h2><p>更改<code>index.swig</code>文件，文件路径为<code>your-hexo-site\themes\next\layout</code>，将下面代码</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> title %&#125;</span><span class="xml"> </span><span class="template-variable">&#123;&#123; config.title &#125;&#125;</span><span class="xml"> </span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
+<p>更改为</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> title %&#125;</span><span class="xml"> </span><span class="template-variable">&#123;&#123; config.title &#125;&#125;</span><span class="xml"> - </span><span class="template-variable">&#123;&#123; theme.description &#125;&#125;</span><span class="xml"> </span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
+<p>即可实现使你的首页显示<code>网站名称 - 网站描述</code>这种格式了。</p>
+<h2 id="设置最近访客菜单"><a href="#设置最近访客菜单" class="headerlink" title="设置最近访客菜单"></a>设置最近访客菜单</h2><p>本设置参考学习了<code>arao</code>的博客<a href="http://www.arao.me/2015/hexo-next-theme-optimize-duoshuo/" target="_blank" rel="noopener">动动手指，给你的Hexo站点添加最近访客（多说篇）</a>，并且将多说评论UA与其相结合，实现了最近访客功能以及评论栏的背景及评论栏头像360度旋转。</p>
+<h2 id="第三方服务配置"><a href="#第三方服务配置" class="headerlink" title="第三方服务配置"></a>第三方服务配置</h2><p>第一次接触的<code>NexT</code>的时候，按照教程来还是遇到了挺多的问题。在集成第三方服务的时候，由于<code>NexT</code>默认使用国外比较流行的disqus，为了与国内相匹配，我将其修改为“多说”评论系统。</p>
+<p>在每一条多说的评论之后我想要显示出评论者所使用的代理消息（如 操作系统、浏览器），可是按照教程之后发现并没有出现。<img src="http://theme-next.iissnan.com/uploads/duoshuo-ua.png" alt></p>
+<p>后参考了HelloDog的博客<a href="http://wsgzao.github.io/post/duoshuo/" target="_blank" rel="noopener">多说自定义CSS头像和多说评论显示UA</a>才明白需要到多说后台自定义CSS（此CSS样式包括了最近访客功能以及评论栏的背景及评论栏头像360度旋转的功能），具体步骤为：</p>
+<blockquote>
+<p>注册/登录多说后台-&gt;设置-&gt;基本设置-&gt;自定义CSS</p>
+</blockquote>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*UA Start*/</span></span><br><span class="line"><span class="selector-tag">span</span><span class="selector-class">.this_ua</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#ccc</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">5px</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">1px</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#BBB</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="comment">/*text-transform: Capitalize!important;</span></span><br><span class="line"><span class="comment">    float: right!important;</span></span><br><span class="line"><span class="comment">    line-height: 18px!important;*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.platform</span><span class="selector-class">.Windows</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#39b3d7</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#46b8da</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.platform</span><span class="selector-class">.Linux</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#3A3A3A</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#1F1F1F</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.platform</span><span class="selector-class">.Ubuntu</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#DD4814</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#DD4814</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.platform</span><span class="selector-class">.Mac</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#666666</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#666666</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.platform</span><span class="selector-class">.Android</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#98C13D</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#98C13D</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.platform</span><span class="selector-class">.iOS</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#666666</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#666666</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.browser</span><span class="selector-class">.Chrome</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#EE6252</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#EE6252</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.browser</span><span class="selector-class">.Chromium</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#EE6252</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#EE6252</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.browser</span><span class="selector-class">.Firefox</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#f0ad4e</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#eea236</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.browser</span><span class="selector-class">.IE</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#428bca</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#357ebd</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.browser</span><span class="selector-class">.Edge</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#428bca</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#357ebd</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.browser</span><span class="selector-class">.Opera</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#d9534f</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#d43f3a</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.browser</span><span class="selector-class">.Maxthon</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#7373B9</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#7373B9</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.browser</span><span class="selector-class">.Safari</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#666666</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#666666</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.this_ua</span><span class="selector-class">.sskadmin</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#00a67c</span><span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#00a67c</span><span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*UA End*/</span></span><br><span class="line"><span class="comment">/*Head Start*/</span></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-tag">ul</span><span class="selector-class">.ds-comments-tabs</span> <span class="selector-tag">li</span><span class="selector-class">.ds-tab</span> <span class="selector-tag">a</span><span class="selector-class">.ds-current</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#6D6D6B</span>;</span><br><span class="line">    <span class="attribute">text-shadow</span>: none;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#F3F3F3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-highlight</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: Microsoft YaHei, <span class="string">"Helvetica Neue"</span>, Helvetica, Arial, Sans-serif;</span><br><span class="line">    ;<span class="attribute">font-size</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#6D6D6B</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-tag">ul</span><span class="selector-class">.ds-comments-tabs</span> <span class="selector-tag">li</span><span class="selector-class">.ds-tab</span> <span class="selector-tag">a</span><span class="selector-class">.ds-current</span>:hover &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#696a52</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#F2F2F2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-tag">a</span><span class="selector-class">.ds-highlight</span>:hover &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#696a52</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> &#123;</span><br><span class="line">    <span class="attribute">padding-left</span>: <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-tag">li</span><span class="selector-class">.ds-post</span>,<span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-id">#ds-hot-posts</span> &#123;</span><br><span class="line">    <span class="attribute">overflow</span>: visible;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-post-self</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">0</span> <span class="number">10px</span> <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-tag">li</span><span class="selector-class">.ds-post</span>,<span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-post-self</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">0</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-avatar</span>, <span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-tag">ul</span><span class="selector-class">.ds-children</span> <span class="selector-class">.ds-avatar</span> &#123;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">left</span>: -<span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">36px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">36px</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: -<span class="number">1px</span> <span class="number">0</span> <span class="number">1px</span> rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">15</span>) inset;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">46px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#FAFAFA</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-class">.ds-avatar</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">32px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">32px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#b9baa6</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-class">.ds-avatar</span> <span class="selector-tag">a</span>:hover &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-class">.ds-avatar</span> &gt; <span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">2px</span> <span class="number">0</span> <span class="number">0</span> <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-replybox</span> &#123;</span><br><span class="line">    <span class="attribute">box-shadow</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-tag">ul</span><span class="selector-class">.ds-children</span> <span class="selector-class">.ds-replybox</span><span class="selector-class">.ds-inline-replybox</span> <span class="selector-tag">a</span><span class="selector-class">.ds-avatar</span>,</span><br><span class="line"><span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-replybox</span><span class="selector-class">.ds-inline-replybox</span> <span class="selector-tag">a</span><span class="selector-class">.ds-avatar</span> &#123;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">32px</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">32px</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">background</span>: none;</span><br><span class="line">    <span class="attribute">box-shadow</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-replybox</span><span class="selector-class">.ds-inline-replybox</span> <span class="selector-tag">a</span><span class="selector-class">.ds-avatar</span> <span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">32px</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">32px</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-replybox</span> <span class="selector-tag">a</span><span class="selector-class">.ds-avatar</span>,</span><br><span class="line"><span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-replybox</span> <span class="selector-class">.ds-avatar</span> <span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">32px</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">32px</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-avatar</span> <span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">32px</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">32px</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">32px</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">3px</span> rgba(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.22</span>);</span><br><span class="line">    -webkit-<span class="attribute">transition</span>: .<span class="number">8s</span> all ease-in-out;</span><br><span class="line">    -moz-<span class="attribute">transition</span>: .<span class="number">4s</span> all ease-in-out;</span><br><span class="line">    -o-<span class="attribute">transition</span>: .<span class="number">4s</span> all ease-in-out;</span><br><span class="line">    -ms-<span class="attribute">transition</span>: .<span class="number">4s</span> all ease-in-out;</span><br><span class="line">    <span class="attribute">transition</span>: .<span class="number">4s</span> all ease-in-out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.ds-post-self</span>:hover <span class="selector-class">.ds-avatar</span> <span class="selector-tag">img</span> &#123;</span><br><span class="line">    -webkit-<span class="attribute">transform</span>: rotateX(<span class="number">360deg</span>);</span><br><span class="line">    -moz-<span class="attribute">transform</span>: rotate(<span class="number">360deg</span>);</span><br><span class="line">    -o-<span class="attribute">transform</span>: rotate(<span class="number">360deg</span>);</span><br><span class="line">    -ms-<span class="attribute">transform</span>: rotate(<span class="number">360deg</span>);</span><br><span class="line">    <span class="attribute">transform</span>: rotate(<span class="number">360deg</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-comment-body</span> &#123;</span><br><span class="line">    -webkit-<span class="attribute">transition-delay</span>: initial;</span><br><span class="line">    -webkit-<span class="attribute">transition-duration</span>: <span class="number">0.4s</span>;</span><br><span class="line">    -webkit-<span class="attribute">transition-property</span>: all;</span><br><span class="line">    -webkit-<span class="attribute">transition-timing-function</span>: initial;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#F7F7F7</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">15px</span> <span class="number">15px</span> <span class="number">15px</span> <span class="number">47px</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">#B8B9B9</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">3px</span>;</span><br><span class="line">    <span class="attribute">border</span>: white <span class="number">1px</span> solid;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-tag">ul</span><span class="selector-class">.ds-children</span> <span class="selector-class">.ds-comment-body</span> &#123;</span><br><span class="line">    <span class="attribute">padding-left</span>: <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-comment-body</span> <span class="selector-tag">p</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#787968</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-comments</span> &#123;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">0px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-powered-by</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-comments</span> <span class="selector-tag">a</span><span class="selector-class">.ds-user-name</span> &#123;</span><br><span class="line">    <span class="attribute">font-weight</span>: normal;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#3D3D3D</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-comments</span> <span class="selector-tag">a</span><span class="selector-class">.ds-user-name</span>:hover &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#D32</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-id">#ds-bubble</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: none <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-id">#ds-hot-posts</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-textarea-wrapper</span> <span class="selector-tag">textarea</span> &#123;</span><br><span class="line">	<span class="attribute">background</span>: url(http://ww4.sinaimg.cn/small/<span class="number">649</span>a4735gw1et7gnhy5fej20zk0m8q3q.jpg) right no-repeat;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-recent-visitors</span> <span class="selector-class">.ds-avatar</span> &#123;</span><br><span class="line">	<span class="attribute">float</span>: left</span><br><span class="line">&#125;</span><br><span class="line">/*隐藏多说底部版权*/</span><br><span class="line"><span class="number">#d</span>s-thread <span class="number">#d</span>s-reset .ds-powered-by &#123;</span><br><span class="line">	display: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#ds-thread</span> <span class="selector-id">#ds-reset</span> <span class="selector-class">.ds-comment-body</span>:hover &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#F1F1F1</span>;</span><br><span class="line">    -webkit-<span class="attribute">transition-delay</span>: initial;</span><br><span class="line">    -webkit-<span class="attribute">transition-duration</span>: <span class="number">0.4s</span>;</span><br><span class="line">    -webkit-<span class="attribute">transition-property</span>: all;</span><br><span class="line">    -webkit-<span class="attribute">transition-timing-function</span>: initial;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>添加上述代码，最后在命令行中 <code>hexo cl</code>&amp;<code>hexo g</code>&amp;<code>hexo s</code>,最后显示如下图所示：<img src="http://7xsp7y.com2.z0.glb.qiniucdn.com/16-4-7/11047875.jpg" alt="评论">实现了上述功能。</p>
+<h2 id="添加小心！"><a href="#添加小心！" class="headerlink" title="添加小心！"></a>添加<code>小心！</code></h2><p>再次感谢开源</p>
+<p>效果很赞，整个页面渐进式摇摆，摇摆，还有音乐</p>
+<p>在 Hexo\themes\next\layout_partials\header.swig 中的 ul 标签加入如下 li 代码：<br><figure class="highlight golo"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line">&lt;li&gt; &lt;a title=<span class="string">"把这个链接拖到你的Chrome收藏夹工具栏中"</span> href='javascript:(<span class="keyword">function</span>() &#123;</span><br><span class="line">    <span class="keyword">function</span> c() &#123;</span><br><span class="line">        <span class="keyword">var</span> e = document.createElement(<span class="string">"link"</span>);</span><br><span class="line">        e.setAttribute(<span class="string">"type"</span>, <span class="string">"text/css"</span>);</span><br><span class="line">        e.setAttribute(<span class="string">"rel"</span>, <span class="string">"stylesheet"</span>);</span><br><span class="line">        e.setAttribute(<span class="string">"href"</span>, f);</span><br><span class="line">        e.setAttribute(<span class="string">"class"</span>, l);</span><br><span class="line">        document.body.appendChild(e)</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> h() &#123;</span><br><span class="line">        <span class="keyword">var</span> e = document.getElementsByClassName(l);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> t = <span class="number">0</span>; t &lt; e.length; t++) &#123;</span><br><span class="line">            document.body.removeChild(e[t])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> p() &#123;</span><br><span class="line">        <span class="keyword">var</span> e = document.createElement(<span class="string">"div"</span>);</span><br><span class="line">        e.setAttribute(<span class="string">"class"</span>, a);</span><br><span class="line">        document.body.appendChild(e);</span><br><span class="line">        setTimeout(<span class="keyword">function</span>() &#123;</span><br><span class="line">            document.body.removeChild(e)</span><br><span class="line">        &#125;, <span class="number">100</span>)</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> d(e) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            height : e.offsetHeight,</span><br><span class="line">            width : e.offsetWidth</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> v(i) &#123;</span><br><span class="line">        <span class="keyword">var</span> s = d(i);</span><br><span class="line">        <span class="keyword">return</span> s.height &gt; e &amp;&amp; s.height &lt; n &amp;&amp; s.width &gt; t &amp;&amp; s.width &lt; r</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> m(e) &#123;</span><br><span class="line">        <span class="keyword">var</span> t = e;</span><br><span class="line">        <span class="keyword">var</span> n = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (!!t) &#123;</span><br><span class="line">            n += t.offsetTop;</span><br><span class="line">            t = t.offsetParent</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> g() &#123;</span><br><span class="line">        <span class="keyword">var</span> e = document.documentElement;</span><br><span class="line">        <span class="keyword">if</span> (!!window.innerWidth) &#123;</span><br><span class="line">            <span class="keyword">return</span> window.innerHeight</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e &amp;&amp; !isNaN(e.clientHeight)) &#123;</span><br><span class="line">            <span class="keyword">return</span> e.clientHeight</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> y() &#123;</span><br><span class="line">        <span class="keyword">if</span> (window.pageYOffset) &#123;</span><br><span class="line">            <span class="keyword">return</span> window.pageYOffset</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Math.max(document.documentElement.scrollTop, document.body.scrollTop)</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> E(e) &#123;</span><br><span class="line">        <span class="keyword">var</span> t = m(e);</span><br><span class="line">        <span class="keyword">return</span> t &gt;= w &amp;&amp; t &lt;= b + w</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> S() &#123;</span><br><span class="line">        <span class="keyword">var</span> e = document.createElement(<span class="string">"audio"</span>);</span><br><span class="line">        e.setAttribute(<span class="string">"class"</span>, l);</span><br><span class="line">        e.src = i;</span><br><span class="line">        e.loop = <span class="literal">false</span>;</span><br><span class="line">        e.addEventListener(<span class="string">"canplay"</span>, <span class="keyword">function</span>() &#123;</span><br><span class="line">            setTimeout(<span class="keyword">function</span>() &#123;</span><br><span class="line">                x(k)</span><br><span class="line">            &#125;, <span class="number">500</span>);</span><br><span class="line">            setTimeout(<span class="keyword">function</span>() &#123;</span><br><span class="line">                N();</span><br><span class="line">                p();</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> e = <span class="number">0</span>; e &lt; O.length; e++) &#123;</span><br><span class="line">                    T(O[e])</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="number">15500</span>)</span><br><span class="line">        &#125;, <span class="literal">true</span>);</span><br><span class="line">        e.addEventListener(<span class="string">"ended"</span>, <span class="keyword">function</span>() &#123;</span><br><span class="line">            N();</span><br><span class="line">            h()</span><br><span class="line">        &#125;, <span class="literal">true</span>);</span><br><span class="line">        e.innerHTML = <span class="string">" &lt;p&gt;If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.&lt;/p&gt; &lt;p&gt;"</span>;</span><br><span class="line">        document.body.appendChild(e);</span><br><span class="line">        e.play()</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> x(e) &#123;</span><br><span class="line">        e.className += <span class="string">" "</span> + s + <span class="string">" "</span> + o</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> T(e) &#123;</span><br><span class="line">        e.className += <span class="string">" "</span> + s + <span class="string">" "</span> + u[Math.floor(Math.random() * u.length)]</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> N() &#123;</span><br><span class="line">        <span class="keyword">var</span> e = document.getElementsByClassName(s);</span><br><span class="line">        <span class="keyword">var</span> t = new RegExp(<span class="string">"\\b"</span> + s + <span class="string">"\\b"</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> n = <span class="number">0</span>; n &lt; e.length; ) &#123;</span><br><span class="line">            e[n].className = e[n].className.replace(t, <span class="string">""</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">var</span> e = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">var</span> t = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">var</span> n = <span class="number">350</span>;</span><br><span class="line">    <span class="keyword">var</span> r = <span class="number">350</span>;</span><br><span class="line">    <span class="keyword">var</span> i = <span class="string">"//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3"</span>;</span><br><span class="line">    <span class="keyword">var</span> s = <span class="string">"mw-harlem_shake_me"</span>;</span><br><span class="line">    <span class="keyword">var</span> o = <span class="string">"im_first"</span>;</span><br><span class="line">    <span class="keyword">var</span> u = [<span class="string">"im_drunk"</span>, <span class="string">"im_baked"</span>, <span class="string">"im_trippin"</span>, <span class="string">"im_blown"</span>];</span><br><span class="line">    <span class="keyword">var</span> a = <span class="string">"mw-strobe_light"</span>;</span><br><span class="line">    <span class="keyword">var</span> f = <span class="string">"//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css"</span>;</span><br><span class="line">    <span class="keyword">var</span> l = <span class="string">"mw_added_css"</span>;</span><br><span class="line">    <span class="keyword">var</span> b = g();</span><br><span class="line">    <span class="keyword">var</span> w = y();</span><br><span class="line">    <span class="keyword">var</span> C = document.getElementsByTagName(<span class="string">"*"</span>);</span><br><span class="line">    <span class="keyword">var</span> k = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> L = <span class="number">0</span>; L &lt; C.length; L++) &#123;</span><br><span class="line">        <span class="keyword">var</span> A = C[L];</span><br><span class="line">        <span class="keyword">if</span> (v(A)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (E(A)) &#123;</span><br><span class="line">                k = A;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (A === <span class="literal">null</span>) &#123;</span><br><span class="line">        console.warn(<span class="string">"Could not find a node of the right size. Please try a different page."</span>);</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    c();</span><br><span class="line">    S();</span><br><span class="line">    <span class="keyword">var</span> O = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> L = <span class="number">0</span>; L &lt; C.length; L++) &#123;</span><br><span class="line">        <span class="keyword">var</span> A = C[L];</span><br><span class="line">        <span class="keyword">if</span> (v(A)) &#123;</span><br><span class="line">            O.push(A)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()    '&gt;小心！&lt;/a&gt; &lt;/li&gt;</span><br></pre></td></tr></table></figure></p>
+<p>很刺激的特效 = =</p>
+<p>总体感觉，nexT的主题很有特色，简单，有极客范。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+            <a href="/tags/nexT优化/" rel="tag"># nexT优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/05/博客相关/hello blog/" rel="next" title="hello blog">
+                <i class="fa fa-chevron-left"></i> hello blog
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/15/每日计划/每日计划/" rel="prev" title="每日计划">
+                每日计划 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是NexT？"><span class="nav-number">1.</span> <span class="nav-text">什么是NexT？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何设置阅读全文"><span class="nav-number">2.</span> <span class="nav-text">如何设置阅读全文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-NexT主题首页title的优化"><span class="nav-number">3.</span> <span class="nav-text">hexo NexT主题首页title的优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置最近访客菜单"><span class="nav-number">4.</span> <span class="nav-text">设置最近访客菜单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三方服务配置"><span class="nav-number">5.</span> <span class="nav-text">第三方服务配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加小心！"><span class="nav-number">6.</span> <span class="nav-text">添加小心！</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+        <script src="https://billts.site/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1460005677000',
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

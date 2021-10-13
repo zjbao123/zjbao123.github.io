@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,python教程,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Python之所以自称“batteries included”，就是因为内置了许多非常有用的模块，无需额外安装和配置，即可直接使用。下面来介绍一下。 collectionscollections是Python内建的一个集合模块，提供许多有用的集合类。">
+<meta name="keywords" content="python,python教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初探python(11)常用的内建模块">
+<meta property="og:url" content="http://zjbao123.github.io/2016/11/06/python/初探python(11)常用的内建模块/index.html">
+<meta property="og:site_name" content="不为繁华易匠心">
+<meta property="og:description" content="Python之所以自称“batteries included”，就是因为内置了许多非常有用的模块，无需额外安装和配置，即可直接使用。下面来介绍一下。 collectionscollections是Python内建的一个集合模块，提供许多有用的集合类。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T14:44:36.730Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初探python(11)常用的内建模块">
+<meta name="twitter:description" content="Python之所以自称“batteries included”，就是因为内置了许多非常有用的模块，无需额外安装和配置，即可直接使用。下面来介绍一下。 collectionscollections是Python内建的一个集合模块，提供许多有用的集合类。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjbao123.github.io/2016/11/06/python/初探python(11)常用的内建模块/">
+
+
+
+
+
+  <title>初探python(11)常用的内建模块 | 不为繁华易匠心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不为繁华易匠心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            notes
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-group"></i> <br>
+            
+            guestbook
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zjbao123.github.io/2016/11/06/python/初探python(11)常用的内建模块/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjbao123">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不为繁华易匠心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初探python(11)常用的内建模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-06T21:26:30+08:00">
+                2016-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Python之所以自称“batteries included”，就是因为内置了许多非常有用的模块，无需额外安装和配置，即可直接使用。下面来介绍一下。</p>
+<h2 id="collections"><a href="#collections" class="headerlink" title="collections"></a>collections</h2><p>collections是Python内建的一个集合模块，提供许多有用的集合类。<br><a id="more"></a></p>
+<h3 id="namedtuple"><a href="#namedtuple" class="headerlink" title="namedtuple"></a>namedtuple</h3><p>在之前的学习中我们知道tuple可以表示不变集合，例如，一个点的二维坐标就可以表示成<code>p = (1, 2)</code>,但是光光看到这个<code>(1,2)</code>，很难看出是用来表示一个坐标的。<br>定义一个class又小题大做。</p>
+<p>这时，我们需要用到<code>namedtuple</code>：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line">Point = namedtuple(<span class="string">'Point'</span>, [<span class="string">'x'</span>, <span class="string">'y'</span>])</span><br><span class="line">p = Point(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">p.x</span><br><span class="line"># <span class="number">1</span></span><br><span class="line">p.y</span><br><span class="line"># <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<p><code>namedtuple</code>是一个函数，用来创建一个自定义的<code>tuple</code>对象，并且规定了<code>tuple</code>元素的个数，并可以用属性而不是索引来引用<code>tuple</code>的某个元素。</p>
+<p>这样一来，我们用<code>namedtuple</code>可以很方便地定义一种数据类型，它具备tuple的不变性，又可以根据属性来引用，使用十分方便。</p>
+<p>输入<code>help(namedtuple)</code>你会发现，<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; d = p._asdict()                 <span class="comment"># convert to a dictionary</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; d[<span class="string">'x'</span>]</span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; Point(**d)                      <span class="comment"># convert from a dictionary</span></span><br><span class="line">Point(x=<span class="number">11</span>, y=<span class="number">22</span>)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; p._replace(x=<span class="number">100</span>)               <span class="comment"># _replace() is like str.replace() but targets named fields</span></span><br><span class="line">Point(x=<span class="number">100</span>, y=<span class="number">22</span>)</span><br></pre></td></tr></table></figure></p>
+<p>在帮助文档中，也提供了tuple转字典的方法，以及一些替换的方法。</p>
+<h3 id="deque"><a href="#deque" class="headerlink" title="deque"></a>deque</h3><p>之前在学习的时候已经碰到了这个函数，看了下官方解释：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deque([iterable[, maxlen]])</span><br><span class="line"><span class="keyword">Build</span> an ordered <span class="keyword">collection</span> <span class="keyword">with</span> optimized access <span class="keyword">from</span> its endpoints.</span><br></pre></td></tr></table></figure>
+<p>建立一个从两个端点进行优化的有序集合。</p>
+<p>简而言之，是一个可以设置最大长度的队列或堆，优点是<code>deque</code>除了实现list的append()和pop()外，还支持appendleft()和popleft()，这样就可以非常高效地往头部添加或删除元素；此外，还可以用来取最近的几条数据，后来的数据会顶开早些的数据。</p>
+<h3 id="defaultdict"><a href="#defaultdict" class="headerlink" title="defaultdict"></a>defaultdict</h3><p>与<code>dict</code>相比，不同之处在于如果key不存在时，返回一个默认值。<br>注意：默认值是调用函数返回的，而函数在创建<code>defaultdict</code>对象时传入。<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">dd</span> = defaultdict(lambda: <span class="string">'N/A'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>除了在<code>Key</code>不存在时返回默认值，<code>defaultdict</code>的其他行为跟<code>dict</code>是完全一样的。</p>
+<h3 id="OrderedDict"><a href="#OrderedDict" class="headerlink" title="OrderedDict"></a>OrderedDict</h3><p>正如名字所言，有序字典。他的有序指的是Key会按照插入的顺序排列，不是Key本身排序。</p>
+<h3 id="Counter"><a href="#Counter" class="headerlink" title="Counter"></a>Counter</h3><p>Counter是一个简单的计数器，例如，统计字符出现的个数：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line">c = Counter()</span><br><span class="line">for ch <span class="keyword">in</span> <span class="string">'programming'</span>:</span><br><span class="line">...     c[ch] = c[ch] + <span class="number">1</span></span><br><span class="line">...</span><br><span class="line">c</span><br><span class="line">#Counter(&#123;<span class="string">'g'</span>: <span class="number">2</span>, <span class="string">'m'</span>: <span class="number">2</span>, <span class="string">'r'</span>: <span class="number">2</span>, <span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'i'</span>: <span class="number">1</span>, <span class="string">'o'</span>: <span class="number">1</span>, <span class="string">'n'</span>: <span class="number">1</span>, <span class="string">'p'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>Counter实际上也是dict的一个子类。</p>
+<h2 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h2><p>Base64是一种任意二进制到文本字符串的编码方法，常用于在URL、Cookie、网页中传输少量二进制数据。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>首先，准备一个包含64个字符的数组：<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">'A</span>', <span class="symbol">'B</span>', <span class="symbol">'C</span>', ... <span class="symbol">'a</span>', <span class="symbol">'b</span>', <span class="symbol">'c</span>', ... <span class="symbol">'0</span>', <span class="symbol">'1</span>', ... <span class="symbol">'+</span>', <span class="symbol">'/</span>']</span><br></pre></td></tr></table></figure></p>
+<p>然后，对二进制数据进行处理，每3个字节一组，一共是3x8=24bit，划为4组，每组正好6个bit,也就是2^6,64个字符相对应。</p>
+<p>这样我们得到4个数字作为索引，然后查表，获得相应的4个字符，就是编码后的字符串。</p>
+<p>Base64编码会把3字节的二进制数据编码为4字节的文本数据，长度增加33%，好处是编码后的文本数据可以在邮件正文、网页等直接显示。</p>
+<p>如果要编码的二进制数据不是3的倍数，最后会剩下1个或2个字节怎么办？Base64用\x00字节在末尾补足后，再在编码的末尾加上1个或2个=号，表示补了多少字节，解码的时候，会自动去掉。</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import <span class="built_in">base64</span></span><br><span class="line"><span class="built_in">base64</span>.b64encode('binary\x00string')</span><br><span class="line"># 对于在URL，有一种<span class="string">"url safe"</span>的<span class="built_in">base64</span>编码，</span><br><span class="line"># 把字符+和/分别变成-和<span class="symbol">_</span>，防止搞混</span><br><span class="line"><span class="built_in">base64</span>.urlsafe_b64decode('abcd--<span class="symbol">__</span>')</span><br></pre></td></tr></table></figure>
+<p>由于<code>=</code>字符也可能出现在Base64编码中，但<code>=</code>用在URL、Cookie里面会造成歧义，所以，很多Base64编码后会把<code>=</code>去掉,但在解码的时候，我们需要把<code>=</code>加上。<br><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def b64decode_self(<span class="keyword">str</span>):</span><br><span class="line">    <span class="keyword">return</span> base64.b64decode(<span class="keyword">str</span>+<span class="string">'='</span>*(<span class="number">4</span>-len(<span class="keyword">str</span>)%<span class="number">4</span>))</span><br></pre></td></tr></table></figure></p>
+<h2 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h2><p>用来解决str和其他二进制数据类型的转换。</p>
+<p><code>struct</code>的<code>pack</code>函数把任意数据类型变成字符串。<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class"><span class="keyword">struct</span>.<span class="title">pack</span>('&gt;<span class="title">I</span>', 10240099)</span></span><br><span class="line"><span class="comment"># '\x00\x9c@c'</span></span><br></pre></td></tr></table></figure></p>
+<p>pack的第一个参数是处理指令，’&gt;I’的意思是：</p>
+<p><code>&gt;</code>表示字节顺序是big-endian，大端字节序也就是网络序，高字节存于内存低地址；低字节存于内存高地址。I表示4字节无符号整数。</p>
+<p><code>unpack</code>把<code>str</code>变成相应的数据类型：<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> struct.unpack('&gt;IH', '<span class="symbol">\x</span>f0<span class="symbol">\x</span>f0<span class="symbol">\x</span>f0<span class="symbol">\x</span>f0<span class="symbol">\x</span>80<span class="symbol">\x</span>80')</span><br><span class="line">(4042322160, 32896)</span><br></pre></td></tr></table></figure></p>
+<p>具体处理指令可用<code>help</code>来查看。</p>
+<p>下面我们用<code>struct</code>分析一下bmp格式。<br>首先找一个<code>bmp</code>文件，没有的话用“画图”画一个。<br>读入前30个字节来分析。</p>
+<p>BMP格式采用小端方式存储数据，文件头的结构按顺序如下：</p>
+<p>两个字节：’BM’表示<code>Windows</code>位图，’BA’表示OS/2位图；<br>一个4字节整数：表示位图大小；<br>一个4字节整数：保留位，始终为0；<br>一个4字节整数：实际图像的偏移量；<br>一个4字节整数：Header的字节数；<br>一个4字节整数：图像宽度；<br>一个4字节整数：图像高度；<br>一个2字节整数：始终为1；<br>一个2字节整数：颜色数。</p>
+<p>所以，组合起来用unpack读取：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">struct.unpack('&lt;ccIIIIIIHH', s)</span><br><span class="line">('B', 'M', <span class="number">691256</span>, <span class="number">0</span>, <span class="number">54</span>, <span class="number">40</span>, <span class="number">640</span>, <span class="number">360</span>, <span class="number">1</span>, <span class="number">24</span>)</span><br></pre></td></tr></table></figure></p>
+<p>结果显示，’B’、’M’说明是Windows位图，位图大小为640x360，颜色数为24。</p>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p>请编写一个bmpinfo.py，可以检查任意文件是否是位图文件，如果是，打印出图片大小和颜色数。<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import struct</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def isbmp(<span class="keyword">s</span>):</span><br><span class="line">    f = <span class="keyword">open</span>(<span class="keyword">s</span>, <span class="string">'rb'</span>).read(<span class="number">30</span>)</span><br><span class="line">    b = struct.unpack(<span class="string">'&lt;ccIIIIIIHH'</span>, f)</span><br><span class="line">    <span class="keyword">if</span> b[<span class="number">0</span>] == <span class="string">'B'</span> <span class="keyword">and</span> b[<span class="number">1</span>] == <span class="string">'M'</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"size = %s * %s"</span> % (b[<span class="number">6</span>], b[<span class="number">7</span>])</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"color = %s "</span> % (b[-<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"it's not bmp!"</span></span><br><span class="line"><span class="keyword">if</span> __name_<span class="number">_</span> == <span class="string">'__main__'</span>:</span><br><span class="line">    isbmp(<span class="string">'1.bmp'</span>)</span><br><span class="line">    isbmp(<span class="string">"1.jpg"</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="hashlib"><a href="#hashlib" class="headerlink" title="hashlib"></a>hashlib</h2><p>摘要算法在很多地方都有广泛的应用。要注意摘要算法不是加密算法，不能用于加密（因为无法通过摘要反推明文），只能用于防篡改，但是它的单向计算特性决定了可以在不存储明文口令的情况下验证用户口令。</p>
+<p>Python的hashlib提供了常见的摘要算法，如MD5，SHA1等等。</p>
+<p>什么是摘要算法呢？摘要算法又称哈希算法、散列算法。它通过一个函数，把任意长度的数据转换为一个长度固定的数据串（通常用16进制的字符串表示）。</p>
+<p>MD5是最常见的摘要算法，速度很快，生成结果是固定的128 bit字节，通常用一个32位的16进制字符串表示。<br><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line"></span><br><span class="line"><span class="built_in">md5</span> = hashlib.<span class="built_in">md5</span>()</span><br><span class="line"><span class="built_in">md5</span>.<span class="keyword">update</span>('how to use <span class="built_in">md5</span> in python hashlib?')</span><br><span class="line">print <span class="built_in">md5</span>.hexdigest()</span><br></pre></td></tr></table></figure></p>
+<p>而SHA1也是其中一种算法，和调用MD5完全类似:<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line"></span><br><span class="line">sha1 = hashlib.sha1()</span><br><span class="line">sha1.<span class="keyword">update</span>('how to <span class="keyword">use</span> sha1 <span class="keyword">in</span> ')</span><br><span class="line">sha1.<span class="keyword">update</span>('python hashlib?')</span><br><span class="line"><span class="keyword">print</span> sha1.hexdigest()</span><br></pre></td></tr></table></figure></p>
+<p>比SHA1更安全的算法是SHA256和SHA512，不过越安全的算法越慢，而且摘要长度更长。</p>
+<p>有没有可能两个不同的数据通过某个摘要算法得到了相同的摘要？完全有可能。因为任何摘要算法都是把无限多的数据集合映射到一个有限的集合中。这种情况称为碰撞。</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>这种用法常用于数据保密。如明文保存账户数据容易被黑客盗取，用户登录时，通过用户输入的口令来计算摘要，如果和存储的摘要一致，就可以认为是登录正确。</p>
+<p>存储MD5的好处是即使运维人员能访问数据库，也无法获知用户的明文口令。</p>
+<p>采用MD5存储口令是否就一定安全呢？也不一定。假设你是一个黑客，已经拿到了存储MD5口令的数据库，如何通过MD5反推用户的明文口令呢？暴力破解费事费力，真正的黑客不会这么干。</p>
+<p>考虑这么个情况，很多用户喜欢用123456，888888，password这些简单的口令，于是，黑客可以事先计算出这些常用口令的MD5值，得到一个反推表：<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">'e10adc<span class="number">3949</span>ba59abbe56e057f20f883e': '<span class="number">123456</span>'</span><br><span class="line">'<span class="number">2121</span>8cca<span class="number">7780</span>4d2ba<span class="number">1922</span>c33e<span class="number">015110</span>5': '<span class="number">888888</span>'</span><br><span class="line">'5f4dcc3b5aa765d61d<span class="number">8327</span>deb882cf99': 'password'</span><br></pre></td></tr></table></figure></p>
+<p>这样，无需破解，只需要对比数据库的MD5，黑客就获得了使用常用口令的用户账号。</p>
+<p>对于用户来讲，当然不要使用过于简单的口令。但是，我们能否在程序设计上对简单口令加强保护呢？</p>
+<h3 id="加盐"><a href="#加盐" class="headerlink" title="加盐"></a>加盐</h3><p>由于常用口令的MD5值很容易被计算出来，所以，要确保存储的用户口令不是那些已经被计算出来的常用口令的MD5，这一方法通过对原始口令加一个复杂字符串来实现，俗称“加盐”：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc_md5</span><span class="params">(password)</span></span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">return</span> get_md5(password + <span class="string">'the-Salt'</span>)</span><br></pre></td></tr></table></figure>
+<p>经过Salt处理的MD5口令，只要Salt不被黑客知道，即使用户输入简单口令，也很难通过MD5反推明文口令。</p>
+<p>但是如果有两个用户都使用了相同的简单口令比如123456，在数据库中，将存储两条相同的MD5值，这说明这两个用户的口令是一样的。有没有办法让使用相同口令的用户存储不同的MD5呢？</p>
+<p>如果假定用户无法修改登录名，就可以通过把登录名作为Salt的一部分来计算MD5，从而实现相同口令的用户也存储不同的MD5。</p>
+<h3 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h3><p>1.设计一个验证用户登录小程序，根据用户输入的口令保存账号密码，亦可做登录检查。</p>
+<p>解：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">md5</span><span class="params">(str)</span>:</span></span><br><span class="line">    md = hashlib.md5()</span><br><span class="line">    md.update(str)</span><br><span class="line">    md_5 = md.hexdigest()</span><br><span class="line">    <span class="keyword">return</span> md_5</span><br><span class="line">dict_client = &#123;&#125;</span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    ty = raw_input(<span class="string">"欢迎使用用户登录系统...存储用户数据请按1，登录请按2，退出请按3\n"</span>)</span><br><span class="line">    <span class="keyword">if</span> ty ==<span class="string">'1'</span>:</span><br><span class="line"></span><br><span class="line">        name_str = raw_input(<span class="string">"请输出用户名字：\n"</span>)</span><br><span class="line">        keywords_str = raw_input(<span class="string">"请输入密码：\n"</span>)</span><br><span class="line">        dict_client[name_str]=md5(keywords_str)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'MD5密码加密已完成...'</span></span><br><span class="line">        <span class="keyword">print</span> dict_client</span><br><span class="line">    <span class="keyword">if</span> ty ==<span class="string">"2"</span>:</span><br><span class="line">        name_str = raw_input(<span class="string">"请输出用户名字：\n"</span>)</span><br><span class="line">        keywords_str = raw_input(<span class="string">"请输入密码：\n"</span>)</span><br><span class="line">        <span class="keyword">if</span> dict_client[name_str]==md5(keywords_str):</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"welcome %s"</span> %name_str</span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"your keywords are wrong ! "</span></span><br><span class="line">    <span class="keyword">if</span> ty ==<span class="string">"3"</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'BYE...'</span></span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure></p>
+<p>2.根据用户输入的登录名和口令模拟用户注册，计算更安全的MD5.<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(username, password)</span></span><span class="symbol">:</span></span><br><span class="line">    db[username] = get_md5(password + username + <span class="string">'the-Salt'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>然后，根据修改后的MD5算法实现用户登录的验证：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(username, password)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
+<p>解法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">md5</span><span class="params">(str)</span>:</span></span><br><span class="line">    md = hashlib.md5()</span><br><span class="line">    md.update(str)</span><br><span class="line">    md_5 = md.hexdigest()</span><br><span class="line">    <span class="keyword">return</span> md_5</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(username, password)</span>:</span></span><br><span class="line">    dict_client[username] = md5(password + username + <span class="string">'the-Salt'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(username, password)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> dict_client[username] == md5(password + username + <span class="string">'the-Salt'</span>):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"welcome %s"</span> % username</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"your keywords are wrong ! "</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">dict_client = &#123;&#125;</span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    ty = raw_input(<span class="string">"欢迎使用用户登录系统...存储用户数据请按1，登录请按2，退出请按3\n"</span>)</span><br><span class="line">    <span class="keyword">if</span> ty == <span class="string">'1'</span>:</span><br><span class="line">        name_str = raw_input(<span class="string">"请输出用户名字：\n"</span>)</span><br><span class="line">        keywords_str = raw_input(<span class="string">"请输入密码：\n"</span>)</span><br><span class="line">        register(name_str, keywords_str)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'MD5密码加密已完成...'</span></span><br><span class="line">        <span class="keyword">print</span> dict_client</span><br><span class="line">    <span class="keyword">if</span> ty == <span class="string">"2"</span>:</span><br><span class="line">        name_str = raw_input(<span class="string">"请输出用户名字：\n"</span>)</span><br><span class="line">        keywords_str = raw_input(<span class="string">"请输入密码：\n"</span>)</span><br><span class="line">        login(name_str,keywords_str)</span><br><span class="line">    <span class="keyword">if</span> ty == <span class="string">"3"</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'BYE...'</span></span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="itertools"><a href="#itertools" class="headerlink" title="itertools"></a>itertools</h2><p><code>itertools</code>提供了非常有用的用于操作迭代对象的函数。</p>
+<h3 id="count"><a href="#count" class="headerlink" title="count"></a>count</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">natuals = itertools.count(1,2)</span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> natuals:</span><br><span class="line">    <span class="builtin-name">print</span> n</span><br></pre></td></tr></table></figure>
+<p>返回一个从第一个参数1开始的连续值，可以设置第二个参数<code>step</code>步长。</p>
+<h3 id="cycle"><a href="#cycle" class="headerlink" title="cycle()"></a>cycle()</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cs</span> = itertools.cycle(<span class="string">"ABCD"</span>)</span><br></pre></td></tr></table></figure>
+<p>Return elements from the iterable until it is exhausted.<br>当然。电脑不会精疲力竭，将传入的序列无限重复下去。</p>
+<h3 id="repeat"><a href="#repeat" class="headerlink" title="repeat()"></a>repeat()</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ns</span> = itertools.repeat(<span class="string">'A'</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>repeat(object [,times]) -&gt; create an iterator which returns the object<br>for the specified number of times.  If not specified, returns the object<br>endlessly.</p>
+<p>负责把一个元素无限重复下去，不过如果提供第二个参数就可以限定重复次数,不提供，同样无穷重复。</p>
+<h3 id="takewhile"><a href="#takewhile" class="headerlink" title="takewhile()"></a>takewhile()</h3><p>无限序列虽然可以无限迭代下去，但是通常我们会通过<code>takewhile()</code>等函数根据条件判断来截取一个有限序列。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">ns = itertools.<span class="built_in">count</span>(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">n = itertools.takewhile(lambda x: x &lt;= <span class="number">10</span>, ns)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> n:</span><br><span class="line">    <span class="built_in">print</span> i</span><br></pre></td></tr></table></figure>
+<p><code>itertools</code>提供的几个迭代器操作函数更加有用：</p>
+<h3 id="chain"><a href="#chain" class="headerlink" title="chain()"></a>chain()</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> itertools.chain(<span class="string">'ABC'</span>, <span class="string">'XYZ'</span>):</span><br><span class="line">    <span class="built_in">print</span> c</span><br></pre></td></tr></table></figure>
+<p>加强版的<code>cycle</code>，可以将一组迭代对象串联起来，形成一个更大的迭代器。</p>
+<h3 id="groupby"><a href="#groupby" class="headerlink" title="groupby()"></a>groupby()</h3><p>把迭代器中相邻的重复元素挑出来放在一起。</p>
+<p>实际上挑选规则是通过函数完成的，只要作用于函数的两个元素返回的值相等，这两个元素就被认为是在一组的，而函数返回值作为组的key,第二个参数用来筛选规则例如可以忽略大小写。<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="keyword">key</span>, <span class="keyword">group</span> <span class="keyword">in</span> itertools.groupby(<span class="comment">'AAABBBbCCAAAaaa',lambda a:a.upper()):</span></span><br><span class="line">    print <span class="keyword">key</span>, list(<span class="keyword">group</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="imap"><a href="#imap" class="headerlink" title="imap()"></a>imap()</h3><p><code>imap()</code>和<code>map()</code>的区别在于，<code>imap()</code>可以作用于无穷序列，并且，如果两个序列的长度不一致，以短的那个为准。<br>长与短序列对应相乘。<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> itertools.imap(<span class="built_in">lambda</span> x, y: x * y, [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>], itertools.count(<span class="number">1</span>)):</span><br><span class="line">    <span class="built_in">print</span> x</span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> itertools.imap(<span class="built_in">lambda</span> x:x*x,[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]):</span><br><span class="line">    <span class="built_in">print</span> n</span><br></pre></td></tr></table></figure></p>
+<p>注意，<code>imap()</code>返回一个迭代对象，而<code>map()</code>返回一个list，当你调用map事，已经计算完毕。而当你调用imap时，并没有进行任何计算。必须用for循环对其进行迭代，才会在每次循环过程中计算出下一个元素。</p>
+<p>换种说法，<code>imap()</code>是<code>map()</code>的惰性实现。</p>
+<p>同理，ifilter()就是filter()的惰性实现。<br>还有islice()，也是slice()的惰性实现。</p>
+<h2 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h2><p>XML虽然比JSON复杂，在Web中应用也不如以前多了，不过仍有很多地方在用，所以，有必要了解如何操作XML。</p>
+<h3 id="DOM-vs-SAX"><a href="#DOM-vs-SAX" class="headerlink" title="DOM vs SAX"></a>DOM vs SAX</h3><p>操作XML有两种方法：DOM和SAX。DOM会把整个XML读入内存，解析为树，因此占用内存大，解析慢，优点是可以任意遍历树的节点。SAX是流模式，边读边解析，占用内存小，解析快，缺点是我们需要自己处理事件。</p>
+<p>正常情况下，优先考虑SAX，因为DOM实在太占内存。</p>
+<p>在Python中使用SAX解析XML非常简洁，通常我们关心的事件是<code>start_element</code>，<code>end_element</code>和<code>char_data</code>，准备好这3个函数，然后就可以解析xml了。</p>
+<p>举个例子，当SAX解析器读到一个节点时：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/"</span>&gt;</span>python<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>会产生3个事件：<br>1.start_element事件，在读取<a href="/">时；<br>2.char_data事件，在读取python时；<br>3.end_element事件，在读取</a>时。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> xml.parsers.expat <span class="keyword">import</span> ParserCreate</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DefaultSaxHandler</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_element</span><span class="params">(self, name, attrs)</span>:</span></span><br><span class="line">        print(<span class="string">'sax:start_element: %s, attrs: %s'</span> % (name, str(attrs)))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">end_element</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        print(<span class="string">'sax:end_element: %s'</span> % name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">char_data</span><span class="params">(self, text)</span>:</span></span><br><span class="line">        print(<span class="string">'sax:char_data: %s'</span> % text)</span><br><span class="line"></span><br><span class="line">xml = <span class="string">r'''&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="string">&lt;ol&gt;</span></span><br><span class="line"><span class="string">    &lt;li&gt;&lt;a href="/python"&gt;Python&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">    &lt;li&gt;&lt;a href="/ruby"&gt;Ruby&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">&lt;/ol&gt;</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">handler = DefaultSaxHandler()</span><br><span class="line">parser = ParserCreate()</span><br><span class="line">parser.returns_unicode = <span class="keyword">True</span></span><br><span class="line">parser.StartElementHandler = handler.start_element</span><br><span class="line">parser.EndElementHandler = handler.end_element</span><br><span class="line">parser.CharacterDataHandler = handler.char_data</span><br><span class="line">parser.Parse(xml)</span><br></pre></td></tr></table></figure>
+<p>而生成XML可以使用<code>append()</code>和<code>join()</code>拼接字符串的方式。</p>
+<p>如果生成复杂的XML呢？建议你不要用XML，改成JSON。</p>
+<h2 id="HTMLParser"><a href="#HTMLParser" class="headerlink" title="HTMLParser"></a>HTMLParser</h2><p>一个便于解析HTML的模块。</p>
+<p>如果我们要编写一个搜索引擎，第一步是用爬虫把目标网站的页面抓下来，第二步就是解析该HTML页面，看看里面的内容到底是新闻、图片还是视频。</p>
+<p>假设第一步已经完成了，第二步应该如何解析HTML呢？</p>
+<p>HTML本质上是XML的子集，但是HTML的语法没有XML那么严格，所以不能用标准的DOM或SAX来解析HTML。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> HTMLParser <span class="keyword">import</span> HTMLParser</span><br><span class="line"><span class="keyword">from</span> htmlentitydefs <span class="keyword">import</span> name2codepoint</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHTMLParser</span><span class="params">(HTMLParser)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_starttag</span><span class="params">(self, tag, attrs)</span>:</span></span><br><span class="line">        print(<span class="string">'&lt;%s&gt;'</span> % tag)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_endtag</span><span class="params">(self, tag)</span>:</span></span><br><span class="line">        print(<span class="string">'&lt;/%s&gt;'</span> % tag)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_startendtag</span><span class="params">(self, tag, attrs)</span>:</span></span><br><span class="line">        print(<span class="string">'&lt;%s/&gt;'</span> % tag)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_data</span><span class="params">(self, data)</span>:</span></span><br><span class="line">        print(<span class="string">'data'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_comment</span><span class="params">(self, data)</span>:</span></span><br><span class="line">        print(<span class="string">'&lt;!-- --&gt;'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_entityref</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        print(<span class="string">'&amp;%s;'</span> % name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_charref</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        print(<span class="string">'&amp;#%s;'</span> % name)</span><br><span class="line"></span><br><span class="line">parser = MyHTMLParser()</span><br><span class="line">parser.feed(<span class="string">'&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;Some &lt;a href=\"#\"&gt;html&lt;/a&gt; tutorial...&lt;br&gt;END&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><code>feed()</code>方法可以多次调用，也就是不一定一次把整个HTML字符串都塞进去，可以一部分一部分塞进去。</p>
+<p>特殊字符有两种，一种是英文表示的<code>&amp;nbsp;</code>（占位符），一种是数字表示的<code>&amp;#1234;</code>，这两种字符都可以通过Parser解析出来。</p>
+<blockquote>
+<p>此python学习路径来源于<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000" target="_blank" rel="noopener">廖雪峰的Python教程</a>和官方文档的一个学习内容的总结。以便于自己后的学习和整理。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/python教程/" rel="tag"># python教程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/06/通向自由之路/通向自由之路(7)钥匙篇/" rel="next" title="通向自由之路(7)钥匙篇">
+                <i class="fa fa-chevron-left"></i> 通向自由之路(7)钥匙篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/11/通向自由之路/通向自由之路(8)所谓“坚持”/" rel="prev" title="通向自由之路(8)所谓“坚持”">
+                通向自由之路(8)所谓“坚持” <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="zjbao123">
+            
+              <p class="site-author-name" itemprop="name">zjbao123</p>
+              <p class="site-description motion-element" itemprop="description">不为繁华易匠心</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zjbao123" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/3822772562" target="_blank" title="weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/bao-lucky" target="_blank" title="zhihu">
+                    
+                      <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#collections"><span class="nav-number">1.</span> <span class="nav-text">collections</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#namedtuple"><span class="nav-number">1.1.</span> <span class="nav-text">namedtuple</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deque"><span class="nav-number">1.2.</span> <span class="nav-text">deque</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#defaultdict"><span class="nav-number">1.3.</span> <span class="nav-text">defaultdict</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OrderedDict"><span class="nav-number">1.4.</span> <span class="nav-text">OrderedDict</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Counter"><span class="nav-number">1.5.</span> <span class="nav-text">Counter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#base64"><span class="nav-number">2.</span> <span class="nav-text">base64</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.1.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#struct"><span class="nav-number">3.</span> <span class="nav-text">struct</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#练习"><span class="nav-number">3.1.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hashlib"><span class="nav-number">4.</span> <span class="nav-text">hashlib</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用"><span class="nav-number">4.1.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加盐"><span class="nav-number">4.2.</span> <span class="nav-text">加盐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习-1"><span class="nav-number">4.3.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#itertools"><span class="nav-number">5.</span> <span class="nav-text">itertools</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#count"><span class="nav-number">5.1.</span> <span class="nav-text">count</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cycle"><span class="nav-number">5.2.</span> <span class="nav-text">cycle()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#repeat"><span class="nav-number">5.3.</span> <span class="nav-text">repeat()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#takewhile"><span class="nav-number">5.4.</span> <span class="nav-text">takewhile()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chain"><span class="nav-number">5.5.</span> <span class="nav-text">chain()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#groupby"><span class="nav-number">5.6.</span> <span class="nav-text">groupby()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#imap"><span class="nav-number">5.7.</span> <span class="nav-text">imap()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XML"><span class="nav-number">6.</span> <span class="nav-text">XML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM-vs-SAX"><span class="nav-number">6.1.</span> <span class="nav-text">DOM vs SAX</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTMLParser"><span class="nav-number">7.</span> <span class="nav-text">HTMLParser</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zjbao123</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+        <script src="https://billts.site/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1478438790000',
+            owner: 'zjbao123',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '41745e4830c51a14f12e4692271d84daa2bae3e7',
+            
+                client_id: 'e9efc8d61db1033ecc2e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
