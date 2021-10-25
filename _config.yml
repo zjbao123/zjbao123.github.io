@@ -83,4 +83,4 @@ deploy:
   type: git
   repo:
       github: git@github.com:zjbao123/zjbao123.github.io.git,master
-      gitee: git@gitee.com:zjbao/zjbao.git,master
+ ##     gitee: git@gitee.com:zjbao/zjbao.git,master
